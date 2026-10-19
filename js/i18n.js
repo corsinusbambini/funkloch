@@ -2,9 +2,9 @@
 Object.assign(Funkloch.strings.de, {
   'nav.home': 'Start', 'nav.stats': 'Fortschritt', 'nav.buddy': 'Freund', 'nav.settings': 'Einstellungen',
   'home.chaos': 'Chaos-Modus', 'home.chaosSub': '5-Sekunden-Minispiele, immer schneller',
-  'home.quests': 'Heutige Aufgaben', 'home.allGames': 'Alle Spiele',
+  'home.quests': 'Heutige Aufgaben', 'home.allGames': 'Alle Spiele', 'home.new': 'NEU',
   'skill.memory': 'Gedächtnis', 'skill.math': 'Kopfrechnen', 'skill.logic': 'Logik', 'skill.spatial': 'Räumlich',
-  'skill.focus': 'Fokus', 'skill.chem': 'Chemie', 'skill.fun': 'Einfach Spass', 'skill.duo': 'Zu zweit',
+  'skill.focus': 'Fokus', 'skill.chem': 'Chemie', 'skill.fun': 'Einfach Spass', 'skill.duo': 'Mehrspieler (ein Handy)',
   'intro.level': 'Stufe {n}', 'intro.best': 'Rekord: {n}', 'intro.start': 'Los geht’s', 'intro.players2': '2 Spieler · ein Handy', 'intro.mode': 'Wähle die Schwierigkeit', 'intro.played': '{n}× gespielt',
   'res.again': 'Nochmal', 'res.home': 'Zur Übersicht', 'res.record': 'Neuer Rekord!', 'res.earned': '+{n} Tinte',
   'res.levelUp': 'Stufe {n} freigeschaltet', 'res.questDone': 'Aufgabe erledigt! +{n} Tinte',
@@ -39,9 +39,9 @@ Object.assign(Funkloch.strings.de, {
 Object.assign(Funkloch.strings.en, {
   'nav.home': 'Home', 'nav.stats': 'Progress', 'nav.buddy': 'Buddy', 'nav.settings': 'Settings',
   'home.chaos': 'Chaos Mode', 'home.chaosSub': '5-second micro-games, ever faster',
-  'home.quests': 'Today’s quests', 'home.allGames': 'All games',
+  'home.quests': 'Today’s quests', 'home.allGames': 'All games', 'home.new': 'NEW',
   'skill.memory': 'Memory', 'skill.math': 'Mental math', 'skill.logic': 'Logic', 'skill.spatial': 'Spatial',
-  'skill.focus': 'Focus', 'skill.chem': 'Chemistry', 'skill.fun': 'Just for fun', 'skill.duo': 'For two',
+  'skill.focus': 'Focus', 'skill.chem': 'Chemistry', 'skill.fun': 'Just for fun', 'skill.duo': 'Multiplayer (one phone)',
   'intro.level': 'Level {n}', 'intro.best': 'Best: {n}', 'intro.start': 'Let’s go', 'intro.players2': '2 players · one phone', 'intro.mode': 'Choose a difficulty', 'intro.played': 'Played {n}×',
   'res.again': 'Again', 'res.home': 'Back to games', 'res.record': 'New record!', 'res.earned': '+{n} ink',
   'res.levelUp': 'Level {n} unlocked', 'res.questDone': 'Quest done! +{n} ink',

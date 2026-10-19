@@ -47,9 +47,12 @@
       };
       function setup() {
         dots = [];
-        while (dots.length < nDots) {
+        size();
+        if (W < 120 || H < 120) { W = Math.max(W, 300); H = Math.max(H, 400); }
+        for (let tries = 0; dots.length < nDots; tries++) {
           const d = { x: r.int(R + 4, W - R - 4), y: r.int(R + 4, H - R - 4) };
-          if (dots.some((o) => Math.hypot(o.x - d.x, o.y - d.y) < R * 3)) continue;
+          // give up on spacing after many tries instead of looping forever
+          if (tries < 3000 && dots.some((o) => Math.hypot(o.x - d.x, o.y - d.y) < R * 3)) continue;
           const a = r() * Math.PI * 2;
           d.vx = Math.cos(a) * speed; d.vy = Math.sin(a) * speed; d.target = false; d.state = null;
           dots.push(d);

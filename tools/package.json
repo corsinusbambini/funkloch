@@ -1,0 +1,12 @@
+{
+  "name": "funkloch-tools",
+  "private": true,
+  "type": "module",
+  "description": "Dev tools for Funkloch (not part of the app)",
+  "scripts": {
+    "test": "node smoke-test.mjs"
+  },
+  "devDependencies": {
+    "jsdom": "^24.1.0"
+  }
+}

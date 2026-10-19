@@ -119,7 +119,8 @@
       games.forEach((g) => {
         const gd = F.gameData(g.id);
         grid.appendChild(F.h(`<button class="game-card sketch" data-game="${g.id}">
-          ${g.players === 2 ? '<span class="duo-tag">2</span>' : ''}
+          ${F.isNew(g) ? `<span class="new-tag">${F.t('home.new')}</span>` : ''}
+          ${g.players >= 2 ? `<span class="duo-tag">${g.players}${g.maxPlayers > g.players ? '–' + g.maxPlayers : ''}</span>` : ''}
           <span class="glyph" style="background:var(--c-${skill})">${g.glyph}</span>
           <span><div class="name">${F.tt(g.name)}</div><div class="best">${!gd.plays ? '&nbsp;' : g.modes ? F.t('intro.played', { n: gd.plays }) : F.t('intro.best', { n: fmtBest(g, gd.best) })}</div></span></button>`));
       });
@@ -136,6 +137,8 @@
     });
     app.appendChild(el);
   }
+  // Games carry `added: 'YYYY-MM-DD'`; they count as new for 4 days.
+  F.isNew = (g) => !!g.added && Date.now() - Date.parse(g.added) < 4 * 864e5;
   const fmtBest = (g, v) => (g.formatBest ? g.formatBest(v) : v);
 
   // ---------- Game intro + runner + result ----------
