@@ -15,14 +15,14 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 - [ ] Sumo Push: tap to push the other doodle off the ring (2p)
 - [x] Hot Potato: a bomb jumps between zones, tap to pass it on before it explodes
 - [ ] Count Them: objects rain down in the middle, who counted the stars right?
-- [ ] Color Grab: a colour is called, tap the matching dot in your zone first
+- [x] Color Grab: a colour is called, tap the matching dot in your zone first
 - [ ] Memory Relay: each player adds one digit to a growing number, whoever forgets is out (pass-and-play)
 - [ ] Same Brain: everyone answers a random "this or that" question, points for matching the majority
 - [ ] Penalty Kick: shooter picks a corner, goalie guesses (2p)
 - [ ] Rock Paper Scissors tournament with secret picks in each zone
 - [ ] Simon Says Race: repeat a growing light pattern faster than the others
 - [ ] Odd One Out Race: grid of symbols, first to tap the different one
-- [ ] Balloon Pump: pump your balloon fastest but don't pop it (random burst point)
+- [x] Balloon Pump: pump your balloon fastest but don't pop it (random burst point)
 - [ ] Bomb Defuse: cut the wire matching a generated rule
 - [ ] Math Duel: arithmetic sprint, first to 10 correct
 - [ ] Reaction Chain: tap only when your colour lights up
