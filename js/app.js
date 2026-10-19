@@ -19,7 +19,7 @@
 
   // ---------- Quests ----------
   const ensureQuests = () => {
-    if (F.data.quests && F.data.quests.date === F.today()) return;
+    if (F.data.quests && F.data.quests.date === F.today() && F.data.quests.items.every((q) => q.type !== 'play' || F.game(q.game))) return;
     const r = F.rng(F.daySeed('quests'));
     const pool = r.shuffle(F.games.filter((g) => g.id !== 'chaos' && g.players === 1));
     F.data.quests = {
@@ -121,7 +121,7 @@
         grid.appendChild(F.h(`<button class="game-card sketch" data-game="${g.id}">
           ${g.players === 2 ? '<span class="duo-tag">2</span>' : ''}
           <span class="glyph" style="background:var(--c-${skill})">${g.glyph}</span>
-          <span><div class="name">${F.tt(g.name)}</div><div class="best">${gd.plays ? F.t('intro.best', { n: fmtBest(g, gd.best) }) : '&nbsp;'}</div></span></button>`));
+          <span><div class="name">${F.tt(g.name)}</div><div class="best">${!gd.plays ? '&nbsp;' : g.modes ? F.t('intro.played', { n: gd.plays }) : F.t('intro.best', { n: fmtBest(g, gd.best) })}</div></span></button>`));
       });
       shelves.appendChild(grid);
     });
@@ -148,24 +148,31 @@
       <div class="glyph-lg" style="background:var(--c-${g.skill})">${g.glyph}</div>
       <h1>${F.tt(g.name)}</h1>
       <p>${F.tt(g.desc)}</p>
+      ${g.modes ? `<h3>${F.t('intro.mode')}</h3>` + g.modes.map((m) => {
+        const md = F.gameData(g.id + '@' + m.id);
+        return `<button class="btn block mode-btn" data-mode="${m.id}" style="flex-direction:column;align-items:flex-start;text-align:left">
+          <span style="font-size:22px">${F.tt(m.name)}</span><span class="muted" style="font-size:16px">${F.tt(m.desc)}${md.plays ? ' · ' + F.t('intro.best', { n: fmtBest(g, md.best) }) : ''}</span></button>`;
+      }).join('') : `
       <p class="muted">${g.players === 2 ? F.t('intro.players2') + ' · ' : ''}${g.noLevel ? '' : F.t('intro.level', { n: gd.level }) + ' · '}${F.t('intro.best', { n: fmtBest(g, gd.best) })}</p>
       <div style="margin:20px 0">${F.companionSVG({ mood: 'happy', cls: 'sm' })}</div>
-      <button class="btn primary big" id="start">${F.t('intro.start')}</button></div>`);
+      <button class="btn primary big" id="start">${F.t('intro.start')}</button>`}</div>`);
     el.querySelector('#back').onclick = () => go('home');
-    el.querySelector('#start').onclick = () => run(g);
+    if (g.modes) el.querySelectorAll('[data-mode]').forEach((b) => (b.onclick = () => run(g, b.dataset.mode)));
+    else el.querySelector('#start').onclick = () => run(g);
     app.appendChild(el);
   }
 
-  function run(g) {
+  const modeKey = (g, mode) => (mode ? g.id + '@' + mode : g.id);
+  function run(g, mode) {
     app.innerHTML = '';
     showNav(false);
-    const gd = F.gameData(g.id);
+    const gd = F.gameData(modeKey(g, mode));
     const el = F.h(`<div><div class="game-top"><button class="icon-btn" id="quit" aria-label="quit">✕</button><span class="title">${F.tt(g.name)}</span><span class="score" id="score"></span></div>
       <div class="info-line" id="info"></div><div class="stage" id="stage"></div></div>`);
     app.appendChild(el);
     const cleanups = [];
     const ctx = {
-      game: g, el: el.querySelector('#stage'), level: gd.level, best: gd.best, dead: false,
+      game: g, mode, el: el.querySelector('#stage'), level: gd.level, best: gd.best, dead: false,
       rng: F.rng(F.freshSeed()), t: F.tt, sfx: F.sfx,
       setScore: (v) => { el.querySelector('#score').textContent = v; },
       setInfo: (v) => { el.querySelector('#info').innerHTML = v; },
@@ -174,15 +181,16 @@
       timer: (parent, ms, onEnd) => { const tb = F.timerBar(parent, ms, () => { if (!ctx.dead) onEnd && onEnd(); }); cleanups.push(() => tb.stop()); return tb; },
       onCleanup: (fn) => cleanups.push(fn),
       kill() { if (ctx.dead) return; ctx.dead = true; cleanups.forEach((f) => { try { f(); } catch (e) {} }); },
-      finish: (res) => { if (ctx.dead) return; ctx.kill(); current = null; result(g, res); },
+      finish: (res) => { if (ctx.dead) return; ctx.kill(); current = null; result(g, res, mode); },
     };
     current = ctx;
     el.querySelector('#quit').onclick = () => go('home');
     try { g.start(ctx); } catch (e) { console.error(e); F.toast('Oops: ' + e.message); }
   }
 
-  function result(g, res) {
-    const gd = F.gameData(g.id);
+  function result(g, res, mode) {
+    const gd = F.gameData(modeKey(g, mode));
+    if (mode) F.gameData(g.id).plays++;
     const score = res.score || 0;
     const isRecord = !res.noRecord && score > (gd.best || 0) && score > 0;
     const ink = Math.max(1, Math.round(res.ink != null ? res.ink : Math.min(40, score)));
@@ -219,7 +227,7 @@
       <div class="companion-wrap" style="justify-content:center">${F.companionSVG({ mood })}<div class="bubble sketch" style="flex:0 1 auto">${F.esc(line)}</div></div>
       <button class="btn primary big" id="again">${F.t('res.again')}</button>
       <button class="btn block" id="home">${F.t('res.home')}</button></div>`);
-    el.querySelector('#again').onclick = () => run(g);
+    el.querySelector('#again').onclick = () => run(g, mode);
     el.querySelector('#home').onclick = () => go('home');
     app.appendChild(el);
   }
@@ -279,7 +287,7 @@
     const el = F.h(`<div>${topbar(F.t('stats.title'))}
       <div class="card sketch">${radarSVG()}<p class="center muted">${F.t('stats.plays', { n: F.data.plays })}</p></div>
       <h3 style="margin-top:18px">${F.t('stats.records')}</h3>
-      <div class="card sketch alt">${F.games.map((g) => { const gd = F.gameData(g.id); return `<div class="rec-row"><span>${F.tt(g.name)}</span><span class="muted">${gd.plays ? fmtBest(g, gd.best) + ' · ' + gd.plays + '×' : F.t('stats.none')}</span></div>`; }).join('')}</div></div>`);
+      <div class="card sketch alt">${F.games.flatMap((g) => (g.modes ? g.modes.map((m) => [g, g.id + '@' + m.id, F.tt(g.name) + ' · ' + F.tt(m.name)]) : [[g, g.id, F.tt(g.name)]])).map(([g, key, label]) => { const gd = F.gameData(key); return `<div class="rec-row"><span>${label}</span><span class="muted">${gd.plays ? fmtBest(g, gd.best) + ' · ' + gd.plays + '×' : F.t('stats.none')}</span></div>`; }).join('')}</div></div>`);
     app.appendChild(el);
   }
 

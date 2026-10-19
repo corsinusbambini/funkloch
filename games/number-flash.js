@@ -3,31 +3,13 @@ Funkloch.registerGame({
   id: 'number-flash', skill: 'memory', glyph: '1·2·3',
   name: { de: 'Zahlenblitz', en: 'Number Flash' },
   desc: {
-    de: 'Eine Zahl blitzt kurz auf, danach tippst du nur die Ziffern ein. Richtig = eine Ziffer mehr, falsch = eine weniger. Tipp: merk dir die Ziffern in Gruppen. 3 Fehler und Schluss.',
-    en: 'A number flashes briefly, then you type just the digits. Right = one digit more, wrong = one less. Tip: remember the digits in groups. 3 mistakes and you’re out.',
+    de: 'Eine Zahl blitzt kurz auf, danach tippst du sie ein. Richtig = eine Ziffer mehr, falsch = eine weniger. Tipp: merk dir die Ziffern in Gruppen. 3 Fehler und Schluss.',
+    en: 'A number flashes briefly, then you type it in. Right = one digit more, wrong = one less. Tip: remember the digits in groups. 3 mistakes and you’re out.',
   },
   formatBest: (v) => Funkloch.tt({ de: v + ' Ziffern', en: v + ' digits' }),
   start(ctx) {
     const F = Funkloch, r = ctx.rng;
     let len = 3 + ctx.level, strikes = 0, round = 0, maxOk = 0, correct = 0;
-    const UNITS = ['mL', 'g', 'mg', 'mol/L', '°C', 'kg', 'µL', '%', 'L', 'nm'];
-    const FORMATS = ['plain', 'chunk', 'code', 'decimal', 'pairs', 'phone'];
-
-    const group = (d, sizes, sep) => {
-      const out = []; let i = 0, k = 0;
-      while (i < d.length) { const s = sizes[k % sizes.length]; out.push(d.slice(i, i + s)); i += s; k++; }
-      return out.join(sep);
-    };
-    const show = (d, f) => {
-      switch (f) {
-        case 'chunk': return group(d, [3], ' ');
-        case 'code': return group(d, [4, 2, 3], '-');
-        case 'decimal': { const p = r.int(1, Math.max(1, d.length - 1)); return d.slice(0, p) + '.' + d.slice(p) + ' <small>' + r.pick(UNITS) + '</small>'; }
-        case 'pairs': return group(d, [2], ' · ');
-        case 'phone': return group(d, [3, 3, 2, 2], ' ');
-        default: return d;
-      }
-    };
     const hearts = () => '♥'.repeat(3 - strikes) + '♡'.repeat(strikes);
 
     async function next() {
@@ -40,8 +22,7 @@ Funkloch.registerGame({
         while (s.length < len) s += r.int(0, 9);
         return s;
       });
-      const fmt = len >= 5 ? r.pick(FORMATS) : 'plain';
-      ctx.el.innerHTML = `<div class="card sketch big-display pop-in">${show(digits, fmt)}</div>`;
+      ctx.el.innerHTML = `<div class="card sketch big-display pop-in">${digits}</div>`;
       await ctx.wait(700 + 420 * len);
       ask(digits);
     }

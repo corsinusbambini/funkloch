@@ -31,21 +31,28 @@
     id: 'make-24', skill: 'math', glyph: '24',
     name: { de: 'Mach 24', en: 'Make 24' },
     desc: {
-      de: 'Verbinde die vier Zahlen mit + − × ÷, bis nur noch die Zielzahl übrig ist. Tipp Zahl, Rechenzeichen, Zahl. Jede Zahl genau einmal. Ab Stufe 3 wechselt die Zielzahl. 5 Rätsel.',
-      en: 'Combine the four numbers with + − × ÷ until only the target is left. Tap number, operator, number. Use each number exactly once. From level 3 the target changes. 5 puzzles.',
+      de: 'Verbinde die Zahlen mit + − × ÷, bis nur noch die Zielzahl übrig ist. Tipp Zahl, Rechenzeichen, Zahl. Jede Zahl genau einmal. 5 Rätsel.',
+      en: 'Combine the numbers with + − × ÷ until only the target is left. Tap number, operator, number. Use each number exactly once. 5 puzzles.',
     },
+    modes: [
+      { id: 'easy', name: { de: 'Leicht', en: 'Easy' }, desc: { de: '3 Zahlen, kleines Ziel', en: '3 numbers, small target' } },
+      { id: 'medium', name: { de: 'Mittel', en: 'Medium' }, desc: { de: '4 Zahlen bis 9, Ziel 24', en: '4 numbers up to 9, target 24' } },
+      { id: 'hard', name: { de: 'Schwer', en: 'Hard' }, desc: { de: '4 Zahlen bis 13, wechselndes Ziel', en: '4 numbers up to 13, changing target' } },
+    ],
     start(ctx) {
       const r = ctx.rng, ROUNDS = 5;
       let round = 0, solved = 0, points = 0;
-      const maxN = ctx.level >= 5 ? 13 : 9;
+      const MODES = { easy: { count: 3, maxN: 9, lo: 5, hi: 20 }, medium: { count: 4, maxN: 9 }, hard: { count: 4, maxN: 13, lo: 10, hi: 60 } };
+      const mode = MODES[ctx.mode] || MODES.medium;
       function puzzle() {
         while (true) {
-          const nums = [0, 0, 0, 0].map(() => r.int(1, maxN));
+          const nums = Array.from({ length: mode.count }, () => r.int(1, mode.maxN));
           const all = solveAll(nums.map((n) => ({ v: fr(n), e: String(n) })));
           let target = 24;
-          if (ctx.level >= 3) {
-            const cand = [...all.keys()].filter((k) => !k.includes('/') && +k >= 10 && +k <= 60);
-            if (cand.length) target = +r.pick(cand);
+          if (mode.lo) {
+            const cand = [...all.keys()].filter((k) => !k.includes('/') && +k >= mode.lo && +k <= mode.hi && !nums.includes(+k));
+            if (!cand.length) continue;
+            target = +r.pick(cand);
           }
           if (all.has(String(target))) return { nums, target, sol: all.get(String(target)).replace(/^\((.*)\)$/, '$1') };
         }
@@ -57,7 +64,7 @@
         const p = ctx.fresh(puzzle, (x) => x.nums.slice().sort().join(',') + '>' + x.target);
         ctx.setInfo(`${round} / ${ROUNDS} &nbsp; ${F.tt({ de: 'Ziel', en: 'Target' })}: <b style="font-size:26px;color:var(--ink)">${p.target}</b>`);
         const start = performance.now();
-        let vals = p.nums.map((n) => fr(n)), alive = [true, true, true, true], sel = -1, op = null;
+        let vals = p.nums.map((n) => fr(n)), alive = p.nums.map(() => true), sel = -1, op = null;
         const history = [];
         let busy = false;
         ctx.el.innerHTML = '';
@@ -119,7 +126,6 @@
       function end() {
         ctx.finish({
           score: points, detail: F.tt({ de: `${solved}/${ROUNDS} gelöst`, en: `${solved}/${ROUNDS} solved` }),
-          levelDelta: solved >= 5 ? 1 : solved <= 2 ? -1 : 0,
           quality: solved / ROUNDS, ink: 4 + solved * 4,
         });
       }

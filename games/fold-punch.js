@@ -1,21 +1,29 @@
 /* Fold & Punch: paper is folded, a hole is punched. Which pattern appears when unfolded? */
 (function () {
   const F = Funkloch;
-  const N = 4, O = 5, CS = 90 / N;
+  const O = 5;
+  let N = 4, CS = 90 / N;
+  const setGrid = (n) => { N = n; CS = 90 / n; };
+  const MODES = {
+    easy: { n: 4, folds: 1, holes: 1 }, medium: { n: 4, folds: 2, holes: 1 },
+    hard: { n: 4, folds: 3, holes: 2 }, expert: { n: 6, folds: 2, holes: 3 },
+  };
   const key = (cells) => cells.map((c) => c.join(',')).sort().join('|');
   const uniq = (cells) => { const m = {}; cells.forEach((c) => (m[c.join(',')] = c)); return Object.values(m); };
   const isH = (f) => f.d === 'L' || f.d === 'R';
   const reflect = (c, f) => (isH(f) ? [2 * f.mid - 1 - c[0], c[1]] : [c[0], 2 * f.mid - 1 - c[1]]);
   const reflectWrongAxis = (c, f) => (isH(f) ? [c[0], N - 1 - c[1]] : [N - 1 - c[0], c[1]]);
 
-  function makePuzzle(r, level) {
+  function makePuzzle(r, mode) {
     const reg = { x0: 0, x1: N, y0: 0, y1: N };
     const folds = [], regs = [Object.assign({}, reg)];
-    const nf = level <= 2 ? 1 : level <= 5 ? 2 : 3;
+    const nf = mode.folds;
     for (let i = 0; i < nf; i++) {
       const opts = [];
-      if (reg.x1 - reg.x0 >= 2) opts.push('L', 'R');
-      if (reg.y1 - reg.y0 >= 2) opts.push('T', 'B');
+      const w = reg.x1 - reg.x0, h = reg.y1 - reg.y0;
+      if (w >= 2 && w % 2 === 0) opts.push('L', 'R');
+      if (h >= 2 && h % 2 === 0) opts.push('T', 'B');
+      if (!opts.length) break;
       const d = r.pick(opts), f = { d };
       if (isH(f)) { f.mid = (reg.x0 + reg.x1) / 2; if (d === 'L') reg.x0 = f.mid; else reg.x1 = f.mid; }
       else { f.mid = (reg.y0 + reg.y1) / 2; if (d === 'T') reg.y0 = f.mid; else reg.y1 = f.mid; }
@@ -23,7 +31,7 @@
     }
     const cells = [];
     for (let x = reg.x0; x < reg.x1; x++) for (let y = reg.y0; y < reg.y1; y++) cells.push([x, y]);
-    const np = level >= 4 && cells.length >= 2 ? 2 : 1;
+    const np = Math.min(mode.holes, cells.length);
     return { folds, regs, cells, punches: r.shuffle(cells).slice(0, np) };
   }
   function unfold(punches, folds, { skip = -1, wrongAxis = -1 } = {}) {
@@ -75,15 +83,22 @@
       de: 'Ein Blatt wird gefaltet (gestrichelte Linie, Pfeil) und dann gelocht. Wie sieht es aufgefaltet aus? 6 Rätsel.',
       en: 'A sheet is folded (dashed line, arrow), then a hole is punched. What does it look like unfolded? 6 puzzles.',
     },
+    modes: [
+      { id: 'easy', name: { de: 'Leicht', en: 'Easy' }, desc: { de: '1 Faltung, 1 Loch', en: '1 fold, 1 hole' } },
+      { id: 'medium', name: { de: 'Mittel', en: 'Medium' }, desc: { de: '2 Faltungen, 1 Loch', en: '2 folds, 1 hole' } },
+      { id: 'hard', name: { de: 'Schwer', en: 'Hard' }, desc: { de: '3 Faltungen, 2 Löcher', en: '3 folds, 2 holes' } },
+      { id: 'expert', name: { de: 'Profi', en: 'Expert' }, desc: { de: 'Grösseres Blatt, 3 Löcher', en: 'Bigger sheet, 3 holes' } },
+    ],
     start(ctx) {
-      const r = ctx.rng, ROUNDS = 6;
+      const r = ctx.rng, ROUNDS = 6, mode = MODES[ctx.mode] || MODES.easy;
+      setGrid(mode.n);
       let round = 0, correct = 0;
       function next() {
         if (round >= ROUNDS) return end();
         round++;
         ctx.setScore(correct);
         ctx.setInfo(`${round} / ${ROUNDS}`);
-        const p = ctx.fresh(() => makePuzzle(r, ctx.level), (q) => q.folds.map((f) => f.d).join('') + key(q.punches));
+        const p = ctx.fresh(() => makePuzzle(r, mode), (q) => ctx.mode + q.folds.map((f) => f.d).join('') + key(q.punches));
         const answer = unfold(p.punches, p.folds);
         const ak = key(answer);
         const cands = [];
@@ -117,8 +132,7 @@
       function end() {
         ctx.finish({
           score: correct, display: `${correct} / ${ROUNDS}`,
-          levelDelta: correct >= 5 ? 1 : correct <= 2 ? -1 : 0,
-          quality: correct / ROUNDS, ink: 4 + correct * 3,
+          quality: correct / ROUNDS, ink: 4 + correct * (2 + mode.folds),
         });
       }
       next();
