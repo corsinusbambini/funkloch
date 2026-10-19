@@ -13,7 +13,7 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 - [x] Split-Screen Duel (2p)
 - [ ] Air Hockey (2p)
 - [ ] Sumo Push: tap to push the other doodle off the ring (2p)
-- [ ] Hot Potato: a bomb jumps between zones, tap to pass it on before it explodes
+- [x] Hot Potato: a bomb jumps between zones, tap to pass it on before it explodes
 - [ ] Count Them: objects rain down in the middle, who counted the stars right?
 - [ ] Color Grab: a colour is called, tap the matching dot in your zone first
 - [ ] Memory Relay: each player adds one digit to a growing number, whoever forgets is out (pass-and-play)
@@ -54,7 +54,7 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 
 ## Logic
 - [x] What's Next?
-- [ ] Mastermind / Code Breaker · [ ] Lights Out · [ ] Flow (connect colours) · [ ] Mini Sudoku 4×4
+- [x] Mastermind / Code Breaker · [ ] Lights Out · [ ] Flow (connect colours) · [ ] Mini Sudoku 4×4
 - [ ] Logic Grid riddles · [ ] Bridges · [ ] Doodle Minesweeper · [ ] Slide Puzzle · [ ] Tower of Hanoi
 
 ## Spatial
