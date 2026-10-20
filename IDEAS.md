@@ -21,7 +21,7 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 - [ ] Penalty Kick: shooter picks a corner, goalie guesses (2p)
 - [ ] Rock Paper Scissors tournament with secret picks in each zone
 - [ ] Simon Says Race: repeat a growing light pattern faster than the others
-- [ ] Odd One Out Race: grid of symbols, first to tap the different one
+- [x] Odd One Out Race: grid of symbols, first to tap the different one
 - [x] Balloon Pump: pump your balloon fastest but don't pop it (random burst point)
 - [ ] Bomb Defuse: cut the wire matching a generated rule
 - [ ] Math Duel: arithmetic sprint, first to 10 correct
@@ -54,7 +54,7 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 
 ## Logic
 - [x] What's Next?
-- [x] Mastermind / Code Breaker · [ ] Lights Out · [ ] Flow (connect colours) · [ ] Mini Sudoku 4×4
+- [x] Mastermind / Code Breaker · [x] Lights Out · [ ] Flow (connect colours) · [ ] Mini Sudoku 4×4
 - [ ] Logic Grid riddles · [ ] Bridges · [ ] Doodle Minesweeper · [ ] Slide Puzzle · [ ] Tower of Hanoi
 
 ## Spatial
