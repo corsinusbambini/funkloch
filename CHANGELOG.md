@@ -2,6 +2,7 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-10-21 · Zähl mit! / Count Them (2–4 players) and Mini-Sudoku (solo logic) · count the flashed doodles and tap the number first; fill a generated 4×4 sudoku
 - 2026-10-21 · Push notifications via ntfy on every app update (`.github/workflows/notify.yml`) · owner wants to know when games are added or fixed
 - 2026-10-20 · Aussenseiter-Rennen / Odd One Race (2–4 players) and Lichter aus / Lights Out (solo logic) · tap the odd symbol first; switch all lamps off in few taps
 - 2026-10-19 · Farbgriff / Color Grab and Ballon-Pumpe / Balloon Pump (2–4 players) · tap the named colour first; pump your balloon and bank it before it pops
