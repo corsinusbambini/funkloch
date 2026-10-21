@@ -1,0 +1,53 @@
+# Sends a push notification via ntfy whenever the app changes (new games or fixes).
+# The ntfy topic is stored in the repository secret NTFY_TOPIC (kept secret: anyone who knows it can read the messages).
+name: Notify on update
+
+on:
+  push:
+    branches: [main]
+    paths: ['games/**', 'js/**', 'css/**', 'index.html', 'sw.js']
+  workflow_dispatch: {}
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build and send message
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          BEFORE: ${{ github.event.before }}
+        run: |
+          if [ -z "$NTFY_TOPIC" ]; then echo "NTFY_TOPIC secret not set, skipping"; exit 0; fi
+
+          # Range of this push (manual runs and first pushes fall back to the last commit).
+          if [ -n "$BEFORE" ] && git cat-file -e "$BEFORE" 2>/dev/null && [ "$BEFORE" != "0000000000000000000000000000000000000000" ]; then
+            RANGE="$BEFORE..HEAD"
+          else
+            RANGE="HEAD~1..HEAD"
+          fi
+
+          # The routines write one CHANGELOG line per new game or fix; use those as the message.
+          LINES=$(git diff "$RANGE" -- CHANGELOG.md | grep '^+- ' | sed 's/^+- [0-9-]* · /• /' || true)
+          [ -z "$LINES" ] && LINES=$(git log --format='• %s' "$RANGE")
+
+          NEW_GAMES=$(git diff --diff-filter=A --name-only "$RANGE" -- 'games/*.js' | wc -l)
+          if [ "$NEW_GAMES" -gt 0 ]; then
+            TITLE="Funkloch: $NEW_GAMES new game(s)"; TAGS="video_game,sparkles"
+          else
+            TITLE="Funkloch updated"; TAGS="wrench"
+          fi
+          MSG="$LINES
+
+          Open Funkloch once with internet to get the update."
+
+          # Give GitHub Pages a moment to publish before the notification arrives.
+          sleep 90
+
+          jq -n --arg topic "$NTFY_TOPIC" --arg title "$TITLE" --arg msg "$MSG" --arg tags "$TAGS" \
+            '{topic: $topic, title: $title, message: $msg, tags: ($tags | split(",")), click: "https://corsinusbambini.github.io/funkloch/"}' \
+          | curl -sS --fail -X POST -H "Content-Type: application/json" --data @- https://ntfy.sh/ > /dev/null
+          echo "Sent: $TITLE"

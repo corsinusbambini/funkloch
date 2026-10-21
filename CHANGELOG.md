@@ -2,6 +2,7 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-10-21 · Push notifications via ntfy on every app update (`.github/workflows/notify.yml`) · owner wants to know when games are added or fixed
 - 2026-10-20 · Aussenseiter-Rennen / Odd One Race (2–4 players) and Lichter aus / Lights Out (solo logic) · tap the odd symbol first; switch all lamps off in few taps
 - 2026-10-19 · Farbgriff / Color Grab and Ballon-Pumpe / Balloon Pump (2–4 players) · tap the named colour first; pump your balloon and bank it before it pops
 - 2026-10-19 · Heisse Kartoffel / Hot Potato (2–4 players) and Code-Knacker / Code Breaker (solo logic) · bomb with hidden fuse to pass on; crack a secret fruit code
