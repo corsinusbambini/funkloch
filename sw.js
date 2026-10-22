@@ -1,5 +1,5 @@
 /* Offline support: cache every file of the app on first visit, then serve from cache. */
-const VERSION = 'funkloch-v7';
+const VERSION = 'funkloch-v8';
 const FILES = [
   './', 'index.html', 'manifest.webmanifest', 'css/style.css',
   'js/core.js', 'js/i18n.js', 'js/companion.js', 'js/party.js', 'js/app.js',

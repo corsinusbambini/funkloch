@@ -46,7 +46,8 @@
 
 /* ---------- Base ---------- */
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-html, body { margin: 0; height: 100%; }
+/* iOS ignores user-scalable=no: stop double-tap zoom on fast taps (e.g. the same number twice). */
+html, body { margin: 0; height: 100%; touch-action: manipulation; }
 body {
   background-color: var(--paper);
   color: var(--ink);
