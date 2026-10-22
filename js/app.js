@@ -338,6 +338,15 @@
     app.appendChild(el);
   }
 
+  // ---------- No zoom ----------
+  // iOS Safari ignores user-scalable=no and touch-action for pinches. Several players tapping at once
+  // looks like a pinch, so block Safari's gesture events and any touch with more than one finger.
+  const noGesture = (e) => e.preventDefault();
+  ['gesturestart', 'gesturechange', 'gestureend'].forEach((t) => document.addEventListener(t, noGesture, { passive: false }));
+  const noMulti = (e) => { if (e.touches.length > 1) e.preventDefault(); };
+  document.addEventListener('touchstart', noMulti, { passive: false });
+  document.addEventListener('touchmove', noMulti, { passive: false });
+
   // ---------- Boot ----------
   F.load();
   F.applyTheme();
