@@ -4,6 +4,7 @@
   const app = document.getElementById('app');
   const ACCENTS = ['#F28C6B', '#F2B84B', '#6FBF8C', '#5FBFAE', '#7FB2E5', '#A08BE0', '#EE8FBC'];
   const SKILL_ORDER = ['memory', 'math', 'logic', 'spatial', 'focus', 'chem', 'fun', 'duo'];
+  const THEMES = ['cozy', 'night', 'ocean'];
   const QUEST_INK = 15;
   let current = null; // running game context
 
@@ -302,7 +303,7 @@
     const el = F.h(`<div>${topbar(F.t('set.title'))}
       <div class="card sketch stack">
         ${seg('lang', [['de', 'Deutsch'], ['en', 'English']], F.t('set.lang'))}
-        ${seg('theme', [['cozy', F.t('theme.cozy')], ['night', F.t('theme.night')]], F.t('set.theme'))}
+        ${seg('theme', THEMES.map((t) => [t, F.t('theme.' + t)]), F.t('set.theme'))}
         ${seg('paper', ['dots', 'lines', 'grid', 'plain'].map((p) => [p, F.t('paper.' + p)]), F.t('set.paper'))}
         ${seg('font', [['hand', F.t('font.hand')], ['clean', F.t('font.clean')]], F.t('set.font'))}
         <div class="field"><span>${F.t('set.accent')}</span><div class="row wrap" id="acc">${ACCENTS.map((c) => `<span class="swatch ${D.accent === c || (!D.accent && c === ACCENTS[0]) ? 'on' : ''}" data-c="${c}" style="background:${c}"></span>`).join('')}</div></div>

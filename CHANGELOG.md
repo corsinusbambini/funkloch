@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-10-22 · 2048 (solo classic) · swipe or tap arrows to merge tiles, build big numbers
+- 2026-10-22 · Vier gewinnt / Connect Four (2 players, pass-and-tap) · four in a row wins the round, first to 2 rounds wins
+- 2026-10-22 · Buddy item: Sonnenbrille / Sunglasses (new eyes slot, 80 ink)
+- 2026-10-22 · Style: Ozean / Ocean (light blue theme)
 - 2026-10-22 · Fixed Mini-Sudoku (and Lights Out) board getting wider with every filled-in number on iPhone until it ran off the screen · grid columns can no longer grow with their content
 - 2026-10-22 · Mini-Sudoku: a number button disappears once that number is placed 4 times · owner wants only the numbers that are still needed
 - 2026-10-22 · Fixed iPhone zooming in when several players tap at once (e.g. Schnell-Zieher / Quick Draw) · Safari treats two fingers as a pinch; gesture and multi-finger touch events are now blocked app-wide

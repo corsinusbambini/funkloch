@@ -43,6 +43,28 @@
   --shadow: 3px 3px 0 #000;
   color-scheme: dark;
 }
+[data-theme="ocean"] {
+  --paper: #E4F3F8;
+  --paper-2: #CDE8F1;
+  --card: #F6FCFE;
+  --ink: #12304A;
+  --ink-soft: #3F6178;
+  --ink-faint: #9CC3D4;
+  --dot: #B5D7E4;
+  --accent: #2FA4C4;
+  --good: #2E9E7B;
+  --bad: #D9605E;
+  --c-memory: #FFC4B0;
+  --c-math: #FFE69A;
+  --c-logic: #C6C8F5;
+  --c-spatial: #A8E6D0;
+  --c-focus: #9ED3F2;
+  --c-chem: #8FDCD9;
+  --c-fun: #F5BEDB;
+  --c-duo: #F7B0A8;
+  --shadow: 3px 3px 0 var(--ink);
+  color-scheme: light;
+}
 
 /* ---------- Base ---------- */
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }

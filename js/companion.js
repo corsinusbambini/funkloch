@@ -60,6 +60,7 @@
     { id: 'scarf', slot: 'neck', price: 70, icon: '🧣' },
     { id: 'party', slot: 'top', price: 60, icon: '🥳' },
     { id: 'crown', slot: 'top', price: 150, icon: '👑' },
+    { id: 'shades', slot: 'eyes', price: 80, icon: '😎' },
   ];
 
   const ACC = {
@@ -149,6 +150,11 @@
     if (neck) s += `<path d="M62,${my + 16} Q100,${my + 32} 138,${my + 16} L138,${my + 28} Q100,${my + 44} 62,${my + 28} Z" fill="#F28C6B" stroke="${ink}" stroke-width="2.2"/>
       <path d="M122,${my + 32} L130,${my + 58} L116,${my + 58} Z" fill="#F28C6B" stroke="${ink}" stroke-width="2.2" stroke-linejoin="round"/>`;
     else if (traits.includes('logic')) s += `<path d="M100,${my + 24} L86,${my + 16} L86,${my + 32} Z M100,${my + 24} L114,${my + 16} L114,${my + 32} Z" fill="#CFC2F2" stroke="${ink}" stroke-width="2" stroke-linejoin="round"/>`;
+    if (wearing.includes('shades')) {
+      const lens = (cx) => `<rect x="${cx - 14}" y="${ey - 10}" width="28" height="21" rx="9" fill="#33405A" fill-opacity=".62" stroke="${ink}" stroke-width="2.4"/><path d="M${cx - 8},${ey - 5} l6,-1" stroke="#fff" stroke-width="2.2" stroke-linecap="round" opacity=".7"/>`;
+      s += `<g>${lens(ex1)}${lens(ex2)}<path d="M${ex1 + 14},${ey - 3} Q100,${ey - 8} ${ex2 - 14},${ey - 3}" fill="none" stroke="${ink}" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M${ex1 - 14},${ey - 3} l-8,-3 M${ex2 + 14},${ey - 3} l8,-3" stroke="${ink}" stroke-width="2.2" stroke-linecap="round"/></g>`;
+    }
     // accessories
     const side = wearing.find((w) => ['flower', 'leaf', 'bow'].includes(w));
     if (side) s += ACC[side](200 - sp.ant[0] - 4, sp.ant[1] + 2);
