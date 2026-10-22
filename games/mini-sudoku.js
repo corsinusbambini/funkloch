@@ -66,10 +66,11 @@
           return b;
         });
         const pad = F.h('<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:300px;margin:8px auto"></div>');
-        [1, 2, 3, 4].forEach((v) => {
+        const padBtns = [1, 2, 3, 4].map((v) => {
           const b = F.h(`<button class="opt" style="min-height:56px;font-size:28px">${v}</button>`);
           b.onclick = () => put(v, b);
           pad.appendChild(b);
+          return b;
         });
         function draw() {
           btns.forEach((b, i) => {
@@ -78,6 +79,8 @@
             b.style.fontWeight = given[i] ? '700' : '400';
             b.style.opacity = given[i] ? '0.75' : '1';
           });
+          // A number that is already placed 4 times can't go anywhere else: hide its button (keep its spot so the others don't move).
+          padBtns.forEach((b, k) => { b.style.visibility = g.filter((c) => c === k + 1).length >= 4 ? 'hidden' : ''; });
           info.textContent = F.tt({ de: `Fehler: ${mistakes}`, en: `Mistakes: ${mistakes}` });
         }
         async function put(v, btn) {
