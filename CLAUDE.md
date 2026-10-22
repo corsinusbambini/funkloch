@@ -27,6 +27,7 @@ Read `README.md` for the file layout and the game API.
 5. Run the smoke test (below). It must print `All good`.
 
 Game descriptions: short, friendly, and they must say how to win. Design for 1–5 minute rounds, portrait, big tap targets (≥ 48px).
+Board grids: use `grid-template-columns: repeat(N, minmax(0, 1fr))` (never plain `1fr`) and give square cells `min-width:0; padding:0` with `aspect-ratio:1`. Otherwise iPhone Safari makes the board wider with every number filled in until it runs off the screen.
 
 ## Testing
 ```

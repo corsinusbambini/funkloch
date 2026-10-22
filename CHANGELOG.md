@@ -2,6 +2,7 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-10-22 · Fixed Mini-Sudoku (and Lights Out) board getting wider with every filled-in number on iPhone until it ran off the screen · grid columns can no longer grow with their content
 - 2026-10-22 · Mini-Sudoku: a number button disappears once that number is placed 4 times · owner wants only the numbers that are still needed
 - 2026-10-22 · Fixed iPhone zooming in when several players tap at once (e.g. Schnell-Zieher / Quick Draw) · Safari treats two fingers as a pinch; gesture and multi-finger touch events are now blocked app-wide
 - 2026-10-22 · Lichter aus / Lights Out: hint button 🔍 marks a lamp to tap (−2 points) · owner got stuck and couldn't finish

@@ -43,9 +43,9 @@
         let moves = 0, hints = 0, hinted = -1, done = false;
         ctx.el.innerHTML = '';
         const info = F.h(`<div class="info-line"></div>`);
-        const board = F.h(`<div style="display:grid;grid-template-columns:repeat(${size},1fr);gap:8px;max-width:340px;margin:12px auto"></div>`);
+        const board = F.h(`<div style="display:grid;grid-template-columns:repeat(${size},minmax(0,1fr));gap:8px;max-width:340px;margin:12px auto"></div>`);
         const btns = grid.map((_, i) => {
-          const b = F.h(`<button style="aspect-ratio:1;min-height:56px;border:2.5px solid var(--ink);border-radius:14px;font-size:26px;cursor:pointer;box-shadow:var(--shadow);color:var(--ink)"></button>`);
+          const b = F.h(`<button style="aspect-ratio:1;min-width:0;padding:0;min-height:56px;border:2.5px solid var(--ink);border-radius:14px;font-size:26px;cursor:pointer;box-shadow:var(--shadow);color:var(--ink)"></button>`);
           b.onclick = () => tap(i);
           board.appendChild(b);
           return b;

@@ -55,9 +55,9 @@
         let sel = g.findIndex((v) => !v), mistakes = 0, done = false;
         ctx.el.innerHTML = '';
         const info = F.h('<div class="info-line"></div>');
-        const board = F.h('<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;max-width:300px;margin:12px auto"></div>');
+        const board = F.h('<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;max-width:300px;margin:12px auto"></div>');
         const btns = g.map((_, i) => {
-          const b = F.h('<button style="aspect-ratio:1;min-height:56px;border:2.5px solid var(--ink);border-radius:12px;font-size:30px;cursor:pointer;color:var(--ink)"></button>');
+          const b = F.h('<button style="aspect-ratio:1;min-width:0;padding:0;min-height:56px;border:2.5px solid var(--ink);border-radius:12px;font-size:30px;cursor:pointer;color:var(--ink)"></button>');
           const y = Math.floor(i / 4), x = i % 4;
           if (x === 1) b.style.marginRight = '8px';
           if (y === 1) b.style.marginBottom = '8px';
