@@ -2,6 +2,7 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-10-23 · Fixed Vier gewinnt / Connect Four: tapping a column did nothing (drop function was out of scope) · game was unplayable
 - 2026-10-22 · 2048 (solo classic) · swipe or tap arrows to merge tiles, build big numbers
 - 2026-10-22 · Vier gewinnt / Connect Four (2 players, pass-and-tap) · four in a row wins the round, first to 2 rounds wins
 - 2026-10-22 · Buddy item: Sonnenbrille / Sunglasses (new eyes slot, 80 ink)

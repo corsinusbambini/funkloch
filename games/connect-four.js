@@ -35,7 +35,7 @@
           const quit = root.querySelector('.party-quit');
           if (quit) { quit.style.left = '24px'; quit.style.width = '36px'; quit.style.height = '36px'; }
           const g = Array(COLS * ROWS).fill(-1);
-          let turn = (api.roundNo - 1) % 2, done = false, moves = 0;
+          let turn = (api.roundNo - 1) % 2, done = false, moves = 0, drop = () => {};
           const board = F.h(`<div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(92vw,330px);z-index:32;display:grid;grid-template-columns:repeat(${COLS},minmax(0,1fr));gap:4px;padding:6px;border:2.5px solid var(--ink);border-radius:14px;background:var(--paper-2);box-shadow:var(--shadow);touch-action:none"></div>`);
           const cells = [];
           for (let x = 0; x < COLS; x++) {
@@ -66,7 +66,7 @@
               api.zones.forEach((z) => (z.el.style.opacity = ''));
               res(w);
             };
-            function drop(x) {
+            drop = (x) => {
               if (done) return;
               let y = ROWS - 1;
               while (y >= 0 && g[y * COLS + x] !== -1) y--;
@@ -79,7 +79,7 @@
               if (moves === COLS * ROWS) return finish(null);
               turn = 1 - turn;
               status();
-            }
+            };
           });
         },
       });
