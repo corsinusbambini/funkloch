@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-10-23 · Minesweeper (solo classic, 3 sizes) · uncover all safe squares, first tap safe, flag mode
+- 2026-10-23 · Käsekästchen / Dots and Boxes (2–4 players, pass-and-tap) · draw lines, close boxes, most boxes wins the round
+- 2026-10-23 · Buddy item: Kopfhörer / Headphones (new ears slot, 90 ink)
+- 2026-10-23 · Style: Wald / Forest (green theme)
 - 2026-10-23 · Fixed Vier gewinnt / Connect Four: tapping a column did nothing (drop function was out of scope) · game was unplayable
 - 2026-10-22 · 2048 (solo classic) · swipe or tap arrows to merge tiles, build big numbers
 - 2026-10-22 · Vier gewinnt / Connect Four (2 players, pass-and-tap) · four in a row wins the round, first to 2 rounds wins

@@ -31,6 +31,7 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 - [ ] Dots & Boxes (2–4)
 - [x] Connect Four (2p)
 - [ ] Ultimate Tic-Tac-Toe (2p)
+- [x] Dots and Boxes
 - [ ] Battleship mini (pass-and-play)
 - [ ] Snake Battle (2p, each steers with left/right taps in their zone)
 - [ ] Fishing: tap when your float dips, biggest fish wins
@@ -81,13 +82,15 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 
 ## Classics
 - [x] 2048
-- [ ] Minesweeper · [ ] Snake · [ ] Klondike Solitaire · [ ] FreeCell · [ ] Memory/Pairs · [ ] Sudoku 9x9
+- [x] Minesweeper · [ ] Snake · [ ] Klondike Solitaire · [ ] FreeCell · [ ] Memory/Pairs · [ ] Sudoku 9x9
 - [ ] 15-Puzzle · [ ] Peg Solitaire · [ ] Simon Says · [ ] Tetris-style blocks · [ ] Hangman · [ ] Flow · [ ] Breakout
 
 ## Buddy items
 - [x] Sunglasses (eyes slot)
+- [x] Headphones (ears slot)
 - [ ] Wings (back slot) · [ ] Freckles / stripes (body pattern) · [ ] Balloon (held item) · [ ] Top hat · [ ] Headphones · [ ] Bandana
 
 ## Styles
 - [x] Ocean
-- [ ] Forest · [ ] Sunset · [ ] Chalkboard · [ ] Blueprint · [ ] Retro arcade · [ ] Candy · [ ] Coffee · [ ] High contrast
+- [x] Forest
+- [ ] Sunset · [ ] Chalkboard · [ ] Blueprint · [ ] Retro arcade · [ ] Candy · [ ] Coffee · [ ] High contrast

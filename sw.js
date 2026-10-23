@@ -1,12 +1,12 @@
 /* Offline support: cache every file of the app on first visit, then serve from cache. */
-const VERSION = 'funkloch-v13';
+const VERSION = 'funkloch-v14';
 const FILES = [
   './', 'index.html', 'manifest.webmanifest', 'css/style.css',
   'js/core.js', 'js/i18n.js', 'js/companion.js', 'js/party.js', 'js/app.js',
   'games/chaos.js', 'games/number-flash.js', 'games/pi-runner.js', 'games/fold-punch.js', 'games/block-count.js',
   'games/dilution-lab.js', 'games/element-duel.js', 'games/make-24.js', 'games/pattern-next.js',
   'games/focus-tunnel.js', 'games/bubble-wrap.js', 'games/split-duel.js',
-  'games/tap-race.js', 'games/quick-draw.js', 'games/stop-bar.js', 'games/brain-race.js', 'games/tug-of-war.js', 'games/pong.js', 'games/hot-potato.js', 'games/code-breaker.js', 'games/color-grab.js', 'games/balloon-pump.js', 'games/odd-race.js', 'games/lights-out.js', 'games/count-them.js', 'games/mini-sudoku.js', 'games/game-2048.js', 'games/connect-four.js',
+  'games/tap-race.js', 'games/quick-draw.js', 'games/stop-bar.js', 'games/brain-race.js', 'games/tug-of-war.js', 'games/pong.js', 'games/hot-potato.js', 'games/code-breaker.js', 'games/color-grab.js', 'games/balloon-pump.js', 'games/odd-race.js', 'games/lights-out.js', 'games/count-them.js', 'games/mini-sudoku.js', 'games/game-2048.js', 'games/connect-four.js', 'games/minesweeper.js', 'games/dots-boxes.js',
   'icons/icon.svg', 'icons/icon-180.png', 'icons/icon-192.png', 'icons/icon-512.png',
 ];
 

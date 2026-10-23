@@ -6,29 +6,29 @@
   const SPECIES = {
     blob: {
       body: 'M55,165 C40,95 70,60 100,60 C130,60 160,95 145,165 Q100,182 55,165 Z',
-      eyes: [84, 116, 110], eyeR: 6, mouthY: 132, topY: 62, ant: [126, 66], feet: 170,
+      eyes: [84, 116, 110], eyeR: 6, mouthY: 132, topY: 62, earX: [52, 148], ant: [126, 66], feet: 170,
     },
     inkdrop: {
       body: 'M100,34 C120,70 152,98 152,128 A52,52 0 0 1 48,128 C48,98 80,70 100,34 Z',
-      eyes: [84, 116, 122], eyeR: 6, mouthY: 143, topY: 52, ant: [118, 66], feet: 178,
+      eyes: [84, 116, 122], eyeR: 6, mouthY: 143, topY: 52, earX: [50, 150], ant: [118, 66], feet: 178,
     },
     cat: {
       body: 'M52,92 L58,48 L84,72 Q100,67 116,72 L142,48 L148,92 C162,125 152,170 100,170 C48,170 38,125 52,92 Z',
-      eyes: [82, 118, 108], eyeR: 6, mouthY: 126, topY: 70, ant: [130, 64], feet: 172,
+      eyes: [82, 118, 108], eyeR: 6, mouthY: 126, topY: 70, earX: [47, 153], ant: [130, 64], feet: 172,
       extra: (ink) => `<path d="M100,120 l-5,-4 h10 z" fill="${ink}"/>
         <g stroke="${ink}" stroke-width="2" stroke-linecap="round" fill="none">
           <path d="M64,124 L42,120"/><path d="M64,130 L44,134"/><path d="M136,124 L158,120"/><path d="M136,130 L156,134"/></g>`,
     },
     axolotl: {
       body: 'M50,120 C50,80 75,68 100,68 C125,68 150,80 150,120 C150,155 128,170 100,170 C72,170 50,155 50,120 Z',
-      eyes: [78, 122, 108], eyeR: 6, mouthY: 128, topY: 70, ant: [128, 74], feet: 172,
+      eyes: [78, 122, 108], eyeR: 6, mouthY: 128, topY: 70, earX: [50, 150], ant: [128, 74], feet: 172,
       behind: (ink, c) => `<g stroke="${c.cheek}" stroke-width="7" stroke-linecap="round" fill="none">
           <path d="M56,92 Q36,74 30,62"/><path d="M52,106 Q28,100 18,92"/><path d="M53,122 Q30,126 22,122"/>
           <path d="M144,92 Q164,74 170,62"/><path d="M148,106 Q172,100 182,92"/><path d="M147,122 Q170,126 178,122"/></g>`,
     },
     owl: {
       body: 'M58,170 C40,140 42,80 60,62 L66,40 L84,58 Q100,54 116,58 L134,40 L140,62 C158,80 160,140 142,170 Q100,182 58,170 Z',
-      eyes: [82, 118, 96], eyeR: 7, mouthY: 122, topY: 58, ant: [132, 50], feet: 174, owl: true,
+      eyes: [82, 118, 96], eyeR: 7, mouthY: 122, topY: 58, earX: [45, 155], ant: [132, 50], feet: 174, owl: true,
       extra: (ink, c, stage) => `<ellipse cx="100" cy="142" rx="30" ry="24" fill="${stage >= 2 ? 'rgba(255,255,255,.45)' : 'none'}" stroke="${ink}" stroke-width="2" stroke-dasharray="${stage === 0 ? '4 3' : '0'}"/>
         <circle cx="82" cy="96" r="15" fill="${stage >= 2 ? 'rgba(255,255,255,.55)' : 'none'}" stroke="${ink}" stroke-width="2"/>
         <circle cx="118" cy="96" r="15" fill="${stage >= 2 ? 'rgba(255,255,255,.55)' : 'none'}" stroke="${ink}" stroke-width="2"/>
@@ -61,6 +61,7 @@
     { id: 'party', slot: 'top', price: 60, icon: '🥳' },
     { id: 'crown', slot: 'top', price: 150, icon: '👑' },
     { id: 'shades', slot: 'eyes', price: 80, icon: '😎' },
+    { id: 'phones', slot: 'ears', price: 90, icon: '🎧' },
   ];
 
   const ACC = {
@@ -154,6 +155,12 @@
       const lens = (cx) => `<rect x="${cx - 14}" y="${ey - 10}" width="28" height="21" rx="9" fill="#33405A" fill-opacity=".62" stroke="${ink}" stroke-width="2.4"/><path d="M${cx - 8},${ey - 5} l6,-1" stroke="#fff" stroke-width="2.2" stroke-linecap="round" opacity=".7"/>`;
       s += `<g>${lens(ex1)}${lens(ex2)}<path d="M${ex1 + 14},${ey - 3} Q100,${ey - 8} ${ex2 - 14},${ey - 3}" fill="none" stroke="${ink}" stroke-width="2.4" stroke-linecap="round"/>
         <path d="M${ex1 - 14},${ey - 3} l-8,-3 M${ex2 + 14},${ey - 3} l8,-3" stroke="${ink}" stroke-width="2.2" stroke-linecap="round"/></g>`;
+    }
+    if (wearing.includes('phones')) {
+      const [lx, rx] = sp.earX, cy = sp.topY - 5, c1 = (cy - 0.25 * (ey - 4)) / 0.75;
+      const band = `M${lx},${ey - 4} C${lx - 7},${c1} ${rx + 7},${c1} ${rx},${ey - 4}`;
+      const cup = (cx) => `<rect x="${cx - 9}" y="${ey - 12}" width="18" height="30" rx="9" fill="#7FB2E5" stroke="${ink}" stroke-width="2.4"/><rect x="${cx - 4}" y="${ey - 6}" width="8" height="18" rx="4" fill="#fff" opacity=".35"/>`;
+      s += `<g><path d="${band}" fill="none" stroke="${ink}" stroke-width="8" stroke-linecap="round"/><path d="${band}" fill="none" stroke="#7FB2E5" stroke-width="3.6" stroke-linecap="round"/>${cup(lx)}${cup(rx)}</g>`;
     }
     // accessories
     const side = wearing.find((w) => ['flower', 'leaf', 'bow'].includes(w));
