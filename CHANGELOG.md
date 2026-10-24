@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-10-24 · 15er-Puzzle / 15-Puzzle (solo classic, 3×3 and 4×4) · slide tiles into order; shuffled with legal moves so always solvable
+- 2026-10-24 · Schlangen und Leitern / Snakes and Ladders (2–4 players, pass-and-tap) · roll the die on your turn, new generated board every round, first to square 30 wins
+- 2026-10-24 · Buddy item: Flügel / Wings (new back slot, 120 ink)
+- 2026-10-24 · Style: Sonnenuntergang / Sunset (warm peach and plum theme)
 - 2026-10-23 · Minesweeper (solo classic, 3 sizes) · uncover all safe squares, first tap safe, flag mode
 - 2026-10-23 · Käsekästchen / Dots and Boxes (2–4 players, pass-and-tap) · draw lines, close boxes, most boxes wins the round
 - 2026-10-23 · Buddy item: Kopfhörer / Headphones (new ears slot, 90 ink)

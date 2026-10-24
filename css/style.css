@@ -87,6 +87,28 @@
   --shadow: 3px 3px 0 var(--ink);
   color-scheme: light;
 }
+[data-theme="sunset"] {
+  --paper: #FFE8D8;
+  --paper-2: #FFD5BF;
+  --card: #FFF7F0;
+  --ink: #3A1F3D;
+  --ink-soft: #7A4E66;
+  --ink-faint: #E8B8A8;
+  --dot: #F5C4AE;
+  --accent: #FF7B54;
+  --good: #2F9E6B;
+  --bad: #D23C55;
+  --c-memory: #FFB9A0;
+  --c-math: #FFD98A;
+  --c-logic: #D3B8F0;
+  --c-spatial: #BDE5B5;
+  --c-focus: #A9C8F2;
+  --c-chem: #9EDBD0;
+  --c-fun: #F7B5D6;
+  --c-duo: #FFA59A;
+  --shadow: 3px 3px 0 var(--ink);
+  color-scheme: light;
+}
 
 /* ---------- Base ---------- */
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }

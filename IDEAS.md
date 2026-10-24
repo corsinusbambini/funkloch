@@ -28,7 +28,7 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 - [ ] Reaction Chain: tap only when your colour lights up
 - [ ] Draw & Guess (pass-and-play, generated prompts)
 - [ ] Story Ping-Pong (take turns adding a sentence to a generated story start)
-- [ ] Dots & Boxes (2–4)
+- [x] Dots & Boxes (2–4)
 - [x] Connect Four (2p)
 - [ ] Ultimate Tic-Tac-Toe (2p)
 - [x] Dots and Boxes
@@ -81,6 +81,7 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 - [ ] Zen Garden · [ ] Generated colouring mandalas · [ ] Breathing Bubble
 
 ## Classics
+- [x] Snakes and Ladders (2–4p, multiplayer)
 - [x] 2048
 - [x] Minesweeper · [ ] Snake · [ ] Klondike Solitaire · [ ] FreeCell · [ ] Memory/Pairs · [ ] Sudoku 9x9
 - [ ] 15-Puzzle · [ ] Peg Solitaire · [ ] Simon Says · [ ] Tetris-style blocks · [ ] Hangman · [ ] Flow · [ ] Breakout
@@ -88,9 +89,9 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 ## Buddy items
 - [x] Sunglasses (eyes slot)
 - [x] Headphones (ears slot)
-- [ ] Wings (back slot) · [ ] Freckles / stripes (body pattern) · [ ] Balloon (held item) · [ ] Top hat · [ ] Headphones · [ ] Bandana
+- [x] Wings (back slot) · [ ] Freckles / stripes (body pattern) · [ ] Balloon (held item) · [ ] Top hat · [ ] Headphones · [ ] Bandana
 
 ## Styles
 - [x] Ocean
 - [x] Forest
-- [ ] Sunset · [ ] Chalkboard · [ ] Blueprint · [ ] Retro arcade · [ ] Candy · [ ] Coffee · [ ] High contrast
+- [x] Sunset · [ ] Chalkboard · [ ] Blueprint · [ ] Retro arcade · [ ] Candy · [ ] Coffee · [ ] High contrast

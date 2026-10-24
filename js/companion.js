@@ -62,6 +62,7 @@
     { id: 'crown', slot: 'top', price: 150, icon: '👑' },
     { id: 'shades', slot: 'eyes', price: 80, icon: '😎' },
     { id: 'phones', slot: 'ears', price: 90, icon: '🎧' },
+    { id: 'wings', slot: 'back', price: 120, icon: '🕊️' },
   ];
 
   const ACC = {
@@ -102,6 +103,13 @@
       const [ax, ay] = sp.ant;
       s += `<path d="M${ax},${ay + 8} Q${ax + 6},${ay - 10} ${ax + 12},${ay - 22}" fill="none" stroke="${ink}" stroke-width="2.5"/>
         <circle cx="${ax + 12}" cy="${ay - 26}" r="7" fill="#FFD66B" stroke="${ink}" stroke-width="2"/>`;
+    }
+    if (wearing.includes('wings')) {
+      const y0 = species === 'axolotl' ? 150 : species === 'inkdrop' ? 135 : 125;
+      const wing = 'M0,0 C-14,-30 -34,-44 -50,-46 C-44,-34 -46,-26 -38,-18 C-42,-10 -38,-2 -30,4 C-30,12 -18,16 -8,14 Z';
+      const feathers = 'M-12,-6 C-24,-14 -32,-24 -40,-34 M-10,2 C-22,-2 -30,-8 -34,-14';
+      const w = `<path d="${wing}" fill="#FFFFFF" fill-opacity=".92" stroke="${ink}" stroke-width="2.2" stroke-linejoin="round"/><path d="${feathers}" fill="none" stroke="${ink}" stroke-width="1.4" stroke-linecap="round" opacity=".5"/>`;
+      s += `<g transform="translate(${sp.earX[0] + 10},${y0})">${w}</g><g transform="translate(${sp.earX[1] - 10},${y0}) scale(-1,1)">${w}</g>`;
     }
     // feet
     s += `<ellipse cx="80" cy="${sp.feet}" rx="13" ry="6" fill="${stage >= 2 ? pal.cheek : 'none'}" stroke="${ink}" stroke-width="${sw}" ${dash}/>
