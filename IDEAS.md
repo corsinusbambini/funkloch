@@ -82,16 +82,18 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 
 ## Classics
 - [x] Snakes and Ladders (2–4p, multiplayer)
+- [x] Tic-Tac-Toe (2p) · [ ] Battleship pass-and-play · [ ] Four-in-a-row 5x5 variants
 - [x] 2048
-- [x] Minesweeper · [ ] Snake · [ ] Klondike Solitaire · [ ] FreeCell · [ ] Memory/Pairs · [ ] Sudoku 9x9
+- [x] Minesweeper · [ ] Snake · [ ] Klondike Solitaire · [ ] FreeCell · [x] Memory/Pairs · [ ] Sudoku 9x9
 - [ ] 15-Puzzle · [ ] Peg Solitaire · [ ] Simon Says · [ ] Tetris-style blocks · [ ] Hangman · [ ] Flow · [ ] Breakout
 
 ## Buddy items
 - [x] Sunglasses (eyes slot)
 - [x] Headphones (ears slot)
-- [x] Wings (back slot) · [ ] Freckles / stripes (body pattern) · [ ] Balloon (held item) · [ ] Top hat · [ ] Headphones · [ ] Bandana
+- [x] Wings (back slot) · [ ] Freckles / stripes (body pattern) · [x] Balloon (held item) · [ ] Top hat · [ ] Headphones · [ ] Bandana
 
 ## Styles
 - [x] Ocean
 - [x] Forest
-- [x] Sunset · [ ] Chalkboard · [ ] Blueprint · [ ] Retro arcade · [ ] Candy · [ ] Coffee · [ ] High contrast
+- [x] Sunset
+- [x] Chalkboard · [ ] Paper plane · [ ] Blueprint · [ ] Retro arcade · [ ] Candy · [ ] Coffee · [ ] High contrast

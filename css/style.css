@@ -21,6 +21,28 @@
   --shadow: 3px 3px 0 var(--ink);
   color-scheme: light;
 }
+[data-theme="chalk"] {
+  --paper: #2F4A3E;
+  --paper-2: #38564A;
+  --card: #3A5A4C;
+  --ink: #F4F1E6;
+  --ink-soft: #BFD0C4;
+  --ink-faint: #5C7D6C;
+  --dot: #46695A;
+  --accent: #F6D36B;
+  --good: #8EE0A4;
+  --bad: #FF9A8A;
+  --c-memory: #8A6A58;
+  --c-math: #8C7F3A;
+  --c-logic: #6A5E94;
+  --c-spatial: #3F8060;
+  --c-focus: #3F6F94;
+  --c-chem: #338078;
+  --c-fun: #8F4F72;
+  --c-duo: #924F4A;
+  --shadow: 3px 3px 0 #1B2B24;
+  color-scheme: dark;
+}
 [data-theme="night"] {
   --paper: #1E2026;
   --paper-2: #262931;
@@ -243,7 +265,7 @@ button { font: inherit; color: inherit; }
 .chaos-btn .bolt { font-size: 40px; transform: rotate(-10deg); }
 .chaos-btn .t1 { font-size: 28px; line-height: 1; }
 .chaos-btn .t2 { font-size: 16px; color: #2B2522; opacity: .75; }
-[data-theme="night"] .chaos-btn .t2 { color: var(--ink); }
+[data-theme="night"] .chaos-btn .t2, [data-theme="chalk"] .chaos-btn .t2 { color: var(--ink); }
 .quests { margin-top: 14px; padding: 12px 14px; background: var(--card); }
 .quest { display: flex; align-items: center; gap: 10px; padding: 4px 0; font-size: 18px; }
 .quest .box { width: 22px; height: 22px; border: 2.5px solid var(--ink); border-radius: 5px 8px 4px 7px; flex: none; display:flex; align-items:center; justify-content:center; font-size: 16px; }

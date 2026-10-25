@@ -69,7 +69,7 @@
     const p = a.r.pick([10, 20, 25, 50, 5, 75]), base = a.r.pick([40, 60, 80, 120, 200, 240, 300, 400, 500, 640]);
     const v = (p * base) / 100;
     const opts = a.r.shuffle([v, v * 2, v / 2 === v ? v + 5 : v + base / 10]);
-    const uniq = [...new Set(opts)]; while (uniq.length < 3) uniq.push(v + uniq.length * 3);
+    const uniq = [...new Set(opts)]; for (let k = 3; uniq.length < 3; k += 3) if (!uniq.includes(v + k)) uniq.push(v + k);
     a.choice(`<div class="big-display" style="font-size:38px">${p}% ${F.tt(T('von', 'of'))} ${base}</div>`, uniq, uniq.indexOf(v));
   } });
   M({ id: 'units', instr: T('Umrechnen!', 'Convert!'), choice: true, setup(st, a) {

@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-10-25 · Memory / Pairs (solo classic, 3 sizes) · flip two cards, find all pairs; random pictures every deal
+- 2026-10-25 · Drei gewinnt / Tic-Tac-Toe (2 players, pass-and-tap) · three in a row wins the point, first to 3 wins
+- 2026-10-25 · Buddy item: Ballon / Balloon (new held slot, 55 ink)
+- 2026-10-25 · Style: Wandtafel / Chalkboard (dark green chalk theme)
 - 2026-10-24 · 15er-Puzzle / 15-Puzzle (solo classic, 3×3 and 4×4) · slide tiles into order; shuffled with legal moves so always solvable
 - 2026-10-24 · Schlangen und Leitern / Snakes and Ladders (2–4 players, pass-and-tap) · roll the die on your turn, new generated board every round, first to square 30 wins
 - 2026-10-24 · Buddy item: Flügel / Wings (new back slot, 120 ink)

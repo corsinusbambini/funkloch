@@ -63,6 +63,7 @@
     { id: 'shades', slot: 'eyes', price: 80, icon: '😎' },
     { id: 'phones', slot: 'ears', price: 90, icon: '🎧' },
     { id: 'wings', slot: 'back', price: 120, icon: '🕊️' },
+    { id: 'balloon', slot: 'held', price: 55, icon: '🎈' },
   ];
 
   const ACC = {
@@ -169,6 +170,13 @@
       const band = `M${lx},${ey - 4} C${lx - 7},${c1} ${rx + 7},${c1} ${rx},${ey - 4}`;
       const cup = (cx) => `<rect x="${cx - 9}" y="${ey - 12}" width="18" height="30" rx="9" fill="#7FB2E5" stroke="${ink}" stroke-width="2.4"/><rect x="${cx - 4}" y="${ey - 6}" width="8" height="18" rx="4" fill="#fff" opacity=".35"/>`;
       s += `<g><path d="${band}" fill="none" stroke="${ink}" stroke-width="8" stroke-linecap="round"/><path d="${band}" fill="none" stroke="#7FB2E5" stroke-width="3.6" stroke-linecap="round"/>${cup(lx)}${cup(rx)}</g>`;
+    }
+    if (wearing.includes('balloon')) {
+      const bx = Math.min(sp.earX[1] + 20, 176), bt = 62;
+      s += `<path d="M${sp.earX[1] - 6},${sp.feet - 36} Q${bx - 14},${bt + 60} ${bx},${bt + 22}" fill="none" stroke="${ink}" stroke-width="1.8" stroke-linecap="round"/>
+        <ellipse cx="${bx}" cy="${bt}" rx="15" ry="19" fill="#F07C8C" stroke="${ink}" stroke-width="2.2"/>
+        <path d="M${bx - 4},${bt + 19} l4,6 l4,-6 z" fill="#F07C8C" stroke="${ink}" stroke-width="1.8" stroke-linejoin="round"/>
+        <path d="M${bx - 8},${bt - 8} q2,-6 7,-8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" opacity=".8"/>`;
     }
     // accessories
     const side = wearing.find((w) => ['flower', 'leaf', 'bow'].includes(w));
