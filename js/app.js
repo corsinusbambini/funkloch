@@ -4,7 +4,7 @@
   const app = document.getElementById('app');
   const ACCENTS = ['#F28C6B', '#F2B84B', '#6FBF8C', '#5FBFAE', '#7FB2E5', '#A08BE0', '#EE8FBC'];
   const SKILL_ORDER = ['memory', 'math', 'logic', 'spatial', 'focus', 'chem', 'fun', 'duo'];
-  const THEMES = ['cozy', 'night', 'ocean', 'forest', 'sunset', 'chalk'];
+  const THEMES = ['cozy', 'night', 'ocean', 'forest', 'sunset', 'chalk', 'blueprint'];
   const QUEST_INK = 15;
   let current = null; // running game context
 

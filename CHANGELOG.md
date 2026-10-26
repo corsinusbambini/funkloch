@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-10-26 · Simon Says / Simon sagt (solo classic) · repeat a growing, randomly generated pad pattern
+- 2026-10-26 · Schere, Stein, Papier / Rock Paper Scissors (2–4 players) · secret picks revealed together, random reverse-rule rounds, first to 4 wins
+- 2026-10-26 · Buddy item: Schnurrbart / Moustache (new face slot, 65 ink)
+- 2026-10-26 · Style: Bauplan / Blueprint (dark blue drafting theme)
 - 2026-10-25 · Memory / Pairs (solo classic, 3 sizes) · flip two cards, find all pairs; random pictures every deal
 - 2026-10-25 · Drei gewinnt / Tic-Tac-Toe (2 players, pass-and-tap) · three in a row wins the point, first to 3 wins
 - 2026-10-25 · Buddy item: Ballon / Balloon (new held slot, 55 ink)

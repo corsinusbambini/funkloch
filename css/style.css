@@ -43,6 +43,28 @@
   --shadow: 3px 3px 0 #1B2B24;
   color-scheme: dark;
 }
+[data-theme="blueprint"] {
+  --paper: #123A6B;
+  --paper-2: #1A4A82;
+  --card: #1D4F88;
+  --ink: #EAF4FF;
+  --ink-soft: #B7D3F2;
+  --ink-faint: #5C86B8;
+  --dot: #2C5C95;
+  --accent: #FFD84D;
+  --good: #8DF0B4;
+  --bad: #FF9E9E;
+  --c-memory: #7A5E8F;
+  --c-math: #8A7A2E;
+  --c-logic: #5A5FA8;
+  --c-spatial: #2F8A74;
+  --c-focus: #2F7FB0;
+  --c-chem: #2A8C94;
+  --c-fun: #9A5585;
+  --c-duo: #A8564F;
+  --shadow: 3px 3px 0 #0A2447;
+  color-scheme: dark;
+}
 [data-theme="night"] {
   --paper: #1E2026;
   --paper-2: #262931;
@@ -265,7 +287,7 @@ button { font: inherit; color: inherit; }
 .chaos-btn .bolt { font-size: 40px; transform: rotate(-10deg); }
 .chaos-btn .t1 { font-size: 28px; line-height: 1; }
 .chaos-btn .t2 { font-size: 16px; color: #2B2522; opacity: .75; }
-[data-theme="night"] .chaos-btn .t2, [data-theme="chalk"] .chaos-btn .t2 { color: var(--ink); }
+[data-theme="night"] .chaos-btn .t2, [data-theme="chalk"] .chaos-btn .t2, [data-theme="blueprint"] .chaos-btn .t2 { color: var(--ink); }
 .quests { margin-top: 14px; padding: 12px 14px; background: var(--card); }
 .quest { display: flex; align-items: center; gap: 10px; padding: 4px 0; font-size: 18px; }
 .quest .box { width: 22px; height: 22px; border: 2.5px solid var(--ink); border-radius: 5px 8px 4px 7px; flex: none; display:flex; align-items:center; justify-content:center; font-size: 16px; }

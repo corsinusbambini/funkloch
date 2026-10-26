@@ -19,8 +19,8 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 - [ ] Memory Relay: each player adds one digit to a growing number, whoever forgets is out (pass-and-play)
 - [ ] Same Brain: everyone answers a random "this or that" question, points for matching the majority
 - [ ] Penalty Kick: shooter picks a corner, goalie guesses (2p)
-- [ ] Rock Paper Scissors tournament with secret picks in each zone
-- [ ] Simon Says Race: repeat a growing light pattern faster than the others
+- [x] Rock Paper Scissors with secret picks in each zone
+- [ ] Simon Says Race (multiplayer version): repeat a growing light pattern faster than the others
 - [x] Odd One Out Race: grid of symbols, first to tap the different one
 - [x] Balloon Pump: pump your balloon fastest but don't pop it (random burst point)
 - [ ] Bomb Defuse: cut the wire matching a generated rule
@@ -44,7 +44,7 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 - [ ] What Changed? (doodle objects, one moved/vanished)
 - [ ] Memory Pairs (generated doodle pairs)
 - [ ] Path Memory (retrace a path on a grid)
-- [ ] Sequence Echo (Simon)
+- [x] Sequence Echo (Simon)
 - [ ] Shopping List (remember items, then "shop")
 - [ ] Card Counter
 
@@ -85,15 +85,15 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 - [x] Tic-Tac-Toe (2p) · [ ] Battleship pass-and-play · [ ] Four-in-a-row 5x5 variants
 - [x] 2048
 - [x] Minesweeper · [ ] Snake · [ ] Klondike Solitaire · [ ] FreeCell · [x] Memory/Pairs · [ ] Sudoku 9x9
-- [ ] 15-Puzzle · [ ] Peg Solitaire · [ ] Simon Says · [ ] Tetris-style blocks · [ ] Hangman · [ ] Flow · [ ] Breakout
+- [ ] 15-Puzzle · [ ] Peg Solitaire · [x] Simon Says · [ ] Tetris-style blocks · [ ] Hangman · [ ] Flow · [ ] Breakout
 
 ## Buddy items
 - [x] Sunglasses (eyes slot)
 - [x] Headphones (ears slot)
-- [x] Wings (back slot) · [ ] Freckles / stripes (body pattern) · [x] Balloon (held item) · [ ] Top hat · [ ] Headphones · [ ] Bandana
+- [x] Wings (back slot) · [ ] Freckles / stripes (body pattern) · [x] Balloon (held item) · [x] Moustache (face slot) · [ ] Top hat · [ ] Halo · [ ] Bandana
 
 ## Styles
 - [x] Ocean
 - [x] Forest
 - [x] Sunset
-- [x] Chalkboard · [ ] Paper plane · [ ] Blueprint · [ ] Retro arcade · [ ] Candy · [ ] Coffee · [ ] High contrast
+- [x] Chalkboard · [ ] Paper plane · [x] Blueprint · [ ] Retro arcade · [ ] Candy · [ ] Coffee · [ ] High contrast
