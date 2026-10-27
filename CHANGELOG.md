@@ -2,6 +2,8 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-10-27 · Daily challenge (same puzzle on every phone, streak), 16 badges, search, filters (solo/multiplayer/new/♥), favourites, recently played and random-game button · owner asked for order in the growing library and a daily challenge
+- 2026-10-27 · Builder now adds 1 classic + 1 gap-filler for the weakest skill (multiplayer only while under a third) + 1 buddy item + 1 style · better mix
 - 2026-10-26 · Simon Says / Simon sagt (solo classic) · repeat a growing, randomly generated pad pattern
 - 2026-10-26 · Schere, Stein, Papier / Rock Paper Scissors (2–4 players) · secret picks revealed together, random reverse-rule rounds, first to 4 wins
 - 2026-10-26 · Buddy item: Schnurrbart / Moustache (new face slot, 65 ink)

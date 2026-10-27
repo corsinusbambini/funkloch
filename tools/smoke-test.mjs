@@ -108,6 +108,32 @@ for (const g of F.games) {
   }
 }
 
+// --- home screen tools and daily challenge ---
+if (!only.length) {
+  take();
+  try {
+    F.go('home');
+    const search = w.document.querySelector('#search');
+    search.value = 'zzzz-nothing';
+    search.dispatchEvent(new w.Event('input'));
+    if (w.document.querySelector('#nomatch').classList.contains('hidden')) problems.push('home: search for nonsense should show "nothing found"');
+    search.value = '';
+    search.dispatchEvent(new w.Event('input'));
+    for (const f of ['solo', 'multi', 'new', 'fav', 'all']) w.document.querySelector(`#chips [data-f="${f}"]`).click();
+    w.document.querySelector('[data-daily]').click();
+    w.document.querySelector('#start').click();
+    const t0 = Date.now();
+    while (Date.now() - t0 < RUN_MS) { randomTap(); await sleep(40); }
+    F.go('home');
+    F.go('stats');
+    F.go('home');
+  } catch (e) {
+    problems.push(`home/daily: ${e.stack || e}`);
+  }
+  take().forEach((e) => problems.push(`home/daily: ${e}`));
+  console.log('checked home tools + daily challenge');
+}
+
 // --- every Chaos micro-game ---
 if (!only.length || only.includes('chaos')) {
   for (const m of F.micro) {

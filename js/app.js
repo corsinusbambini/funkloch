@@ -108,26 +108,75 @@
     const el = F.h(`<div>${topbar('Funkloch')}
       <div class="companion-wrap"><div id="buddy">${F.companionSVG({ mood: asleep ? 'sleep' : 'happy' })}</div>
         <div class="bubble sketch" id="say">${F.esc(asleep ? F.t('react.sleep') : F.buddyLine('greet'))}</div></div>
+      <div id="daily"></div>
       <button class="chaos-btn sketch" data-game="chaos"><span class="bolt">⚡</span><span><div class="t1">${F.t('home.chaos')}</div><div class="t2">${F.t('home.chaosSub')}</div></span></button>
       <div class="quests sketch alt"><h3>${F.t('home.quests')}</h3>${F.data.quests.items.map((q) => `<div class="quest ${q.done ? 'done' : ''}"><span class="box">${q.done ? '✓' : ''}</span><span class="grow">${questText(q)}</span><span class="muted">+${QUEST_INK}</span></div>`).join('')}</div>
-      <div id="shelves"></div></div>`);
+      <div class="lib-tools">
+        <input type="search" id="search" class="search sketch" placeholder="${F.t('lib.search')}" autocomplete="off">
+        <button class="icon-btn" id="random" aria-label="${F.t('lib.random')}">🎲</button></div>
+      <div class="seg chips" id="chips">${['all', 'solo', 'multi', 'new', 'fav'].map((f) => `<button data-f="${f}" class="${(F.data.libFilter || 'all') === f ? 'on' : ''}">${F.t('lib.' + f)}</button>`).join('')}</div>
+      <div id="quick"></div>
+      <div id="shelves"></div><p class="muted center hidden" id="nomatch">${F.t('lib.none')}</p></div>`);
     const shelves = el.querySelector('#shelves');
+    const favs = F.data.favs || [];
+    // daily challenge card
+    const dly = dailyPick(), done = (F.data.daily || {})[F.today()], streak = F.dailyStreak();
+    el.querySelector('#daily').appendChild(F.h(`<button class="daily-card sketch" data-daily="1">
+      <span class="glyph" style="background:var(--c-${dly.g.skill})">${dly.g.glyph}</span>
+      <span class="grow"><div class="t1">☀ ${F.t('daily.title')}</div><div class="t2">${F.tt(dly.g.name)}${done ? ' · ✓ ' + F.esc(done.display) : ''}</div></span>
+      <span class="streak">${streak ? '🔥 ' + streak : ''}</span></button>`));
+    // quick rows: favourites and recently played
+    const recent = (F.data.recent || []).map(F.game).filter(Boolean);
+    const quick = el.querySelector('#quick');
+    const row = (title, games) => {
+      if (!games.length) return;
+      quick.appendChild(F.h(`<div class="shelf-title">${title}</div>`));
+      const r = F.h('<div class="hscroll"></div>');
+      games.forEach((g) => r.appendChild(F.h(cardHTML(g))));
+      quick.appendChild(r);
+    };
+    row('♥ ' + F.t('lib.favs'), favs.map(F.game).filter(Boolean));
+    row('↺ ' + F.t('lib.recent'), recent);
     SKILL_ORDER.forEach((skill) => {
       const games = F.games.filter((g) => g.skill === skill && g.id !== 'chaos');
       if (!games.length) return;
-      shelves.appendChild(F.h(`<div class="shelf-title"><span class="tag" style="background:var(--c-${skill})"></span>${F.t('skill.' + skill)}</div>`));
-      const grid = F.h('<div class="game-grid"></div>');
-      games.forEach((g) => {
-        const gd = F.gameData(g.id);
-        grid.appendChild(F.h(`<button class="game-card sketch" data-game="${g.id}">
-          ${F.isNew(g) ? `<span class="new-tag">${F.t('home.new')}</span>` : ''}
-          ${g.players >= 2 ? `<span class="duo-tag">${g.players}${g.maxPlayers > g.players ? '–' + g.maxPlayers : ''}</span>` : ''}
-          <span class="glyph" style="background:var(--c-${skill})">${g.glyph}</span>
-          <span><div class="name">${F.tt(g.name)}</div><div class="best">${!gd.plays ? '&nbsp;' : g.modes ? F.t('intro.played', { n: gd.plays }) : F.t('intro.best', { n: fmtBest(g, gd.best) })}</div></span></button>`));
-      });
-      shelves.appendChild(grid);
+      const shelf = F.h(`<div class="shelf"><div class="shelf-title"><span class="tag" style="background:var(--c-${skill})"></span>${F.t('skill.' + skill)}</div><div class="game-grid"></div></div>`);
+      games.forEach((g) => shelf.lastChild.appendChild(F.h(cardHTML(g))));
+      shelves.appendChild(shelf);
     });
+    // search + filter work in place so the keyboard stays open while typing
+    const search = el.querySelector('#search');
+    const applyFilter = () => {
+      const q = search.value.trim().toLowerCase(), f = F.data.libFilter || 'all';
+      let shown = 0;
+      shelves.querySelectorAll('.game-card').forEach((c) => {
+        const g = F.game(c.dataset.game);
+        const hay = (g.name.de + ' ' + g.name.en + ' ' + F.t('skill.' + g.skill)).toLowerCase();
+        const ok = (!q || hay.includes(q)) && (f === 'all' || (f === 'solo' && g.players === 1) || (f === 'multi' && g.players >= 2) ||
+          (f === 'new' && F.isNew(g)) || (f === 'fav' && favs.includes(g.id)));
+        c.classList.toggle('hidden', !ok);
+        if (ok) shown++;
+      });
+      shelves.querySelectorAll('.shelf').forEach((s) => s.classList.toggle('hidden', !s.querySelector('.game-card:not(.hidden)')));
+      quick.classList.toggle('hidden', !!q || f !== 'all');
+      el.querySelector('#nomatch').classList.toggle('hidden', shown > 0);
+    };
+    search.addEventListener('input', applyFilter);
+    el.querySelector('#chips').addEventListener('click', (e) => {
+      const b = e.target.closest('[data-f]'); if (!b) return;
+      F.data.libFilter = b.dataset.f; F.save(); F.sfx('tap');
+      el.querySelectorAll('#chips button').forEach((x) => x.classList.toggle('on', x === b));
+      applyFilter();
+    });
+    el.querySelector('#random').addEventListener('click', () => {
+      const pool = [...shelves.querySelectorAll('.game-card:not(.hidden)')];
+      if (!pool.length) return;
+      F.sfx('pop');
+      go('intro', pool[Math.floor(Math.random() * pool.length)].dataset.game);
+    });
+    applyFilter();
     el.addEventListener('click', (e) => {
+      if (e.target.closest('[data-daily]')) { F.sfx('tap'); return go('intro', { id: dly.g.id, daily: true }); }
       const b = e.target.closest('[data-game]');
       if (b) { F.sfx('tap'); go('intro', b.dataset.game); }
     });
@@ -141,14 +190,42 @@
   // Games carry `added: 'YYYY-MM-DD'`; they count as new for 4 days.
   F.isNew = (g) => !!g.added && Date.now() - Date.parse(g.added) < 4 * 864e5;
   const fmtBest = (g, v) => (g.formatBest ? g.formatBest(v) : v);
+  function cardHTML(g) {
+    const gd = F.gameData(g.id);
+    return `<button class="game-card sketch" data-game="${g.id}">
+      ${F.isNew(g) ? `<span class="new-tag">${F.t('home.new')}</span>` : ''}
+      ${g.players >= 2 ? `<span class="duo-tag">${g.players}${g.maxPlayers > g.players ? '–' + g.maxPlayers : ''}</span>` : ''}
+      ${(F.data.favs || []).includes(g.id) ? '<span class="fav-tag">♥</span>' : ''}
+      <span class="glyph" style="background:var(--c-${g.skill})">${g.glyph}</span>
+      <span><div class="name">${F.tt(g.name)}</div><div class="best">${!gd.plays ? '&nbsp;' : g.modes ? F.t('intro.played', { n: gd.plays }) : F.t('intro.best', { n: fmtBest(g, gd.best) })}</div></span></button>`;
+  }
+
+  // ---------- Daily challenge ----------
+  // Same game, mode and puzzle on every phone with the same app version: everything is derived from today's date.
+  const NO_DAILY = ['bubble-wrap', 'pi-runner'];
+  function dailyPick() {
+    const pool = F.games.filter((g) => g.players === 1 && !g.noDaily && !NO_DAILY.includes(g.id)).sort((a, b) => (a.id < b.id ? -1 : 1));
+    const g = F.rng(F.daySeed('daily-game')).pick(pool);
+    return { g, mode: g.modes ? g.modes[Math.floor((g.modes.length - 1) / 2)].id : undefined };
+  }
+  F.dailyStreak = () => {
+    const D = F.data.daily || {}, d = new Date();
+    if (!D[F.today(d)]) d.setDate(d.getDate() - 1);
+    let n = 0;
+    while (D[F.today(d)] && n < 5000) { n++; d.setDate(d.getDate() - 1); }
+    return n;
+  };
 
   // ---------- Game intro + runner + result ----------
-  function intro(id) {
+  function intro(arg) {
     showNav(false);
+    if (arg && arg.daily) return dailyIntro();
+    const id = arg;
     const g = F.game(id);
     const gd = F.gameData(id);
+    const isFav = (F.data.favs || []).includes(id);
     const el = F.h(`<div class="intro stack">
-      <div class="row spread"><button class="icon-btn" id="back" aria-label="back">←</button><span class="muted">${F.t('skill.' + g.skill)}</span><span style="width:44px"></span></div>
+      <div class="row spread"><button class="icon-btn" id="back" aria-label="back">←</button><span class="muted">${F.t('skill.' + g.skill)}</span><button class="icon-btn" id="fav" aria-label="${F.t('lib.favs')}">${isFav ? '♥' : '♡'}</button></div>
       <div class="glyph-lg" style="background:var(--c-${g.skill})">${g.glyph}</div>
       <h1>${F.tt(g.name)}</h1>
       <p>${F.tt(g.desc)}</p>
@@ -161,13 +238,38 @@
       <div style="margin:20px 0">${F.companionSVG({ mood: 'happy', cls: 'sm' })}</div>
       <button class="btn primary big" id="start">${F.t('intro.start')}</button>`}</div>`);
     el.querySelector('#back').onclick = () => go('home');
+    el.querySelector('#fav').onclick = (e) => {
+      const favs = F.data.favs || (F.data.favs = []);
+      const on = !favs.includes(id);
+      if (on) favs.unshift(id); else favs.splice(favs.indexOf(id), 1);
+      F.save(); F.sfx(on ? 'good' : 'tap');
+      e.currentTarget.textContent = on ? '♥' : '♡';
+      F.toast(F.t(on ? 'lib.favAdded' : 'lib.favRemoved'));
+    };
     if (g.modes) el.querySelectorAll('[data-mode]').forEach((b) => (b.onclick = () => run(g, b.dataset.mode)));
     else el.querySelector('#start').onclick = () => run(g);
     app.appendChild(el);
   }
 
+  function dailyIntro() {
+    const { g, mode } = dailyPick();
+    const done = (F.data.daily || {})[F.today()];
+    const el = F.h(`<div class="intro stack">
+      <div class="row spread"><button class="icon-btn" id="back" aria-label="back">←</button><span class="muted">☀ ${F.t('daily.title')}</span><span style="width:44px"></span></div>
+      <div class="glyph-lg" style="background:var(--c-${g.skill})">${g.glyph}</div>
+      <h1>${F.tt(g.name)}</h1>
+      <p>${F.tt(g.desc)}</p>
+      <div class="card sketch"><p>${F.t('daily.info')}</p>
+        <p class="muted">${done ? F.t('daily.doneAlready', { s: F.esc(done.display) }) : F.t('daily.firstCounts')}</p>
+        <p>🔥 ${F.t('daily.streak', { n: F.dailyStreak() })}</p></div>
+      <button class="btn primary big" id="start">${F.t('intro.start')}</button></div>`);
+    el.querySelector('#back').onclick = () => go('home');
+    el.querySelector('#start').onclick = () => run(g, mode, true);
+    app.appendChild(el);
+  }
+
   const modeKey = (g, mode) => (mode ? g.id + '@' + mode : g.id);
-  function run(g, mode) {
+  function run(g, mode, daily) {
     app.innerHTML = '';
     showNav(false);
     const gd = F.gameData(modeKey(g, mode));
@@ -176,32 +278,38 @@
     app.appendChild(el);
     const cleanups = [];
     const ctx = {
-      game: g, mode, el: el.querySelector('#stage'), level: gd.level, best: gd.best, dead: false,
-      rng: F.rng(F.freshSeed()), t: F.tt, sfx: F.sfx,
+      game: g, mode, daily: !!daily, el: el.querySelector('#stage'), level: daily ? 3 : gd.level, best: gd.best, dead: false,
+      rng: F.rng(daily ? F.daySeed('daily-run') : F.freshSeed()), t: F.tt, sfx: F.sfx,
       setScore: (v) => { el.querySelector('#score').textContent = v; },
       setInfo: (v) => { el.querySelector('#info').innerHTML = v; },
-      fresh: (gen, keyOf, tries) => F.fresh(g.id, gen, keyOf, tries),
+      // the daily challenge must not skip "recently seen" content, or two phones would get different puzzles
+      fresh: (gen, keyOf, tries) => (daily ? gen() : F.fresh(g.id, gen, keyOf, tries)),
       wait: (ms) => new Promise((res) => setTimeout(() => { if (!ctx.dead) res(); }, ms)),
       timer: (parent, ms, onEnd) => { const tb = F.timerBar(parent, ms, () => { if (!ctx.dead) onEnd && onEnd(); }); cleanups.push(() => tb.stop()); return tb; },
       onCleanup: (fn) => cleanups.push(fn),
       kill() { if (ctx.dead) return; ctx.dead = true; cleanups.forEach((f) => { try { f(); } catch (e) {} }); },
-      finish: (res) => { if (ctx.dead) return; ctx.kill(); current = null; result(g, res, mode); },
+      finish: (res) => { if (ctx.dead) return; ctx.kill(); current = null; result(g, res, mode, daily); },
     };
     current = ctx;
     el.querySelector('#quit').onclick = () => go('home');
     try { g.start(ctx); } catch (e) { console.error(e); F.toast('Oops: ' + e.message); }
   }
 
-  function result(g, res, mode) {
+  function result(g, res, mode, daily) {
     const gd = F.gameData(modeKey(g, mode));
+    F.data.recent = [g.id].concat((F.data.recent || []).filter((x) => x !== g.id)).slice(0, 8);
     if (mode) F.gameData(g.id).plays++;
     const score = res.score || 0;
     const isRecord = !res.noRecord && score > (gd.best || 0) && score > 0;
     const ink = Math.max(1, Math.round(res.ink != null ? res.ink : Math.min(40, score)));
     gd.plays++; F.data.plays++;
-    if (isRecord) gd.best = score;
+    if (isRecord) { gd.best = score; F.data.recordCount = (F.data.recordCount || 0) + 1; }
     const oldLevel = gd.level;
-    if (res.levelDelta) gd.level = Math.max(1, Math.min(30, gd.level + res.levelDelta));
+    // daily: only the first try of the day counts
+    const D = F.data.daily || (F.data.daily = {});
+    const dailyFirst = daily && !D[F.today()];
+    if (dailyFirst) D[F.today()] = { game: g.id, score, display: String(res.display != null ? res.display : score) };
+    if (res.levelDelta && !daily) gd.level = Math.max(1, Math.min(30, gd.level + res.levelDelta));
     F.data.ink += ink;
     F.data.xp[g.skill] = (F.data.xp[g.skill] || 0) + ink;
     const stageBefore = F.buddyStage(F.totalXp() - ink);
@@ -213,6 +321,7 @@
         q.done = true; F.data.ink += QUEST_INK; doneNow.push(q);
       }
     });
+    const newBadges = F.checkBadges({ hour: new Date().getHours() });
     F.save();
     const quality = res.quality != null ? res.quality : isRecord ? 1 : 0.5;
     const mood = quality >= 0.75 ? 'cheer' : quality >= 0.4 ? 'happy' : 'sad';
@@ -228,10 +337,21 @@
       <p>${F.inkIcon} ${F.t('res.earned', { n: ink })}</p>
       ${doneNow.map(() => `<p class="badge-new">${F.t('res.questDone', { n: QUEST_INK })}</p>`).join('')}
       ${F.buddyStage() > stageBefore ? `<p class="badge-new">${F.t('buddy.stage.' + F.buddyStage())}!</p>` : ''}
+      ${newBadges.map((b) => `<p class="badge-new">${b.icon} ${F.t('badge.new', { name: F.tt(b.name) })}</p>`).join('')}
+      ${daily ? `<div class="card sketch"><p>☀ ${F.t(dailyFirst ? 'daily.saved' : 'daily.notCounted')}</p><p>🔥 ${F.t('daily.streak', { n: F.dailyStreak() })}</p></div>` : ''}
       <div class="companion-wrap" style="justify-content:center">${F.companionSVG({ mood })}<div class="bubble sketch" style="flex:0 1 auto">${F.esc(line)}</div></div>
-      <button class="btn primary big" id="again">${F.t('res.again')}</button>
+      ${daily ? `<button class="btn primary big" id="share">${F.t('daily.share')}</button>` : `<button class="btn primary big" id="again">${F.t('res.again')}</button>`}
       <button class="btn block" id="home">${F.t('res.home')}</button></div>`);
-    el.querySelector('#again').onclick = () => run(g, mode);
+    if (daily) {
+      el.querySelector('#share').onclick = async () => {
+        const today = D[F.today()];
+        const txt = F.t('daily.shareText', { date: new Date().toLocaleDateString('de-CH'), game: F.tt(g.name), score: today ? today.display : '', n: F.dailyStreak() });
+        try {
+          if (navigator.share) await navigator.share({ text: txt });
+          else { await navigator.clipboard.writeText(txt); F.toast(F.t('set.copied')); }
+        } catch (e) {}
+      };
+    } else el.querySelector('#again').onclick = () => run(g, mode);
     el.querySelector('#home').onclick = () => go('home');
     app.appendChild(el);
   }
@@ -290,6 +410,9 @@
     showNav(true);
     const el = F.h(`<div>${topbar(F.t('stats.title'))}
       <div class="card sketch">${radarSVG()}<p class="center muted">${F.t('stats.plays', { n: F.data.plays })}</p></div>
+      <h3 style="margin-top:18px">${F.t('stats.badges')} · ${Object.keys(F.data.badges || {}).length}/${F.BADGES.length}</h3>
+      <div class="badge-grid">${F.BADGES.map((b) => { const got = (F.data.badges || {})[b.id]; return `<div class="badge sketch ${got ? '' : 'locked'}"><span class="ic">${got ? b.icon : '🔒'}</span><b>${F.tt(b.name)}</b><span class="muted">${F.tt(b.desc)}</span></div>`; }).join('')}</div>
+      <p class="muted center">☀ ${F.t('daily.title')}: ${Object.keys(F.data.daily || {}).length} · 🔥 ${F.t('daily.streak', { n: F.dailyStreak() })}</p>
       <h3 style="margin-top:18px">${F.t('stats.records')}</h3>
       <div class="card sketch alt">${F.games.flatMap((g) => (g.modes ? g.modes.map((m) => [g, g.id + '@' + m.id, F.tt(g.name) + ' · ' + F.tt(m.name)]) : [[g, g.id, F.tt(g.name)]])).map(([g, key, label]) => { const gd = F.gameData(key); return `<div class="rec-row"><span>${label}</span><span class="muted">${gd.plays ? fmtBest(g, gd.best) + ' · ' + gd.plays + '×' : F.t('stats.none')}</span></div>`; }).join('')}</div></div>`);
     app.appendChild(el);

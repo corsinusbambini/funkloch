@@ -13,7 +13,12 @@ Read `README.md` for the file layout and the game API.
 - **Never repeating**: content must be *generated* (seeded random via `ctx.rng`, `ctx.fresh(...)`), not read from a small fixed list.
 - Number Flash shows plain numbers only. Nonogram and "Rotate It" were removed on purpose — don't bring them back.
 - Fold & Punch and Make 24 have difficulty modes; keep them.
-- He wants a **huge library**, especially many **2/3/4-player games on one phone** (see `js/party.js`).
+- He wants a **huge library with a balanced mix**: new games go first to the solo skills with the fewest games
+  (memory, math, logic, spatial, focus, chem, fun). Multiplayer games (2/3/4 players on one phone, see `js/party.js`)
+  should stay at most about a third of all games.
+- **Daily challenge**: every phone must get the same puzzle on the same day. So use only `ctx.rng` for randomness
+  (never `Math.random`) and only `ctx.level` / `ctx.mode` for difficulty. Set `noDaily: true` on a solo game that makes
+  no sense as a daily challenge (no score, purely relaxing).
 
 ## Adding a game (checklist)
 1. New file `games/<id>.js` calling `Funkloch.registerGame({...})` with `id, skill, added: 'YYYY-MM-DD' (today), glyph, name{de,en}, desc{de,en}, start(ctx)`.

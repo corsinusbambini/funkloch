@@ -42,8 +42,7 @@
     for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); }
     return h >>> 0;
   };
-  F.today = () => {
-    const d = new Date();
+  F.today = (d = new Date()) => {
     return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
   };
   F.daySeed = (salt = '') => F.hash(F.today() + salt);
