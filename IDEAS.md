@@ -33,7 +33,7 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 - [ ] Ultimate Tic-Tac-Toe (2p)
 - [x] Dots and Boxes
 - [ ] Battleship mini (pass-and-play)
-- [ ] Snake Battle (2p, each steers with left/right taps in their zone)
+- [x] Snake Battle (2p, each steers with left/right taps in their zone)
 - [ ] Fishing: tap when your float dips, biggest fish wins
 
 ## Memory
@@ -50,7 +50,7 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 
 ## Mental math
 - [x] Make 24
-- [ ] Rush Math · [ ] Chain Calc · [ ] Fraction Pizza · [ ] Percent Shop · [ ] Estimate It
+- [ ] Rush Math · [x] Chain Calc · [ ] Fraction Pizza · [ ] Percent Shop · [ ] Estimate It
 - [ ] Weekday Wizard (weekday of a date) · [ ] Sum Tetris · [ ] Magic Square
 
 ## Logic
@@ -90,10 +90,10 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 ## Buddy items
 - [x] Sunglasses (eyes slot)
 - [x] Headphones (ears slot)
-- [x] Wings (back slot) · [ ] Freckles / stripes (body pattern) · [x] Balloon (held item) · [x] Moustache (face slot) · [ ] Top hat · [ ] Halo · [ ] Bandana
+- [x] Wings (back slot) · [ ] Freckles / stripes (body pattern) · [x] Balloon (held item) · [x] Moustache (face slot) · [ ] Top hat · [x] Halo · [ ] Bandana
 
 ## Styles
 - [x] Ocean
 - [x] Forest
 - [x] Sunset
-- [x] Chalkboard · [ ] Paper plane · [x] Blueprint · [ ] Retro arcade · [ ] Candy · [ ] Coffee · [ ] High contrast
+- [x] Chalkboard · [ ] Paper plane · [x] Blueprint · [x] Retro arcade · [ ] Candy · [ ] Coffee · [ ] High contrast

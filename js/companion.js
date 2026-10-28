@@ -65,6 +65,7 @@
     { id: 'wings', slot: 'back', price: 120, icon: '🕊️' },
     { id: 'balloon', slot: 'held', price: 55, icon: '🎈' },
     { id: 'moustache', slot: 'face', price: 65, icon: '🥸' },
+    { id: 'halo', slot: 'halo', price: 100, icon: '😇' },
   ];
 
   const ACC = {
@@ -182,6 +183,10 @@
     if (wearing.includes('moustache')) {
       const my2 = my - 5, half = 'M0,3 C-7,-6 -22,-7 -31,-1 C-35,3 -32,9 -26,8 C-22,4 -17,3 -11,5 C-6,6 -2,6 0,5';
       s += `<g transform="translate(100,${my2})" fill="#6B4A3A" stroke="${ink}" stroke-width="1.8" stroke-linejoin="round"><path d="${half} Z"/><path d="${half} Z" transform="scale(-1,1)"/></g>`;
+    }
+    if (wearing.includes('halo')) {
+      const hy = sp.topY - (species === 'inkdrop' ? 26 : species === 'owl' ? 16 : 14);
+      s += `<g><ellipse cx="100" cy="${hy}" rx="21" ry="6.5" fill="none" stroke="${ink}" stroke-width="7" opacity=".9"/><ellipse cx="100" cy="${hy}" rx="21" ry="6.5" fill="none" stroke="#FFD66B" stroke-width="3.8"/></g>`;
     }
     // accessories
     const side = wearing.find((w) => ['flower', 'leaf', 'bow'].includes(w));

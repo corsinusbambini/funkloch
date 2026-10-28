@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-10-28 · Schlange / Snake (solo classic, focus) · swipe or tap arrows, eat apples, walls and tail end the game
+- 2026-10-28 · Rechenkette / Chain Calc (math) · work through a generated chain of +, −, × steps and pick the result
+- 2026-10-28 · Buddy item: Heiligenschein / Halo (new halo slot, 100 ink)
+- 2026-10-28 · Style: Spielhalle / Arcade (dark purple with neon pink)
 - 2026-10-27 · Daily challenge (same puzzle on every phone, streak), 16 badges, search, filters (solo/multiplayer/new/♥), favourites, recently played and random-game button · owner asked for order in the growing library and a daily challenge
 - 2026-10-27 · Builder now adds 1 classic + 1 gap-filler for the weakest skill (multiplayer only while under a third) + 1 buddy item + 1 style · better mix
 - 2026-10-26 · Simon Says / Simon sagt (solo classic) · repeat a growing, randomly generated pad pattern
