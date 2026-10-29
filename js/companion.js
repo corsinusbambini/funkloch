@@ -66,6 +66,7 @@
     { id: 'balloon', slot: 'held', price: 55, icon: '🎈' },
     { id: 'moustache', slot: 'face', price: 65, icon: '🥸' },
     { id: 'halo', slot: 'halo', price: 100, icon: '😇' },
+    { id: 'freckles', slot: 'freckles', price: 40, icon: '🟤' },
   ];
 
   const ACC = {
@@ -183,6 +184,10 @@
     if (wearing.includes('moustache')) {
       const my2 = my - 5, half = 'M0,3 C-7,-6 -22,-7 -31,-1 C-35,3 -32,9 -26,8 C-22,4 -17,3 -11,5 C-6,6 -2,6 0,5';
       s += `<g transform="translate(100,${my2})" fill="#6B4A3A" stroke="${ink}" stroke-width="1.8" stroke-linejoin="round"><path d="${half} Z"/><path d="${half} Z" transform="scale(-1,1)"/></g>`;
+    }
+    if (wearing.includes('freckles')) {
+      const dots = (cx, sgn) => [[0, 12], [sgn * 8, 8], [sgn * 8, 18], [sgn * 16, 13], [sgn * 2, 22]].map(([dx, dy]) => `<circle cx="${cx + dx}" cy="${ey + dy}" r="1.9"/>`).join('');
+      s += `<g fill="#8A5238" stroke="none" opacity=".92">${dots(ex1 - 4, -1)}${dots(ex2 + 4, 1)}</g>`;
     }
     if (wearing.includes('halo')) {
       const hy = sp.topY - (species === 'inkdrop' ? 26 : species === 'owl' ? 16 : 14);

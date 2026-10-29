@@ -68,7 +68,7 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 
 ## Chemistry
 - [x] Dilution Lab · [x] Element Duel
-- [ ] Molar Mass Rush · [ ] Hazard Swipe (GHS pictograms drawn in SVG) · [ ] Balance It (equations)
+- [x] Molar Mass Rush · [ ] Hazard Swipe (GHS pictograms drawn in SVG) · [ ] Balance It (equations)
 - [ ] pH Sort · [ ] Periodic Puzzle · [ ] Ion Builder · [ ] Fill to the Line · [ ] Lab Safety Spot
 
 ## Estimation & codes & words
@@ -85,15 +85,15 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 - [x] Tic-Tac-Toe (2p) · [ ] Battleship pass-and-play · [ ] Four-in-a-row 5x5 variants
 - [x] 2048
 - [x] Minesweeper · [ ] Snake · [ ] Klondike Solitaire · [ ] FreeCell · [x] Memory/Pairs · [ ] Sudoku 9x9
-- [ ] 15-Puzzle · [ ] Peg Solitaire · [x] Simon Says · [ ] Tetris-style blocks · [ ] Hangman · [ ] Flow · [ ] Breakout
+- [ ] 15-Puzzle · [x] Peg Solitaire · [x] Simon Says · [ ] Tetris-style blocks · [ ] Hangman · [ ] Flow · [ ] Breakout
 
 ## Buddy items
 - [x] Sunglasses (eyes slot)
 - [x] Headphones (ears slot)
-- [x] Wings (back slot) · [ ] Freckles / stripes (body pattern) · [x] Balloon (held item) · [x] Moustache (face slot) · [ ] Top hat · [x] Halo · [ ] Bandana
+- [x] Wings (back slot) · [x] Freckles (freckles slot) · [x] Balloon (held item) · [x] Moustache (face slot) · [ ] Top hat · [x] Halo · [ ] Bandana
 
 ## Styles
 - [x] Ocean
 - [x] Forest
 - [x] Sunset
-- [x] Chalkboard · [ ] Paper plane · [x] Blueprint · [x] Retro arcade · [ ] Candy · [ ] Coffee · [ ] High contrast
+- [x] Chalkboard · [ ] Paper plane · [x] Blueprint · [x] Retro arcade · [ ] Candy · [x] Coffee · [ ] High contrast

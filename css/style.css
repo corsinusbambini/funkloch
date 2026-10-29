@@ -87,6 +87,28 @@
   --shadow: 3px 3px 0 #FF4FD8;
   color-scheme: dark;
 }
+[data-theme="coffee"] {
+  --paper: #E9D8C2;
+  --paper-2: #DEC8AC;
+  --card: #F6EBDB;
+  --ink: #36200F;
+  --ink-soft: #6E4A30;
+  --ink-faint: #B99A78;
+  --dot: #D2B896;
+  --accent: #A8561F;
+  --good: #3F7D3C;
+  --bad: #B3402F;
+  --c-memory: #E5B497;
+  --c-math: #E8CC86;
+  --c-logic: #C9B3D6;
+  --c-spatial: #B5CFA0;
+  --c-focus: #A9C3D4;
+  --c-chem: #9CCBBA;
+  --c-fun: #E2B0BF;
+  --c-duo: #DE9C86;
+  --shadow: 3px 3px 0 var(--ink);
+  color-scheme: light;
+}
 [data-theme="night"] {
   --paper: #1E2026;
   --paper-2: #262931;

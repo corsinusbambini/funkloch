@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-10-29 · Steckhalma / Peg Solitaire (solo classic, spatial) · jump pegs over neighbours until one is left; puzzles built backwards so always solvable
+- 2026-10-29 · Molmassen-Rennen / Molar Mass Rush (chem) · add up atomic masses of a generated formula and pick the molar mass
+- 2026-10-29 · Buddy item: Sommersprossen / Freckles (new freckles slot, 40 ink)
+- 2026-10-29 · Style: Kaffeehaus / Coffee House (warm brown latte theme)
 - 2026-10-28 · Schlange / Snake (solo classic, focus) · swipe or tap arrows, eat apples, walls and tail end the game
 - 2026-10-28 · Rechenkette / Chain Calc (math) · work through a generated chain of +, −, × steps and pick the result
 - 2026-10-28 · Buddy item: Heiligenschein / Halo (new halo slot, 100 ink)
