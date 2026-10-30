@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-10-30 · Ausbruch / Breakout (solo classic, focus) · drag the paddle, bounce the ball, clear a generated brick wall in three lives
+- 2026-10-30 · Magisches Quadrat / Magic Square (math) · fill the missing numbers of a generated 3×3 square so all lines hit the magic sum
+- 2026-10-30 · Buddy item: Augenklappe / Eyepatch (eyes slot, 50 ink)
+- 2026-10-30 · Style: Zuckerwatte / Candy Floss (pink pastel with teal accent)
 - 2026-10-29 · Steckhalma / Peg Solitaire (solo classic, spatial) · jump pegs over neighbours until one is left; puzzles built backwards so always solvable
 - 2026-10-29 · Molmassen-Rennen / Molar Mass Rush (chem) · add up atomic masses of a generated formula and pick the molar mass
 - 2026-10-29 · Buddy item: Sommersprossen / Freckles (new freckles slot, 40 ink)

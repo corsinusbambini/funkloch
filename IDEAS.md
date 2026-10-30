@@ -51,7 +51,7 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 ## Mental math
 - [x] Make 24
 - [ ] Rush Math · [x] Chain Calc · [ ] Fraction Pizza · [ ] Percent Shop · [ ] Estimate It
-- [ ] Weekday Wizard (weekday of a date) · [ ] Sum Tetris · [ ] Magic Square
+- [ ] Weekday Wizard (weekday of a date) · [ ] Sum Tetris · [x] Magic Square
 
 ## Logic
 - [x] What's Next?
@@ -85,15 +85,15 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 - [x] Tic-Tac-Toe (2p) · [ ] Battleship pass-and-play · [ ] Four-in-a-row 5x5 variants
 - [x] 2048
 - [x] Minesweeper · [ ] Snake · [ ] Klondike Solitaire · [ ] FreeCell · [x] Memory/Pairs · [ ] Sudoku 9x9
-- [ ] 15-Puzzle · [x] Peg Solitaire · [x] Simon Says · [ ] Tetris-style blocks · [ ] Hangman · [ ] Flow · [ ] Breakout
+- [ ] 15-Puzzle · [x] Peg Solitaire · [x] Simon Says · [ ] Tetris-style blocks · [ ] Hangman · [ ] Flow · [x] Breakout
 
 ## Buddy items
 - [x] Sunglasses (eyes slot)
 - [x] Headphones (ears slot)
-- [x] Wings (back slot) · [x] Freckles (freckles slot) · [x] Balloon (held item) · [x] Moustache (face slot) · [ ] Top hat · [x] Halo · [ ] Bandana
+- [x] Wings (back slot) · [x] Freckles (freckles slot) · [x] Balloon (held item) · [x] Moustache (face slot) · [ ] Top hat · [x] Halo · [x] Eyepatch (eyes slot) · [ ] Bandana
 
 ## Styles
 - [x] Ocean
 - [x] Forest
 - [x] Sunset
-- [x] Chalkboard · [ ] Paper plane · [x] Blueprint · [x] Retro arcade · [ ] Candy · [x] Coffee · [ ] High contrast
+- [x] Chalkboard · [ ] Paper plane · [x] Blueprint · [x] Retro arcade · [x] Candy · [x] Coffee · [ ] High contrast

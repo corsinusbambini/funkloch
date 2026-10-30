@@ -67,6 +67,7 @@
     { id: 'moustache', slot: 'face', price: 65, icon: '🥸' },
     { id: 'halo', slot: 'halo', price: 100, icon: '😇' },
     { id: 'freckles', slot: 'freckles', price: 40, icon: '🟤' },
+    { id: 'eyepatch', slot: 'eyes', price: 50, icon: '🏴‍☠️' },
   ];
 
   const ACC = {
@@ -167,6 +168,12 @@
       const lens = (cx) => `<rect x="${cx - 14}" y="${ey - 10}" width="28" height="21" rx="9" fill="#33405A" fill-opacity=".62" stroke="${ink}" stroke-width="2.4"/><path d="M${cx - 8},${ey - 5} l6,-1" stroke="#fff" stroke-width="2.2" stroke-linecap="round" opacity=".7"/>`;
       s += `<g>${lens(ex1)}${lens(ex2)}<path d="M${ex1 + 14},${ey - 3} Q100,${ey - 8} ${ex2 - 14},${ey - 3}" fill="none" stroke="${ink}" stroke-width="2.4" stroke-linecap="round"/>
         <path d="M${ex1 - 14},${ey - 3} l-8,-3 M${ex2 + 14},${ey - 3} l8,-3" stroke="${ink}" stroke-width="2.2" stroke-linecap="round"/></g>`;
+    }
+    if (wearing.includes('eyepatch')) {
+      const hx = sp.earX[0] + 6, hy = sp.topY + 10, ex = sp.earX[1] - 6;
+      s += `<g><path d="M${hx},${ey - 14} L${ex},${ey - 26}" fill="none" stroke="${ink}" stroke-width="3" stroke-linecap="round"/>
+        <path d="M${ex1 - 15},${ey - 6} Q${ex1 - 14},${ey - 17} ${ex1},${ey - 17} Q${ex1 + 15},${ey - 17} ${ex1 + 15},${ey - 4} Q${ex1 + 13},${ey + 14} ${ex1},${ey + 14} Q${ex1 - 14},${ey + 14} ${ex1 - 15},${ey - 6} Z" fill="#3A3340" stroke="${ink}" stroke-width="2.4" stroke-linejoin="round"/>
+        <path d="M${ex1 - 7},${ey - 8} q4,-4 9,-3" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".5"/></g>`;
     }
     if (wearing.includes('phones')) {
       const [lx, rx] = sp.earX, cy = sp.topY - 5, c1 = (cy - 0.25 * (ey - 4)) / 0.75;
