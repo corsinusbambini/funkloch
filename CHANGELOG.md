@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-10-31 · Turmbau / Stack Tower (solo classic, fun) · tap to drop the sliding block, only the overlap stays, 40 floors win
+- 2026-10-31 · Gleichung ausgleichen / Balance It (chem) · set coefficients of a generated reaction equation to the smallest balanced numbers
+- 2026-10-31 · Buddy item: Fliegenpilz / Toadstool (new ground slot, 45 ink)
+- 2026-10-31 · Style: Vulkan / Volcano (dark charcoal with lava orange)
 - 2026-10-30 · Ausbruch / Breakout (solo classic, focus) · drag the paddle, bounce the ball, clear a generated brick wall in three lives
 - 2026-10-30 · Magisches Quadrat / Magic Square (math) · fill the missing numbers of a generated 3×3 square so all lines hit the magic sum
 - 2026-10-30 · Buddy item: Augenklappe / Eyepatch (eyes slot, 50 ink)

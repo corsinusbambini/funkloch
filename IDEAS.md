@@ -68,7 +68,7 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 
 ## Chemistry
 - [x] Dilution Lab · [x] Element Duel
-- [x] Molar Mass Rush · [ ] Hazard Swipe (GHS pictograms drawn in SVG) · [ ] Balance It (equations)
+- [x] Molar Mass Rush · [ ] Hazard Swipe (GHS pictograms drawn in SVG) · [x] Balance It (equations)
 - [ ] pH Sort · [ ] Periodic Puzzle · [ ] Ion Builder · [ ] Fill to the Line · [ ] Lab Safety Spot
 
 ## Estimation & codes & words
@@ -77,7 +77,7 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 
 ## Just for fun
 - [x] Bubble Wrap · [x] Chaos Mode
-- [ ] Pancake Flip · [ ] Stack the Blobs · [ ] Paper Plane · [ ] Fortune Cookie · [ ] Excuse Generator · [ ] Dress-up Race
+- [ ] Pancake Flip · [x] Stack Tower · [ ] Paper Plane · [ ] Fortune Cookie · [ ] Excuse Generator · [ ] Dress-up Race
 - [ ] Zen Garden · [ ] Generated colouring mandalas · [ ] Breathing Bubble
 
 ## Classics
@@ -85,15 +85,15 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 - [x] Tic-Tac-Toe (2p) · [ ] Battleship pass-and-play · [ ] Four-in-a-row 5x5 variants
 - [x] 2048
 - [x] Minesweeper · [ ] Snake · [ ] Klondike Solitaire · [ ] FreeCell · [x] Memory/Pairs · [ ] Sudoku 9x9
-- [ ] 15-Puzzle · [x] Peg Solitaire · [x] Simon Says · [ ] Tetris-style blocks · [ ] Hangman · [ ] Flow · [x] Breakout
+- [ ] 15-Puzzle · [x] Peg Solitaire · [x] Simon Says · [x] Stack Tower (stacking classic) · [ ] Tetris-style blocks · [ ] Hangman · [ ] Flow · [x] Breakout
 
 ## Buddy items
 - [x] Sunglasses (eyes slot)
 - [x] Headphones (ears slot)
-- [x] Wings (back slot) · [x] Freckles (freckles slot) · [x] Balloon (held item) · [x] Moustache (face slot) · [ ] Top hat · [x] Halo · [x] Eyepatch (eyes slot) · [ ] Bandana
+- [x] Wings (back slot) · [x] Freckles (freckles slot) · [x] Balloon (held item) · [x] Moustache (face slot) · [ ] Top hat · [x] Halo · [x] Toadstool (ground slot) · [x] Eyepatch (eyes slot) · [ ] Bandana
 
 ## Styles
 - [x] Ocean
 - [x] Forest
 - [x] Sunset
-- [x] Chalkboard · [ ] Paper plane · [x] Blueprint · [x] Retro arcade · [x] Candy · [x] Coffee · [ ] High contrast
+- [x] Chalkboard · [ ] Paper plane · [x] Blueprint · [x] Retro arcade · [x] Candy · [x] Coffee · [x] Volcano · [ ] High contrast

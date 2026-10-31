@@ -68,6 +68,7 @@
     { id: 'halo', slot: 'halo', price: 100, icon: '😇' },
     { id: 'freckles', slot: 'freckles', price: 40, icon: '🟤' },
     { id: 'eyepatch', slot: 'eyes', price: 50, icon: '🏴‍☠️' },
+    { id: 'mushroom', slot: 'ground', price: 45, icon: '🍄' },
   ];
 
   const ACC = {
@@ -195,6 +196,12 @@
     if (wearing.includes('freckles')) {
       const dots = (cx, sgn) => [[0, 12], [sgn * 8, 8], [sgn * 8, 18], [sgn * 16, 13], [sgn * 2, 22]].map(([dx, dy]) => `<circle cx="${cx + dx}" cy="${ey + dy}" r="1.9"/>`).join('');
       s += `<g fill="#8A5238" stroke="none" opacity=".92">${dots(ex1 - 4, -1)}${dots(ex2 + 4, 1)}</g>`;
+    }
+    if (wearing.includes('mushroom')) {
+      const mx = species === 'inkdrop' ? 26 : 28, my3 = sp.feet + 8;
+      s += `<g transform="translate(${mx},${my3})"><path d="M-5,0 C-6,-8 -5,-12 -4,-14 L4,-14 C5,-12 6,-8 5,0 Z" fill="#FFF3DC" stroke="${ink}" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M-17,-13 C-17,-33 17,-33 17,-13 Z" fill="#E8574F" stroke="${ink}" stroke-width="2.2" stroke-linejoin="round"/>
+        <circle cx="-7" cy="-21" r="3" fill="#fff"/><circle cx="5" cy="-26" r="2.6" fill="#fff"/><circle cx="9" cy="-18" r="2" fill="#fff"/></g>`;
     }
     if (wearing.includes('halo')) {
       const hy = sp.topY - (species === 'inkdrop' ? 26 : species === 'owl' ? 16 : 14);
