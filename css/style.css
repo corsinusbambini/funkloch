@@ -153,6 +153,28 @@
   --shadow: 3px 3px 0 #FF7A2F;
   color-scheme: dark;
 }
+[data-theme="lavender"] {
+  --paper: #F2EDFA;
+  --paper-2: #E6DDF4;
+  --card: #FCFAFF;
+  --ink: #2E2347;
+  --ink-soft: #62568A;
+  --ink-faint: #BDB0DD;
+  --dot: #D9CFEE;
+  --accent: #8A5CD6;
+  --good: #2F9A63;
+  --bad: #D6455A;
+  --c-memory: #F6BFD3;
+  --c-math: #FBE08E;
+  --c-logic: #C9B8F5;
+  --c-spatial: #B3E6CE;
+  --c-focus: #BCD6F7;
+  --c-chem: #A9E2E0;
+  --c-fun: #F9C0B0;
+  --c-duo: #E8B0E0;
+  --shadow: 3px 3px 0 #2E2347;
+  color-scheme: light;
+}
 [data-theme="night"] {
   --paper: #1E2026;
   --paper-2: #262931;

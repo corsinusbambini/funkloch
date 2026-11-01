@@ -69,6 +69,7 @@
     { id: 'freckles', slot: 'freckles', price: 40, icon: '🟤' },
     { id: 'eyepatch', slot: 'eyes', price: 50, icon: '🏴‍☠️' },
     { id: 'mushroom', slot: 'ground', price: 45, icon: '🍄' },
+    { id: 'bandana', slot: 'brow', price: 55, icon: '🔴' },
   ];
 
   const ACC = {
@@ -202,6 +203,14 @@
       s += `<g transform="translate(${mx},${my3})"><path d="M-5,0 C-6,-8 -5,-12 -4,-14 L4,-14 C5,-12 6,-8 5,0 Z" fill="#FFF3DC" stroke="${ink}" stroke-width="2" stroke-linejoin="round"/>
         <path d="M-17,-13 C-17,-33 17,-33 17,-13 Z" fill="#E8574F" stroke="${ink}" stroke-width="2.2" stroke-linejoin="round"/>
         <circle cx="-7" cy="-21" r="3" fill="#fff"/><circle cx="5" cy="-26" r="2.6" fill="#fff"/><circle cx="9" cy="-18" r="2" fill="#fff"/></g>`;
+    }
+    if (wearing.includes('bandana')) {
+      const y1 = ey - 31, y2 = ey - 19, rx2 = sp.earX[1] - 2;
+      s += `<g><clipPath id="bandana-clip-${species}"><path d="${sp.body}"/></clipPath>
+        <g clip-path="url(#bandana-clip-${species})"><rect x="30" y="${y1}" width="140" height="${y2 - y1}" fill="#E8574F"/>
+        ${[58, 76, 94, 112, 130, 148].map((x, i) => `<circle cx="${x}" cy="${y1 + (i % 2 ? 8.5 : 3.5)}" r="1.8" fill="#fff"/>`).join('')}
+        <path d="M30,${y1} H170 M30,${y2} H170" stroke="${ink}" stroke-width="2.2"/></g>
+        <path d="M${rx2},${y1 + 3} L${rx2 + 16},${y1 - 4} L${rx2 + 12},${y1 + 8} L${rx2 + 20},${y1 + 14} L${rx2 + 5},${y2 + 1} Z" fill="#E8574F" stroke="${ink}" stroke-width="2" stroke-linejoin="round"/></g>`;
     }
     if (wearing.includes('halo')) {
       const hy = sp.topY - (species === 'inkdrop' ? 26 : species === 'owl' ? 16 : 14);

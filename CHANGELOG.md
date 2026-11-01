@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-01 · Kniffel / Yahtzee (solo classic, math) · roll five dice up to three times, keep some, fill 13 rows, 63+ in the top half gives +35
+- 2026-11-01 · Farbe oder Wort? / Colour or Word? (focus, Stroop) · tap the ink colour, not the written word, 40 seconds
+- 2026-11-01 · Buddy item: Bandana / Stirnband (new brow slot, 55 ink)
+- 2026-11-01 · Style: Lavendel / Lavender (light violet with purple accent)
 - 2026-10-31 · Turmbau / Stack Tower (solo classic, fun) · tap to drop the sliding block, only the overlap stays, 40 floors win
 - 2026-10-31 · Gleichung ausgleichen / Balance It (chem) · set coefficients of a generated reaction equation to the smallest balanced numbers
 - 2026-10-31 · Buddy item: Fliegenpilz / Toadstool (new ground slot, 45 ink)

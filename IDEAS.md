@@ -50,6 +50,7 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 
 ## Mental math
 - [x] Make 24
+- [x] Yahtzee (solo classic, math)
 - [ ] Rush Math · [x] Chain Calc · [ ] Fraction Pizza · [ ] Percent Shop · [ ] Estimate It
 - [ ] Weekday Wizard (weekday of a date) · [ ] Sum Tetris · [x] Magic Square
 
@@ -64,7 +65,7 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 
 ## Focus
 - [x] Focus Tunnel
-- [ ] Stroop · [ ] Odd One Out · [ ] Spot the Difference · [ ] Wait for Green · [ ] Whack-a-Doodle · [ ] Tap Rhythm · [ ] Perfect Circle
+- [x] Stroop · [ ] Odd One Out · [ ] Spot the Difference · [ ] Wait for Green · [ ] Whack-a-Doodle · [ ] Tap Rhythm · [ ] Perfect Circle
 
 ## Chemistry
 - [x] Dilution Lab · [x] Element Duel
@@ -90,10 +91,10 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 ## Buddy items
 - [x] Sunglasses (eyes slot)
 - [x] Headphones (ears slot)
-- [x] Wings (back slot) · [x] Freckles (freckles slot) · [x] Balloon (held item) · [x] Moustache (face slot) · [ ] Top hat · [x] Halo · [x] Toadstool (ground slot) · [x] Eyepatch (eyes slot) · [ ] Bandana
+- [x] Wings (back slot) · [x] Freckles (freckles slot) · [x] Balloon (held item) · [x] Moustache (face slot) · [ ] Top hat · [x] Halo · [x] Toadstool (ground slot) · [x] Eyepatch (eyes slot) · [x] Bandana (brow slot)
 
 ## Styles
 - [x] Ocean
 - [x] Forest
 - [x] Sunset
-- [x] Chalkboard · [ ] Paper plane · [x] Blueprint · [x] Retro arcade · [x] Candy · [x] Coffee · [x] Volcano · [ ] High contrast
+- [x] Chalkboard · [ ] Paper plane · [x] Blueprint · [x] Retro arcade · [x] Candy · [x] Coffee · [x] Volcano · [ ] High contrast · [x] Lavender
