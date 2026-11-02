@@ -175,6 +175,28 @@
   --shadow: 3px 3px 0 #2E2347;
   color-scheme: light;
 }
+[data-theme="lemon"] {
+  --paper: #FFFBD6;
+  --paper-2: #FFF3A8;
+  --card: #FFFEF0;
+  --ink: #3B3A12;
+  --ink-soft: #6E6C25;
+  --ink-faint: #D8D283;
+  --dot: #F2EBA0;
+  --accent: #6FA81E;
+  --good: #2F8F3E;
+  --bad: #D9482B;
+  --c-memory: #FFC7A6;
+  --c-math: #FFE45C;
+  --c-logic: #D2C6F5;
+  --c-spatial: #C2EBA6;
+  --c-focus: #B6E0F2;
+  --c-chem: #A6EBD0;
+  --c-fun: #FFC0D0;
+  --c-duo: #FFB59A;
+  --shadow: 3px 3px 0 #6FA81E;
+  color-scheme: light;
+}
 [data-theme="night"] {
   --paper: #1E2026;
   --paper-2: #262931;

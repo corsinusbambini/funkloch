@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-02 · Fallende Blöcke / Falling Blocks (solo classic, spatial) · Tetris-style: move and turn falling pieces, clear 25 rows
+- 2026-11-02 · Papierflieger / Paper Plane (fun) · tap to hop, glide through generated gaps between cloud pillars, 40 gaps win
+- 2026-11-02 · Buddy item: Pflaster / Band-aid (new plaster slot, 35 ink)
+- 2026-11-02 · Style: Zitronenlimonade / Lemonade (light yellow with lime accent)
 - 2026-11-01 · Kniffel / Yahtzee (solo classic, math) · roll five dice up to three times, keep some, fill 13 rows, 63+ in the top half gives +35
 - 2026-11-01 · Farbe oder Wort? / Colour or Word? (focus, Stroop) · tap the ink colour, not the written word, 40 seconds
 - 2026-11-01 · Buddy item: Bandana / Stirnband (new brow slot, 55 ink)
