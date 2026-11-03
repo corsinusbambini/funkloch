@@ -71,6 +71,7 @@
     { id: 'mushroom', slot: 'ground', price: 45, icon: '🍄' },
     { id: 'bandana', slot: 'brow', price: 55, icon: '🔴' },
     { id: 'plaster', slot: 'plaster', price: 35, icon: '🩹' },
+    { id: 'butterfly', slot: 'flutter', price: 75, icon: '🦋' },
   ];
 
   const ACC = {
@@ -217,6 +218,11 @@
       const pxx = ex2 + 2, pyy = ey + 17;
       s += `<g transform="translate(${pxx},${pyy}) rotate(-28)"><rect x="-13" y="-5.5" width="26" height="11" rx="5.5" fill="#F3C9A0" stroke="${ink}" stroke-width="2"/>
         <rect x="-5" y="-5.5" width="10" height="11" fill="#E5AE7E" stroke="${ink}" stroke-width="1.4"/><circle cx="-9" cy="0" r="1" fill="${ink}" opacity=".5"/><circle cx="9" cy="0" r="1" fill="${ink}" opacity=".5"/></g>`;
+    }
+    if (wearing.includes('butterfly')) {
+      const bx = Math.max(24, sp.earX[0] - 8), by = sp.topY + 30;
+      const wing = (sg) => `<path d="M0,0 C${sg * 6},-16 ${sg * 20},-18 ${sg * 20},-8 C${sg * 20},-2 ${sg * 8},2 0,0 Z M0,0 C${sg * 8},2 ${sg * 16},8 ${sg * 12},14 C${sg * 8},18 ${sg * 2},10 0,0 Z" fill="#B58CF0" stroke="${ink}" stroke-width="1.8" stroke-linejoin="round"/>`;
+      s += `<g transform="translate(${bx},${by}) rotate(-15)">${wing(-1)}${wing(1)}<ellipse cx="0" cy="2" rx="2.4" ry="8" fill="${ink}"/><path d="M0,-6 Q-3,-13 -7,-14 M0,-6 Q3,-13 7,-14" fill="none" stroke="${ink}" stroke-width="1.4" stroke-linecap="round"/><circle cx="-10" cy="-8" r="2.2" fill="#FFE08A"/><circle cx="10" cy="-8" r="2.2" fill="#FFE08A"/></g>`;
     }
     if (wearing.includes('halo')) {
       const hy = sp.topY - (species === 'inkdrop' ? 26 : species === 'owl' ? 16 : 14);

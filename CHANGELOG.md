@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-03 · Schiffe versenken / Battleship (solo classic, spatial) · tap squares to find a hidden fleet (ships never touch), sink all with few shots
+- 2026-11-03 · Gefahrensymbole / Hazard Symbols (chem) · match GHS pictograms (drawn in SVG) with their meaning and with lab substances
+- 2026-11-03 · Buddy item: Schmetterling / Butterfly (new flutter slot, 75 ink)
+- 2026-11-03 · Style: Hoher Kontrast / High Contrast (black with white text and yellow accent)
 - 2026-11-02 · Fallende Blöcke / Falling Blocks (solo classic, spatial) · Tetris-style: move and turn falling pieces, clear 25 rows
 - 2026-11-02 · Papierflieger / Paper Plane (fun) · tap to hop, glide through generated gaps between cloud pillars, 40 gaps win
 - 2026-11-02 · Buddy item: Pflaster / Band-aid (new plaster slot, 35 ink)

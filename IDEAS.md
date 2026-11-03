@@ -69,7 +69,7 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 
 ## Chemistry
 - [x] Dilution Lab · [x] Element Duel
-- [x] Molar Mass Rush · [ ] Hazard Swipe (GHS pictograms drawn in SVG) · [x] Balance It (equations)
+- [x] Molar Mass Rush · [x] Hazard Symbols (GHS pictograms drawn in SVG) · [x] Balance It (equations)
 - [ ] pH Sort · [ ] Periodic Puzzle · [ ] Ion Builder · [ ] Fill to the Line · [ ] Lab Safety Spot
 
 ## Estimation & codes & words
@@ -83,7 +83,7 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 
 ## Classics
 - [x] Snakes and Ladders (2–4p, multiplayer)
-- [x] Tic-Tac-Toe (2p) · [ ] Battleship pass-and-play · [ ] Four-in-a-row 5x5 variants
+- [x] Tic-Tac-Toe (2p) · [x] Battleship (solo, Schiffe versenken) · [ ] Battleship pass-and-play · [ ] Four-in-a-row 5x5 variants
 - [x] 2048
 - [x] Minesweeper · [ ] Snake · [ ] Klondike Solitaire · [ ] FreeCell · [x] Memory/Pairs · [ ] Sudoku 9x9
 - [ ] 15-Puzzle · [x] Peg Solitaire · [x] Simon Says · [x] Stack Tower (stacking classic) · [x] Tetris-style blocks (Falling Blocks) · [ ] Hangman · [ ] Flow · [x] Breakout
@@ -91,10 +91,10 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 ## Buddy items
 - [x] Sunglasses (eyes slot)
 - [x] Headphones (ears slot)
-- [x] Wings (back slot) · [x] Freckles (freckles slot) · [x] Balloon (held item) · [x] Moustache (face slot) · [ ] Top hat · [x] Halo · [x] Toadstool (ground slot) · [x] Eyepatch (eyes slot) · [x] Bandana (brow slot) · [x] Band-aid (plaster slot)
+- [x] Wings (back slot) · [x] Freckles (freckles slot) · [x] Balloon (held item) · [x] Moustache (face slot) · [ ] Top hat · [x] Halo · [x] Toadstool (ground slot) · [x] Eyepatch (eyes slot) · [x] Bandana (brow slot) · [x] Band-aid (plaster slot) · [x] Butterfly (flutter slot)
 
 ## Styles
 - [x] Ocean
 - [x] Forest
 - [x] Sunset
-- [x] Chalkboard · [ ] Paper plane · [x] Blueprint · [x] Retro arcade · [x] Candy · [x] Coffee · [x] Volcano · [ ] High contrast · [x] Lavender · [x] Lemonade
+- [x] Chalkboard · [ ] Paper plane · [x] Blueprint · [x] Retro arcade · [x] Candy · [x] Coffee · [x] Volcano · [x] High contrast · [x] Lavender · [x] Lemonade
