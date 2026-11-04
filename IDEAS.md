@@ -43,7 +43,7 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 - [ ] Name & Face (generated doodle faces + names)
 - [ ] What Changed? (doodle objects, one moved/vanished)
 - [ ] Memory Pairs (generated doodle pairs)
-- [ ] Path Memory (retrace a path on a grid)
+- [x] Path Memory (retrace a path on a grid)
 - [x] Sequence Echo (Simon)
 - [ ] Shopping List (remember items, then "shop")
 - [ ] Card Counter
@@ -52,7 +52,7 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 - [x] Make 24
 - [x] Yahtzee (solo classic, math)
 - [ ] Rush Math · [x] Chain Calc · [ ] Fraction Pizza · [ ] Percent Shop · [ ] Estimate It
-- [ ] Weekday Wizard (weekday of a date) · [ ] Sum Tetris · [x] Magic Square
+- [ ] Weekday Wizard (weekday of a date) · [ ] Sum Tetris · [x] Magic Square · [x] KenKen (solo classic)
 
 ## Logic
 - [x] What's Next?
@@ -91,10 +91,10 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 ## Buddy items
 - [x] Sunglasses (eyes slot)
 - [x] Headphones (ears slot)
-- [x] Wings (back slot) · [x] Freckles (freckles slot) · [x] Balloon (held item) · [x] Moustache (face slot) · [ ] Top hat · [x] Halo · [x] Toadstool (ground slot) · [x] Eyepatch (eyes slot) · [x] Bandana (brow slot) · [x] Band-aid (plaster slot) · [x] Butterfly (flutter slot)
+- [x] Wings (back slot) · [x] Freckles (freckles slot) · [x] Balloon (held item) · [x] Moustache (face slot) · [ ] Top hat · [x] Halo · [x] Toadstool (ground slot) · [x] Eyepatch (eyes slot) · [x] Bandana (brow slot) · [x] Band-aid (plaster slot) · [x] Butterfly (flutter slot) · [x] Monocle (monocle slot)
 
 ## Styles
 - [x] Ocean
 - [x] Forest
 - [x] Sunset
-- [x] Chalkboard · [ ] Paper plane · [x] Blueprint · [x] Retro arcade · [x] Candy · [x] Coffee · [x] Volcano · [x] High contrast · [x] Lavender · [x] Lemonade
+- [x] Chalkboard · [ ] Paper plane · [x] Blueprint · [x] Retro arcade · [x] Candy · [x] Coffee · [x] Volcano · [x] High contrast · [x] Lavender · [x] Lemonade · [x] Aurora

@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-04 · KenKen (solo classic, math) · fill a generated grid with 1..N, no repeats, every outlined cage must hit its target with + − × ÷
+- 2026-11-04 · Pfad-Gedächtnis / Path Memory (memory) · a path lights up cell by cell, retrace it in order; grows each round, 3 lives
+- 2026-11-04 · Buddy item: Monokel / Monocle (new monocle slot, 85 ink)
+- 2026-11-04 · Style: Polarlicht / Aurora (dark night blue with aurora green accent)
 - 2026-11-03 · Schiffe versenken / Battleship (solo classic, spatial) · tap squares to find a hidden fleet (ships never touch), sink all with few shots
 - 2026-11-03 · Gefahrensymbole / Hazard Symbols (chem) · match GHS pictograms (drawn in SVG) with their meaning and with lab substances
 - 2026-11-03 · Buddy item: Schmetterling / Butterfly (new flutter slot, 75 ink)

@@ -72,6 +72,7 @@
     { id: 'bandana', slot: 'brow', price: 55, icon: '🔴' },
     { id: 'plaster', slot: 'plaster', price: 35, icon: '🩹' },
     { id: 'butterfly', slot: 'flutter', price: 75, icon: '🦋' },
+    { id: 'monocle', slot: 'monocle', price: 85, icon: '🧐' },
   ];
 
   const ACC = {
@@ -223,6 +224,12 @@
       const bx = Math.max(24, sp.earX[0] - 8), by = sp.topY + 30;
       const wing = (sg) => `<path d="M0,0 C${sg * 6},-16 ${sg * 20},-18 ${sg * 20},-8 C${sg * 20},-2 ${sg * 8},2 0,0 Z M0,0 C${sg * 8},2 ${sg * 16},8 ${sg * 12},14 C${sg * 8},18 ${sg * 2},10 0,0 Z" fill="#B58CF0" stroke="${ink}" stroke-width="1.8" stroke-linejoin="round"/>`;
       s += `<g transform="translate(${bx},${by}) rotate(-15)">${wing(-1)}${wing(1)}<ellipse cx="0" cy="2" rx="2.4" ry="8" fill="${ink}"/><path d="M0,-6 Q-3,-13 -7,-14 M0,-6 Q3,-13 7,-14" fill="none" stroke="${ink}" stroke-width="1.4" stroke-linecap="round"/><circle cx="-10" cy="-8" r="2.2" fill="#FFE08A"/><circle cx="10" cy="-8" r="2.2" fill="#FFE08A"/></g>`;
+    }
+    if (wearing.includes('monocle')) {
+      const mr = er + 9, mx = ex2, chx = mx + mr * 0.7, chy = ey + mr * 0.7;
+      s += `<g><circle cx="${mx}" cy="${ey}" r="${mr}" fill="#fff" fill-opacity=".22" stroke="#D9A82E" stroke-width="3.6"/><circle cx="${mx}" cy="${ey}" r="${mr}" fill="none" stroke="${ink}" stroke-width="1.2" opacity=".6"/>
+        <path d="M${mx - mr * 0.55},${ey - mr * 0.45} q4,-5 9,-6" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" opacity=".85"/>
+        <path d="M${chx},${chy} q8,10 2,20 q-6,10 2,20" fill="none" stroke="#D9A82E" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 2.5"/></g>`;
     }
     if (wearing.includes('halo')) {
       const hy = sp.topY - (species === 'inkdrop' ? 26 : species === 'owl' ? 16 : 14);

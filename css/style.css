@@ -153,6 +153,28 @@
   --shadow: 3px 3px 0 #FF7A2F;
   color-scheme: dark;
 }
+[data-theme="aurora"] {
+  --paper: #0F1B2A;
+  --paper-2: #16283A;
+  --card: #1B3147;
+  --ink: #E6F7F1;
+  --ink-soft: #A5CDC5;
+  --ink-faint: #35566A;
+  --dot: #223A52;
+  --accent: #4FE3A8;
+  --good: #7BF0A8;
+  --bad: #FF7A8A;
+  --c-memory: #4A4A8F;
+  --c-math: #1F6F78;
+  --c-logic: #5E4A9A;
+  --c-spatial: #2B7A5A;
+  --c-focus: #2F5F9A;
+  --c-chem: #1E7C86;
+  --c-fun: #8A4A8F;
+  --c-duo: #3F7A8F;
+  --shadow: 3px 3px 0 #4FE3A8;
+  color-scheme: dark;
+}
 [data-theme="lavender"] {
   --paper: #F2EDFA;
   --paper-2: #E6DDF4;
@@ -441,7 +463,7 @@ button { font: inherit; color: inherit; }
 .chaos-btn .bolt { font-size: 40px; transform: rotate(-10deg); }
 .chaos-btn .t1 { font-size: 28px; line-height: 1; }
 .chaos-btn .t2 { font-size: 16px; color: #2B2522; opacity: .75; }
-[data-theme="night"] .chaos-btn .t2, [data-theme="chalk"] .chaos-btn .t2, [data-theme="blueprint"] .chaos-btn .t2, [data-theme="arcade"] .chaos-btn .t2, [data-theme="volcano"] .chaos-btn .t2, [data-theme="contrast"] .chaos-btn .t2 { color: var(--ink); }
+[data-theme="night"] .chaos-btn .t2, [data-theme="chalk"] .chaos-btn .t2, [data-theme="blueprint"] .chaos-btn .t2, [data-theme="arcade"] .chaos-btn .t2, [data-theme="volcano"] .chaos-btn .t2, [data-theme="contrast"] .chaos-btn .t2, [data-theme="aurora"] .chaos-btn .t2 { color: var(--ink); }
 .quests { margin-top: 14px; padding: 12px 14px; background: var(--card); }
 .quest { display: flex; align-items: center; gap: 10px; padding: 4px 0; font-size: 18px; }
 .quest .box { width: 22px; height: 22px; border: 2.5px solid var(--ink); border-radius: 5px 8px 4px 7px; flex: none; display:flex; align-items:center; justify-content:center; font-size: 16px; }
