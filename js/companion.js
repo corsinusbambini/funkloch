@@ -73,6 +73,7 @@
     { id: 'plaster', slot: 'plaster', price: 35, icon: '🩹' },
     { id: 'butterfly', slot: 'flutter', price: 75, icon: '🦋' },
     { id: 'monocle', slot: 'monocle', price: 85, icon: '🧐' },
+    { id: 'lollipop', slot: 'sweet', price: 40, icon: '🍭' },
   ];
 
   const ACC = {
@@ -230,6 +231,12 @@
       s += `<g><circle cx="${mx}" cy="${ey}" r="${mr}" fill="#fff" fill-opacity=".22" stroke="#D9A82E" stroke-width="3.6"/><circle cx="${mx}" cy="${ey}" r="${mr}" fill="none" stroke="${ink}" stroke-width="1.2" opacity=".6"/>
         <path d="M${mx - mr * 0.55},${ey - mr * 0.45} q4,-5 9,-6" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" opacity=".85"/>
         <path d="M${chx},${chy} q8,10 2,20 q-6,10 2,20" fill="none" stroke="#D9A82E" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 2.5"/></g>`;
+    }
+    if (wearing.includes('lollipop')) {
+      const lx = 134, ly = my + 30;
+      s += `<g><path d="M106,${my + 6} L${lx - 4},${ly + 4}" fill="none" stroke="${ink}" stroke-width="5" stroke-linecap="round"/><path d="M106,${my + 6} L${lx - 4},${ly + 4}" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="${lx}" cy="${ly}" r="14" fill="#F07C8C" stroke="${ink}" stroke-width="2.2"/>
+        <path d="M${lx},${ly} m0,-2 a2,2 0 1 1 -2,2 a5,5 0 1 1 5,5 a9,9 0 1 1 -9,-9" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".85"/></g>`;
     }
     if (wearing.includes('halo')) {
       const hy = sp.topY - (species === 'inkdrop' ? 26 : species === 'owl' ? 16 : 14);

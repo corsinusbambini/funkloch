@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-05 · Frosch über die Strasse / Frogger (solo classic, focus) · hop across generated traffic lanes, reach the top 5 times with 3 lives
+- 2026-11-05 · Pfannkuchen wenden / Pancake Flip (fun) · tap Flip when the sizzle gauge is in the golden zone, 8 pancakes, 1000 points win
+- 2026-11-05 · Buddy item: Lutscher / Lollipop (new sweet slot, 40 ink)
+- 2026-11-05 · Style: Kirschnacht / Cherry Night (dark burgundy with cherry pink accent)
 - 2026-11-04 · KenKen (solo classic, math) · fill a generated grid with 1..N, no repeats, every outlined cage must hit its target with + − × ÷
 - 2026-11-04 · Pfad-Gedächtnis / Path Memory (memory) · a path lights up cell by cell, retrace it in order; grows each round, 3 lives
 - 2026-11-04 · Buddy item: Monokel / Monocle (new monocle slot, 85 ink)
