@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-06 · Türme von Hanoi / Tower of Hanoi (solo classic, logic) · move the disks to the flagged peg from a generated start position, fewer moves = more points
+- 2026-11-06 · pH-Labor / pH Lab (chem) · work out the pH of generated strong acid/base solutions and sort solutions from acidic to basic
+- 2026-11-06 · Buddy item: Glitzer / Sparkles (new sparkle slot, 65 ink)
+- 2026-11-06 · Style: Goldrausch / Gilded (deep emerald black with gold accent)
 - 2026-11-05 · Frosch über die Strasse / Frogger (solo classic, focus) · hop across generated traffic lanes, reach the top 5 times with 3 lives
 - 2026-11-05 · Pfannkuchen wenden / Pancake Flip (fun) · tap Flip when the sizzle gauge is in the golden zone, 8 pancakes, 1000 points win
 - 2026-11-05 · Buddy item: Lutscher / Lollipop (new sweet slot, 40 ink)

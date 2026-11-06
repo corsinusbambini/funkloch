@@ -74,6 +74,7 @@
     { id: 'butterfly', slot: 'flutter', price: 75, icon: '🦋' },
     { id: 'monocle', slot: 'monocle', price: 85, icon: '🧐' },
     { id: 'lollipop', slot: 'sweet', price: 40, icon: '🍭' },
+    { id: 'sparkle', slot: 'sparkle', price: 65, icon: '✨' },
   ];
 
   const ACC = {
@@ -237,6 +238,10 @@
       s += `<g><path d="M106,${my + 6} L${lx - 4},${ly + 4}" fill="none" stroke="${ink}" stroke-width="5" stroke-linecap="round"/><path d="M106,${my + 6} L${lx - 4},${ly + 4}" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
         <circle cx="${lx}" cy="${ly}" r="14" fill="#F07C8C" stroke="${ink}" stroke-width="2.2"/>
         <path d="M${lx},${ly} m0,-2 a2,2 0 1 1 -2,2 a5,5 0 1 1 5,5 a9,9 0 1 1 -9,-9" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".85"/></g>`;
+    }
+    if (wearing.includes('sparkle')) {
+      const star = (x, y, k, f) => `<path transform="translate(${x},${y}) scale(${k})" d="M0,-10 Q1.5,-1.5 10,0 Q1.5,1.5 0,10 Q-1.5,1.5 -10,0 Q-1.5,-1.5 0,-10 Z" fill="${f}" stroke="${ink}" stroke-width="${1.6 / k}" stroke-linejoin="round"/>`;
+      s += `<g>${star(26, 40, 1.15, '#FFE08A')}${star(44, 20, 0.7, '#FFF3C4')}${star(176, 26, 1, '#FFE08A')}${star(158, 12, 0.6, '#FFF3C4')}${star(184, 112, 0.7, '#FFF3C4')}${star(18, 100, 0.65, '#FFF3C4')}</g>`;
     }
     if (wearing.includes('halo')) {
       const hy = sp.topY - (species === 'inkdrop' ? 26 : species === 'owl' ? 16 : 14);
