@@ -2,6 +2,7 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-07 · Fixed unreadable "Flip!" button text (cream on gold) in dark themes · Pancake Flip
 - 2026-11-06 · Türme von Hanoi / Tower of Hanoi (solo classic, logic) · move the disks to the flagged peg from a generated start position, fewer moves = more points
 - 2026-11-06 · pH-Labor / pH Lab (chem) · work out the pH of generated strong acid/base solutions and sort solutions from acidic to basic
 - 2026-11-06 · Buddy item: Glitzer / Sparkles (new sparkle slot, 65 ink)

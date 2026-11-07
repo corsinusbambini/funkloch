@@ -28,7 +28,7 @@
       const gauge = F.h('<div style="position:relative;height:34px;border:3px solid var(--ink);border-radius:12px;overflow:hidden;margin:8px 0"><div class="pf-mark" style="position:absolute;top:0;bottom:0;width:6px;margin-left:-3px;background:var(--ink);border-radius:3px"></div></div>');
       const mark = gauge.querySelector('.pf-mark');
       const hint = F.h('<div class="info-line" style="min-height:24px;font-size:15px"></div>');
-      const btn = F.h(`<button style="width:100%;min-height:64px;font-size:26px;border:3px solid var(--ink);border-radius:16px;background:var(--accent);color:var(--ink);box-shadow:var(--shadow);cursor:pointer;touch-action:manipulation"></button>`);
+      const btn = F.h(`<button style="width:100%;min-height:64px;font-size:26px;border:3px solid var(--ink);border-radius:16px;background:var(--accent);color:#2B2522;box-shadow:var(--shadow);cursor:pointer;touch-action:manipulation"></button>`);
       btn.textContent = F.tt({ de: 'Wenden!', en: 'Flip!' });
       wrap.append(head, pan, gauge, hint, btn);
       ctx.el.appendChild(wrap);
