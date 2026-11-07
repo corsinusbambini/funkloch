@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-07 · Verbinde die Punkte / Flow (solo classic, spatial) · drag lines between same-coloured dots, no crossing, fill the whole grid, 2 puzzles
+- 2026-11-07 · Prozent-Laden / Percent Shop (math) · generated sales, price rises, savings and "which deal is cheaper", 10 questions
+- 2026-11-07 · Buddy item: Herzchen / Hearts (new hearts slot, 50 ink)
+- 2026-11-07 · Style: Graphit / Graphite (charcoal grey with coral accent)
 - 2026-11-07 · Fixed unreadable "Flip!" button text (cream on gold) in dark themes · Pancake Flip
 - 2026-11-06 · Türme von Hanoi / Tower of Hanoi (solo classic, logic) · move the disks to the flagged peg from a generated start position, fewer moves = more points
 - 2026-11-06 · pH-Labor / pH Lab (chem) · work out the pH of generated strong acid/base solutions and sort solutions from acidic to basic
