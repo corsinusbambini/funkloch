@@ -41,7 +41,7 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 - [ ] Constant Collector (Avogadro, R, Faraday, c …)
 - [ ] Receipt Recall (made-up receipt, then questions)
 - [ ] Name & Face (generated doodle faces + names)
-- [ ] What Changed? (doodle objects, one moved/vanished)
+- [x] What Changed? (doodle objects, one moved/vanished)
 - [ ] Memory Pairs (generated doodle pairs)
 - [x] Path Memory (retrace a path on a grid)
 - [x] Sequence Echo (Simon)
@@ -56,7 +56,7 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 
 ## Logic
 - [x] What's Next?
-- [x] Mastermind / Code Breaker · [x] Lights Out · [x] Flow (connect colours) · [x] Mini Sudoku 4×4
+- [x] Mastermind / Code Breaker · [x] Lights Out · [x] Flow · [x] Match-3 (connect colours) · [x] Mini Sudoku 4×4
 - [ ] Logic Grid riddles · [ ] Bridges · [ ] Doodle Minesweeper · [ ] Slide Puzzle · [x] Tower of Hanoi
 
 ## Spatial
@@ -92,10 +92,10 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 ## Buddy items
 - [x] Sunglasses (eyes slot)
 - [x] Headphones (ears slot)
-- [x] Wings (back slot) · [x] Freckles (freckles slot) · [x] Balloon (held item) · [x] Moustache (face slot) · [ ] Top hat · [x] Lollipop (sweet slot) · [x] Halo · [x] Toadstool (ground slot) · [x] Eyepatch (eyes slot) · [x] Bandana (brow slot) · [x] Band-aid (plaster slot) · [x] Butterfly (flutter slot) · [x] Monocle (monocle slot) · [x] Sparkles (sparkle slot) · [x] Hearts (hearts slot)
+- [x] Wings (back slot) · [x] Freckles (freckles slot) · [x] Balloon (held item) · [x] Moustache (face slot) · [ ] Top hat · [x] Lollipop (sweet slot) · [x] Halo · [x] Toadstool (ground slot) · [x] Eyepatch (eyes slot) · [x] Bandana (brow slot) · [x] Band-aid (plaster slot) · [x] Butterfly (flutter slot) · [x] Monocle (monocle slot) · [x] Sparkles (sparkle slot) · [x] Hearts (hearts slot) · [x] Medal (medal slot)
 
 ## Styles
 - [x] Ocean
 - [x] Forest
 - [x] Sunset
-- [x] Chalkboard · [ ] Paper plane · [x] Blueprint · [x] Retro arcade · [x] Candy · [x] Coffee · [x] Volcano · [x] High contrast · [x] Lavender · [x] Lemonade · [x] Aurora · [x] Cherry Night · [x] Gilded · [x] Graphite
+- [x] Chalkboard · [ ] Paper plane · [x] Blueprint · [x] Retro arcade · [x] Candy · [x] Coffee · [x] Volcano · [x] High contrast · [x] Lavender · [x] Lemonade · [x] Aurora · [x] Cherry Night · [x] Gilded · [x] Graphite · [x] Frost

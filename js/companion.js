@@ -76,6 +76,7 @@
     { id: 'lollipop', slot: 'sweet', price: 40, icon: '🍭' },
     { id: 'sparkle', slot: 'sparkle', price: 65, icon: '✨' },
     { id: 'hearts', slot: 'hearts', price: 50, icon: '💕' },
+    { id: 'medal', slot: 'medal', price: 75, icon: '🏅' },
   ];
 
   const ACC = {
@@ -248,6 +249,13 @@
       const heart = (x, y, k, f) => `<path transform="translate(${x},${y}) scale(${k})" d="M0,8 C-14,-2 -10,-14 -4,-12 C-1,-11 0,-8 0,-7 C0,-8 1,-11 4,-12 C10,-14 14,-2 0,8 Z" fill="${f}" stroke="${ink}" stroke-width="${1.8 / k}" stroke-linejoin="round"/>`;
       const hx = Math.min(sp.earX[1] - 6, 150), hy = sp.topY - 8;
       s += `<g>${heart(hx, hy, 1.3, '#F07C8C')}${heart(hx + 24, hy - 16, 0.9, '#F8A5C8')}${heart(hx - 18, hy - 22, 0.7, '#F8A5C8')}</g>`;
+    }
+    if (wearing.includes('medal')) {
+      const mx = 120, my4 = Math.min(my + 24, sp.feet - 16);
+      s += `<g><path d="M${mx - 9},${my4 - 18} L${mx - 2},${my4 - 4} M${mx + 9},${my4 - 18} L${mx + 2},${my4 - 4}" fill="none" stroke="${ink}" stroke-width="8" stroke-linecap="round"/>
+        <path d="M${mx - 9},${my4 - 18} L${mx - 2},${my4 - 4}" fill="none" stroke="#E8574F" stroke-width="4.4" stroke-linecap="round"/><path d="M${mx + 9},${my4 - 18} L${mx + 2},${my4 - 4}" fill="none" stroke="#5B8FD6" stroke-width="4.4" stroke-linecap="round"/>
+        <circle cx="${mx}" cy="${my4 + 2}" r="10" fill="#FFD66B" stroke="${ink}" stroke-width="2.2"/><circle cx="${mx}" cy="${my4 + 2}" r="6" fill="none" stroke="${ink}" stroke-width="1.3" opacity=".55"/>
+        <path d="M${mx},${my4 - 2} l1.8,3.4 l3.8,.6 l-2.8,2.6 l.7,3.8 l-3.5,-1.8 l-3.5,1.8 l.7,-3.8 l-2.8,-2.6 l3.8,-.6 z" fill="#fff" stroke="${ink}" stroke-width="0.9" stroke-linejoin="round"/></g>`;
     }
     if (wearing.includes('halo')) {
       const hy = sp.topY - (species === 'inkdrop' ? 26 : species === 'owl' ? 16 : 14);

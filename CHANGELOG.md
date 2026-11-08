@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-08 · Drei gewinnt / Match-3 (solo classic, focus) · swap neighbouring fruits to line up 3+, chains score more, reach the target in 18 moves
+- 2026-11-08 · Was hat sich verändert? / What Changed? (memory) · study a grid of doodles, then tap the cell that vanished or was replaced, 8 rounds
+- 2026-11-08 · Buddy item: Medaille / Medal (new medal slot, 75 ink)
+- 2026-11-08 · Style: Raureif / Frost (icy light grey-blue with raspberry accent)
 - 2026-11-07 · Verbinde die Punkte / Flow (solo classic, spatial) · drag lines between same-coloured dots, no crossing, fill the whole grid, 2 puzzles
 - 2026-11-07 · Prozent-Laden / Percent Shop (math) · generated sales, price rises, savings and "which deal is cheaper", 10 questions
 - 2026-11-07 · Buddy item: Herzchen / Hearts (new hearts slot, 50 ink)

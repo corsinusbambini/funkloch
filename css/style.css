@@ -241,6 +241,28 @@
   --shadow: 3px 3px 0 #FF8A5B;
   color-scheme: dark;
 }
+[data-theme="frost"] {
+  --paper: #EEF2F7;
+  --paper-2: #E2E8F0;
+  --card: #FFFFFF;
+  --ink: #26303F;
+  --ink-soft: #5A6678;
+  --ink-faint: #C3CCD8;
+  --dot: #D8DFE9;
+  --accent: #D6336C;
+  --good: #3FAF7A;
+  --bad: #D9534F;
+  --c-memory: #F6BFD3;
+  --c-math: #FBE3A0;
+  --c-logic: #CBC6F2;
+  --c-spatial: #B8E6D2;
+  --c-focus: #B3D4F2;
+  --c-chem: #A6E3E3;
+  --c-fun: #F7CDBE;
+  --c-duo: #E3BFE8;
+  --shadow: 3px 3px 0 #D6336C;
+  color-scheme: light;
+}
 [data-theme="lavender"] {
   --paper: #F2EDFA;
   --paper-2: #E6DDF4;
