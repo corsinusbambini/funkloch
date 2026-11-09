@@ -77,6 +77,7 @@
     { id: 'sparkle', slot: 'sparkle', price: 65, icon: '✨' },
     { id: 'hearts', slot: 'hearts', price: 50, icon: '💕' },
     { id: 'medal', slot: 'medal', price: 75, icon: '🏅' },
+    { id: 'snail', slot: 'critter', price: 60, icon: '🐌' },
   ];
 
   const ACC = {
@@ -256,6 +257,13 @@
         <path d="M${mx - 9},${my4 - 18} L${mx - 2},${my4 - 4}" fill="none" stroke="#E8574F" stroke-width="4.4" stroke-linecap="round"/><path d="M${mx + 9},${my4 - 18} L${mx + 2},${my4 - 4}" fill="none" stroke="#5B8FD6" stroke-width="4.4" stroke-linecap="round"/>
         <circle cx="${mx}" cy="${my4 + 2}" r="10" fill="#FFD66B" stroke="${ink}" stroke-width="2.2"/><circle cx="${mx}" cy="${my4 + 2}" r="6" fill="none" stroke="${ink}" stroke-width="1.3" opacity=".55"/>
         <path d="M${mx},${my4 - 2} l1.8,3.4 l3.8,.6 l-2.8,2.6 l.7,3.8 l-3.5,-1.8 l-3.5,1.8 l.7,-3.8 l-2.8,-2.6 l3.8,-.6 z" fill="#fff" stroke="${ink}" stroke-width="0.9" stroke-linejoin="round"/></g>`;
+    }
+    if (wearing.includes('snail')) {
+      const sx = 172, sy = sp.feet + 8;
+      s += `<g transform="translate(${sx},${sy})"><path d="M-15,0 C-17,-6 -12,-8 -8,-8 L9,-8 C14,-8 16,-4 14,0 Z" fill="#F2D2A6" stroke="${ink}" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M12,-7 L14,-16 M16,-6 L20,-14" fill="none" stroke="${ink}" stroke-width="1.8" stroke-linecap="round"/><circle cx="14" cy="-17" r="1.8" fill="${ink}"/><circle cx="20.5" cy="-15" r="1.8" fill="${ink}"/>
+        <circle cx="-3" cy="-14" r="10" fill="#F4A261" stroke="${ink}" stroke-width="2.2"/>
+        <path d="M-3,-14 m0,-1 a1.5,1.5 0 1 1 -1.5,1.5 a4.5,4.5 0 1 1 4.5,4.5 a7.5,7.5 0 1 1 -7.5,-7.5" fill="none" stroke="${ink}" stroke-width="1.5" stroke-linecap="round" opacity=".7"/></g>`;
     }
     if (wearing.includes('halo')) {
       const hy = sp.topY - (species === 'inkdrop' ? 26 : species === 'owl' ? 16 : 14);

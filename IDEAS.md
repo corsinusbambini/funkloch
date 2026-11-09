@@ -79,23 +79,23 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 ## Just for fun
 - [x] Bubble Wrap · [x] Chaos Mode
 - [x] Pancake Flip · [x] Stack Tower · [x] Paper Plane · [ ] Fortune Cookie · [ ] Excuse Generator · [ ] Dress-up Race
-- [ ] Zen Garden · [ ] Generated colouring mandalas · [ ] Breathing Bubble
+- [ ] Zen Garden · [x] Generated colouring mandalas (Mandala Maker) · [ ] Breathing Bubble
 
 ## Classics
 - [x] Frogger (solo, focus)
 - [x] Snakes and Ladders (2–4p, multiplayer)
 - [x] Tic-Tac-Toe (2p) · [x] Battleship (solo, Schiffe versenken) · [ ] Battleship pass-and-play · [ ] Four-in-a-row 5x5 variants
 - [x] 2048
-- [x] Minesweeper · [ ] Snake · [ ] Klondike Solitaire · [ ] FreeCell · [x] Memory/Pairs · [ ] Sudoku 9x9
+- [x] Minesweeper · [ ] Snake · [ ] Klondike Solitaire · [ ] FreeCell · [x] Memory/Pairs · [x] Sudoku 9x9
 - [ ] 15-Puzzle · [x] Peg Solitaire · [x] Simon Says · [x] Stack Tower (stacking classic) · [x] Tetris-style blocks (Falling Blocks) · [ ] Hangman · [x] Flow · [x] Breakout
 
 ## Buddy items
 - [x] Sunglasses (eyes slot)
 - [x] Headphones (ears slot)
-- [x] Wings (back slot) · [x] Freckles (freckles slot) · [x] Balloon (held item) · [x] Moustache (face slot) · [ ] Top hat · [x] Lollipop (sweet slot) · [x] Halo · [x] Toadstool (ground slot) · [x] Eyepatch (eyes slot) · [x] Bandana (brow slot) · [x] Band-aid (plaster slot) · [x] Butterfly (flutter slot) · [x] Monocle (monocle slot) · [x] Sparkles (sparkle slot) · [x] Hearts (hearts slot) · [x] Medal (medal slot)
+- [x] Wings (back slot) · [x] Freckles (freckles slot) · [x] Balloon (held item) · [x] Moustache (face slot) · [ ] Top hat · [x] Lollipop (sweet slot) · [x] Halo · [x] Toadstool (ground slot) · [x] Eyepatch (eyes slot) · [x] Bandana (brow slot) · [x] Band-aid (plaster slot) · [x] Butterfly (flutter slot) · [x] Monocle (monocle slot) · [x] Sparkles (sparkle slot) · [x] Hearts (hearts slot) · [x] Medal (medal slot) · [x] Snail (critter slot)
 
 ## Styles
 - [x] Ocean
 - [x] Forest
 - [x] Sunset
-- [x] Chalkboard · [ ] Paper plane · [x] Blueprint · [x] Retro arcade · [x] Candy · [x] Coffee · [x] Volcano · [x] High contrast · [x] Lavender · [x] Lemonade · [x] Aurora · [x] Cherry Night · [x] Gilded · [x] Graphite · [x] Frost
+- [x] Chalkboard · [ ] Paper plane · [x] Blueprint · [x] Retro arcade · [x] Candy · [x] Coffee · [x] Volcano · [x] High contrast · [x] Lavender · [x] Lemonade · [x] Aurora · [x] Cherry Night · [x] Gilded · [x] Graphite · [x] Frost · [x] Plum Jam

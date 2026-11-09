@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-09 · Sudoku (solo classic, logic) · generated 9×9 puzzle with a unique solution, tap a cell then a number, wrong numbers cost points
+- 2026-11-09 · Mandala-Zeichner / Mandala Maker (fun, no daily) · draw with your finger, every stroke is mirrored 6–12 times around the centre
+- 2026-11-09 · Buddy item: Schnecke / Snail (new critter slot, 60 ink)
+- 2026-11-09 · Style: Pflaumenmus / Plum Jam (dark aubergine with mint accent)
 - 2026-11-09 · Fixed medal sitting off-centre and covering the mouth · buddy item Medal
 - 2026-11-08 · Drei gewinnt / Match-3 (solo classic, focus) · swap neighbouring fruits to line up 3+, chains score more, reach the target in 18 moves
 - 2026-11-08 · Was hat sich verändert? / What Changed? (memory) · study a grid of doodles, then tap the cell that vanished or was replaced, 8 rounds
