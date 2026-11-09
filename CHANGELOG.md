@@ -2,6 +2,7 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-09 · Fixed medal sitting off-centre and covering the mouth · buddy item Medal
 - 2026-11-08 · Drei gewinnt / Match-3 (solo classic, focus) · swap neighbouring fruits to line up 3+, chains score more, reach the target in 18 moves
 - 2026-11-08 · Was hat sich verändert? / What Changed? (memory) · study a grid of doodles, then tap the cell that vanished or was replaced, 8 rounds
 - 2026-11-08 · Buddy item: Medaille / Medal (new medal slot, 75 ink)
