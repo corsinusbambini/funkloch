@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-10 · Rohrleitung / Pipes (solo classic, spatial) · rotate pipe pieces so water from the middle reaches every piece, 3 generated puzzles, fewer taps = more points
+- 2026-11-10 · Ionen-Baukasten / Ion Builder (chem) · build salt formulas from ion charges or spot the wrong formula, 10 rounds
+- 2026-11-10 · Buddy item: Seifenblasen / Soap bubbles (new bubbles slot, 45 ink)
+- 2026-11-10 · Style: Zeitungspapier / Newsprint (grey newsprint with black ink and red accent)
 - 2026-11-09 · Sudoku (solo classic, logic) · generated 9×9 puzzle with a unique solution, tap a cell then a number, wrong numbers cost points
 - 2026-11-09 · Mandala-Zeichner / Mandala Maker (fun, no daily) · draw with your finger, every stroke is mirrored 6–12 times around the centre
 - 2026-11-09 · Buddy item: Schnecke / Snail (new critter slot, 60 ink)

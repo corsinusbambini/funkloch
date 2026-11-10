@@ -78,6 +78,7 @@
     { id: 'hearts', slot: 'hearts', price: 50, icon: '💕' },
     { id: 'medal', slot: 'medal', price: 75, icon: '🏅' },
     { id: 'snail', slot: 'critter', price: 60, icon: '🐌' },
+    { id: 'bubbles', slot: 'bubbles', price: 45, icon: '🫧' },
   ];
 
   const ACC = {
@@ -264,6 +265,11 @@
         <path d="M12,-7 L14,-16 M16,-6 L20,-14" fill="none" stroke="${ink}" stroke-width="1.8" stroke-linecap="round"/><circle cx="14" cy="-17" r="1.8" fill="${ink}"/><circle cx="20.5" cy="-15" r="1.8" fill="${ink}"/>
         <circle cx="-3" cy="-14" r="10" fill="#F4A261" stroke="${ink}" stroke-width="2.2"/>
         <path d="M-3,-14 m0,-1 a1.5,1.5 0 1 1 -1.5,1.5 a4.5,4.5 0 1 1 4.5,4.5 a7.5,7.5 0 1 1 -7.5,-7.5" fill="none" stroke="${ink}" stroke-width="1.5" stroke-linecap="round" opacity=".7"/></g>`;
+    }
+    if (wearing.includes('bubbles')) {
+      const bub = (x, y, r) => `<g><circle cx="${x}" cy="${y}" r="${r}" fill="#BFE6F5" fill-opacity=".35" stroke="${ink}" stroke-width="1.8"/><path d="M${x - r * 0.55},${y - r * 0.1} a${r * 0.6},${r * 0.6} 0 0 1 ${r * 0.5},${-r * 0.5}" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/><circle cx="${x + r * 0.4}" cy="${y + r * 0.45}" r="${r * 0.12}" fill="#fff"/></g>`;
+      const bx = Math.min(sp.earX[1] + 14, 178);
+      s += `<g>${bub(bx, 64, 13)}${bub(bx - 14, 92, 8)}${bub(bx + 2, 114, 5.5)}${bub(24, 76, 7)}</g>`;
     }
     if (wearing.includes('halo')) {
       const hy = sp.topY - (species === 'inkdrop' ? 26 : species === 'owl' ? 16 : 14);
