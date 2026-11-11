@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-11 · Reversi (solo classic, logic) · mini 6×6 board against the computer, flank light discs to flip them, more discs wins; computer gets smarter with your level
+- 2026-11-11 · Kassenzettel / Receipt Recall (memory) · study a generated shop receipt, then answer 2 questions about prices, items and counts, 4 receipts
+- 2026-11-11 · Buddy item: Musiknoten / Music notes (new music slot, 55 ink)
+- 2026-11-11 · Style: Minzeis / Mint Ice (light mint green with raspberry accent)
 - 2026-11-10 · Rohrleitung / Pipes (solo classic, spatial) · rotate pipe pieces so water from the middle reaches every piece, 3 generated puzzles, fewer taps = more points
 - 2026-11-10 · Ionen-Baukasten / Ion Builder (chem) · build salt formulas from ion charges or spot the wrong formula, 10 rounds
 - 2026-11-10 · Buddy item: Seifenblasen / Soap bubbles (new bubbles slot, 45 ink)

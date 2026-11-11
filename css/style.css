@@ -263,6 +263,28 @@
   --shadow: 3px 3px 0 #5EEAD4;
   color-scheme: dark;
 }
+[data-theme="mint"] {
+  --paper: #E6F6EE;
+  --paper-2: #D4EEE1;
+  --card: #F7FFFB;
+  --ink: #1D3A31;
+  --ink-soft: #4F7266;
+  --ink-faint: #AFCFC0;
+  --dot: #C6E5D5;
+  --accent: #E0457B;
+  --good: #2E9E66;
+  --bad: #D6455A;
+  --c-memory: #F4C3D2;
+  --c-math: #F6E3A2;
+  --c-logic: #CFC9EE;
+  --c-spatial: #B6E3C4;
+  --c-focus: #B8D6F0;
+  --c-chem: #A9E2DC;
+  --c-fun: #F5D1B5;
+  --c-duo: #DDC6E6;
+  --shadow: 3px 3px 0 #1D3A31;
+  color-scheme: light;
+}
 [data-theme="news"] {
   --paper: #ECEAE4;
   --paper-2: #DFDCD3;

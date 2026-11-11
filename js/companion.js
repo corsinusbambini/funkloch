@@ -79,6 +79,7 @@
     { id: 'medal', slot: 'medal', price: 75, icon: '🏅' },
     { id: 'snail', slot: 'critter', price: 60, icon: '🐌' },
     { id: 'bubbles', slot: 'bubbles', price: 45, icon: '🫧' },
+    { id: 'notes', slot: 'music', price: 55, icon: '🎵' },
   ];
 
   const ACC = {
@@ -270,6 +271,13 @@
       const bub = (x, y, r) => `<g><circle cx="${x}" cy="${y}" r="${r}" fill="#BFE6F5" fill-opacity=".35" stroke="${ink}" stroke-width="1.8"/><path d="M${x - r * 0.55},${y - r * 0.1} a${r * 0.6},${r * 0.6} 0 0 1 ${r * 0.5},${-r * 0.5}" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/><circle cx="${x + r * 0.4}" cy="${y + r * 0.45}" r="${r * 0.12}" fill="#fff"/></g>`;
       const bx = Math.min(sp.earX[1] + 14, 178);
       s += `<g>${bub(bx, 64, 13)}${bub(bx - 14, 92, 8)}${bub(bx + 2, 114, 5.5)}${bub(24, 76, 7)}</g>`;
+    }
+    if (wearing.includes('notes')) {
+      s += `<g transform="translate(24,134)"><path d="M-3,9 L-3,-14 M17,5 L17,-18" fill="none" stroke="${ink}" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M-3,-14 L17,-18 L17,-11 L-3,-7 Z" fill="${ink}" stroke="${ink}" stroke-width="1.6" stroke-linejoin="round"/>
+        <ellipse cx="-8" cy="10" rx="7" ry="5" transform="rotate(-20 -8 10)" fill="#F07C8C" stroke="${ink}" stroke-width="2"/>
+        <ellipse cx="12" cy="6" rx="7" ry="5" transform="rotate(-20 12 6)" fill="#7FB2E5" stroke="${ink}" stroke-width="2"/>
+        <path d="M-14,-4 q-4,-4 -2,-9 M-18,2 q-5,-2 -6,-7" fill="none" stroke="${ink}" stroke-width="1.6" stroke-linecap="round" opacity=".45"/></g>`;
     }
     if (wearing.includes('halo')) {
       const hy = sp.topY - (species === 'inkdrop' ? 26 : species === 'owl' ? 16 : 14);
