@@ -2,6 +2,7 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-12 · Fixed question title breaking mid-word ("falsc h?") and formula/name squeezed on one line in answer buttons · game Ion Builder
 - 2026-11-11 · Reversi (solo classic, logic) · mini 6×6 board against the computer, flank light discs to flip them, more discs wins; computer gets smarter with your level
 - 2026-11-11 · Kassenzettel / Receipt Recall (memory) · study a generated shop receipt, then answer 2 questions about prices, items and counts, 4 receipts
 - 2026-11-11 · Buddy item: Musiknoten / Music notes (new music slot, 55 ink)

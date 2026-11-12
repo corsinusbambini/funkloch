@@ -107,13 +107,13 @@
           expl = `${F.tt(nm)} = ${q.right}`;
         } else {
           const order = r.shuffle(q.opts);
-          labels = order.map((o) => `${o.f}<br><span style="font-size:14px;color:var(--ink-soft)">${F.tt(o.nm)}</span>`);
+          labels = order.map((o) => `<span style="display:block">${o.f}</span><span style="display:block;font-size:14px;color:var(--ink-soft)">${F.tt(o.nm)}</span>`);
           ci = order.findIndex((o) => o.bad);
           const bad = order[ci];
           head = `<span>${F.tt({ de: 'Welche Formel ist falsch?', en: 'Which formula is wrong?' })}</span><span style="font-size:17px;color:var(--ink-soft)">${F.tt({ de: 'Drei Salze stimmen, eins nicht.', en: 'Three salts are right, one is not.' })}</span>`;
           expl = `${F.tt(bad.nm)} = ${q.right}`;
         }
-        ctx.el.appendChild(F.h(`<div class="card sketch big-display pop-in" style="font-size:30px;flex-direction:column;gap:6px;text-align:center">${head}</div>`));
+        ctx.el.appendChild(F.h(`<div class="card sketch big-display pop-in" style="font-size:26px;letter-spacing:0;overflow-wrap:anywhere;flex-direction:column;gap:6px;text-align:center">${head}</div>`));
         let answered = false;
         const tb = ctx.timer(ctx.el, TIME, () => pick(-1, null, optEl));
         const optEl = F.options(labels, (i, b, wrap) => pick(i, b, wrap));
