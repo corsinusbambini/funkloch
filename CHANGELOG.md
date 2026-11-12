@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-12 · Galgenmännchen / Hangman (solo classic, logic) · guess made-up syllable words letter by letter, 6 mistakes allowed, 3 words
+- 2026-11-12 · Wochentag-Zauberer / Weekday Wizard (math) · which weekday is a given date, 10 rounds, dates get further from today with your level
+- 2026-11-12 · Buddy item: Wölkchen / Little cloud (new weather slot, 50 ink)
+- 2026-11-12 · Style: Lagune / Lagoon (dark teal with coral accent)
 - 2026-11-12 · Fixed question title breaking mid-word ("falsc h?") and formula/name squeezed on one line in answer buttons · game Ion Builder
 - 2026-11-11 · Reversi (solo classic, logic) · mini 6×6 board against the computer, flank light discs to flip them, more discs wins; computer gets smarter with your level
 - 2026-11-11 · Kassenzettel / Receipt Recall (memory) · study a generated shop receipt, then answer 2 questions about prices, items and counts, 4 receipts

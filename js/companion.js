@@ -80,6 +80,7 @@
     { id: 'snail', slot: 'critter', price: 60, icon: '🐌' },
     { id: 'bubbles', slot: 'bubbles', price: 45, icon: '🫧' },
     { id: 'notes', slot: 'music', price: 55, icon: '🎵' },
+    { id: 'cloud', slot: 'weather', price: 50, icon: '☁️' },
   ];
 
   const ACC = {
@@ -278,6 +279,11 @@
         <ellipse cx="-8" cy="10" rx="7" ry="5" transform="rotate(-20 -8 10)" fill="#F07C8C" stroke="${ink}" stroke-width="2"/>
         <ellipse cx="12" cy="6" rx="7" ry="5" transform="rotate(-20 12 6)" fill="#7FB2E5" stroke="${ink}" stroke-width="2"/>
         <path d="M-14,-4 q-4,-4 -2,-9 M-18,2 q-5,-2 -6,-7" fill="none" stroke="${ink}" stroke-width="1.6" stroke-linecap="round" opacity=".45"/></g>`;
+    }
+    if (wearing.includes('cloud')) {
+      s += `<g transform="translate(36,28)"><path d="M-20,8 C-27,8 -27,-4 -18,-4 C-18,-14 -4,-18 2,-10 C8,-16 22,-10 20,0 C28,0 28,8 20,8 Z" fill="#E4EDF7" stroke="${ink}" stroke-width="2.2" stroke-linejoin="round"/>
+        <path d="M-12,2 q3,-4 8,-3" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".85"/>
+        <path d="M-12,13 l-2,7 M0,13 l-2,7 M12,13 l-2,7" fill="none" stroke="#5B8FD6" stroke-width="2.6" stroke-linecap="round"/></g>`;
     }
     if (wearing.includes('halo')) {
       const hy = sp.topY - (species === 'inkdrop' ? 26 : species === 'owl' ? 16 : 14);
