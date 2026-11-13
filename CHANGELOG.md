@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-13 · Obstfänger / Fruit Catcher (solo classic, focus) · slide the basket with your finger, catch fruit, dodge stones, 30 points in 45 seconds win
+- 2026-11-13 · Name & Gesicht / Name & Face (memory) · learn generated doodle faces with made-up names, then pick the right name, 3 rounds
+- 2026-11-13 · Buddy item: Fliege / Bow tie (new tie slot, 50 ink)
+- 2026-11-13 · Style: Sonnenblume / Sunflower (light sunny yellow with violet accent)
 - 2026-11-13 · Einundzwanzig / Twenty-One (solo classic, math) · card game against the dealer, get closer to 21 without going over, 6 hands
 - 2026-11-13 · Messzylinder / Graduated Cylinder (chem) · pour liquid to a given volume by reading the scale of a drawn measuring cylinder, 5 orders
 - 2026-11-13 · Buddy item: Vögelchen / Little bird (new bird slot, 60 ink)

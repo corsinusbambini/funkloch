@@ -329,6 +329,28 @@
   --shadow: 3px 3px 0 #6FD6C6;
   color-scheme: dark;
 }
+[data-theme="sunflower"] {
+  --paper: #FFE680;
+  --paper-2: #FFD94D;
+  --card: #FFF9DD;
+  --ink: #1E2350;
+  --ink-soft: #3E4478;
+  --ink-faint: #CDAE30;
+  --dot: #F2CF55;
+  --accent: #A98BF2;
+  --good: #3E9B5F;
+  --bad: #D2453D;
+  --c-memory: #FFB3A0;
+  --c-math: #F7C24A;
+  --c-logic: #CBB8F5;
+  --c-spatial: #A8E0B8;
+  --c-focus: #9FD0F2;
+  --c-chem: #8FDCCD;
+  --c-fun: #F6A8CB;
+  --c-duo: #F59A8E;
+  --shadow: 3px 3px 0 #1E2350;
+  color-scheme: light;
+}
 [data-theme="mint"] {
   --paper: #E6F6EE;
   --paper-2: #D4EEE1;

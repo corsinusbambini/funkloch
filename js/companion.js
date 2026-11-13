@@ -83,6 +83,7 @@
     { id: 'cloud', slot: 'weather', price: 50, icon: '☁️' },
     { id: 'sun', slot: 'sun', price: 55, icon: '☀️' },
     { id: 'bird', slot: 'bird', price: 60, icon: '🐦' },
+    { id: 'bowtie', slot: 'tie', price: 50, icon: '🎩' },
   ];
 
   const ACC = {
@@ -300,6 +301,13 @@
         <path d="M-17,6 C-20,-6 -14,-16 -3,-16 C7,-16 14,-8 13,2 C12,12 2,15 -8,14 C-12,19 -18,21 -22,20 C-19,16 -17,11 -17,6 Z" fill="#7FB2E5" stroke="${ink}" stroke-width="2.2" stroke-linejoin="round"/>
         <path d="M-6,0 C-1,-4 7,-2 8,4 C4,10 -4,10 -8,6 Z" fill="#A9CFF2" stroke="${ink}" stroke-width="1.6" stroke-linejoin="round"/>
         <circle cx="6" cy="-6" r="2.3" fill="${ink}"/><circle cx="6.8" cy="-6.8" r=".8" fill="#fff"/><path d="M-12,-9 q4,-6 9,-6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".75"/></g>`;
+    }
+    if (wearing.includes('bowtie')) {
+      const ty = Math.min(my + 24, sp.feet - 20);
+      s += `<g transform="translate(100,${ty})"><path d="M0,0 L-24,-13 C-27,-5 -27,5 -24,13 Z M0,0 L24,-13 C27,-5 27,5 24,13 Z" fill="#E8574F" stroke="${ink}" stroke-width="2.4" stroke-linejoin="round"/>
+        <circle cx="-15" cy="-3" r="2" fill="#fff"/><circle cx="-16" cy="5" r="2" fill="#fff"/><circle cx="15" cy="-3" r="2" fill="#fff"/><circle cx="16" cy="5" r="2" fill="#fff"/>
+        <path d="M-20,-8 q6,-3 12,-1 M20,-8 q-6,-3 -12,-1" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity=".6"/>
+        <rect x="-6" y="-7" width="12" height="14" rx="4" fill="#C23B33" stroke="${ink}" stroke-width="2.4"/><path d="M-2,-4 v6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" opacity=".6"/></g>`;
     }
     if (wearing.includes('halo')) {
       const hy = sp.topY - (species === 'inkdrop' ? 26 : species === 'owl' ? 16 : 14);
