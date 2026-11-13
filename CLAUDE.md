@@ -11,8 +11,9 @@ Read `README.md` for the file layout and the game API.
 - **Touch only**: no shake, tilt, microphone, camera or vibration.
 - **Fully offline**: no external libraries, APIs, images or fonts beyond what is already linked. Draw with SVG/CSS/canvas or emoji.
 - **Never repeating**: content must be *generated* (seeded random via `ctx.rng`, `ctx.fresh(...)`), not read from a small fixed list.
-- **Neutral names, own look**: games carry generic names (e.g. "Four in a Row", "Minefield", "Dice Poker"), never the brand name,
-  characters, artwork or levels of a commercial game. The eight games renamed on 2026-11-13 stay renamed (their ids are unchanged).
+- **Neutral names for new games**: a new game gets a generic name (e.g. "Four in a Row", "Minefield", "Dice Poker") and its own look,
+  never the brand name, characters, artwork or levels of a commercial game. The eight games renamed on 2026-11-13 stay renamed
+  (their ids are unchanged). All other existing games keep the names they have: do not rename them.
 - Number Flash shows plain numbers only. Nonogram and "Rotate It" were removed on purpose — don't bring them back.
 - Fold & Punch and Make 24 have difficulty modes; keep them.
 - He wants a **huge library with a balanced mix**: new games go first to the solo skills with the fewest games
