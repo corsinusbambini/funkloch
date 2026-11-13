@@ -74,11 +74,11 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 
 ## Estimation & codes & words
 - [ ] Dot Flash · [ ] Odds or Not · [ ] Higher/Lower · [ ] Jar Guess · [ ] Fake Random?
-- [ ] Morse Tap · [ ] Cipher Crack · [ ] Binary Blitz · [ ] Anagram · [ ] Word Ladder · [ ] Word guess (DE/EN) · [x] Hangman · [ ] Word Search
+- [ ] Morse Tap · [ ] Cipher Crack · [ ] Binary Blitz · [ ] Anagram · [ ] Word Ladder · [ ] Word guess (DE/EN) · [x] Hangman · [x] Word Search
 
 ## Just for fun
 - [x] Bubble Wrap · [x] Chaos Mode
-- [x] Pancake Flip · [x] Stack Tower · [x] Paper Plane · [ ] Fortune Cookie · [ ] Excuse Generator · [ ] Dress-up Race
+- [x] Pancake Flip · [x] Stack Tower · [x] Paper Plane · [x] Fortune Cookie · [ ] Excuse Generator · [ ] Dress-up Race
 - [ ] Zen Garden · [x] Generated colouring mandalas (Mandala Maker) · [ ] Breathing Bubble
 
 ## Classics
@@ -92,10 +92,10 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 ## Buddy items
 - [x] Sunglasses (eyes slot)
 - [x] Headphones (ears slot)
-- [x] Wings (back slot) · [x] Freckles (freckles slot) · [x] Balloon (held item) · [x] Moustache (face slot) · [ ] Top hat · [x] Lollipop (sweet slot) · [x] Halo · [x] Toadstool (ground slot) · [x] Eyepatch (eyes slot) · [x] Bandana (brow slot) · [x] Band-aid (plaster slot) · [x] Butterfly (flutter slot) · [x] Monocle (monocle slot) · [x] Sparkles (sparkle slot) · [x] Hearts (hearts slot) · [x] Medal (medal slot) · [x] Snail (critter slot) · [x] Soap bubbles (bubbles slot) · [x] Music notes (music slot) · [x] Little cloud (weather slot)
+- [x] Wings (back slot) · [x] Freckles (freckles slot) · [x] Balloon (held item) · [x] Moustache (face slot) · [ ] Top hat · [x] Lollipop (sweet slot) · [x] Halo · [x] Toadstool (ground slot) · [x] Eyepatch (eyes slot) · [x] Bandana (brow slot) · [x] Band-aid (plaster slot) · [x] Butterfly (flutter slot) · [x] Monocle (monocle slot) · [x] Sparkles (sparkle slot) · [x] Hearts (hearts slot) · [x] Medal (medal slot) · [x] Snail (critter slot) · [x] Soap bubbles (bubbles slot) · [x] Music notes (music slot) · [x] Little cloud (weather slot) · [x] Sunshine (sun slot)
 
 ## Styles
 - [x] Ocean
 - [x] Forest
 - [x] Sunset
-- [x] Chalkboard · [ ] Paper plane · [x] Blueprint · [x] Retro arcade · [x] Candy · [x] Coffee · [x] Volcano · [x] High contrast · [x] Lavender · [x] Lemonade · [x] Aurora · [x] Cherry Night · [x] Gilded · [x] Graphite · [x] Frost · [x] Plum Jam · [x] Newsprint · [x] Mint Ice · [x] Lagoon
+- [x] Chalkboard · [ ] Paper plane · [x] Blueprint · [x] Retro arcade · [x] Candy · [x] Coffee · [x] Volcano · [x] High contrast · [x] Lavender · [x] Lemonade · [x] Aurora · [x] Cherry Night · [x] Gilded · [x] Graphite · [x] Frost · [x] Plum Jam · [x] Newsprint · [x] Mint Ice · [x] Lagoon · [x] Terracotta

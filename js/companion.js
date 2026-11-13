@@ -81,6 +81,7 @@
     { id: 'bubbles', slot: 'bubbles', price: 45, icon: '🫧' },
     { id: 'notes', slot: 'music', price: 55, icon: '🎵' },
     { id: 'cloud', slot: 'weather', price: 50, icon: '☁️' },
+    { id: 'sun', slot: 'sun', price: 55, icon: '☀️' },
   ];
 
   const ACC = {
@@ -284,6 +285,12 @@
       s += `<g transform="translate(36,28)"><path d="M-20,8 C-27,8 -27,-4 -18,-4 C-18,-14 -4,-18 2,-10 C8,-16 22,-10 20,0 C28,0 28,8 20,8 Z" fill="#E4EDF7" stroke="${ink}" stroke-width="2.2" stroke-linejoin="round"/>
         <path d="M-12,2 q3,-4 8,-3" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".85"/>
         <path d="M-12,13 l-2,7 M0,13 l-2,7 M12,13 l-2,7" fill="none" stroke="#5B8FD6" stroke-width="2.6" stroke-linecap="round"/></g>`;
+    }
+    if (wearing.includes('sun')) {
+      const sx = 166, sy = 36, rays = Array.from({ length: 8 }, (_, i) => { const a = i * Math.PI / 4; return `M${(Math.cos(a) * 17).toFixed(1)},${(Math.sin(a) * 17).toFixed(1)} L${(Math.cos(a) * 25).toFixed(1)},${(Math.sin(a) * 25).toFixed(1)}`; }).join(' ');
+      s += `<g transform="translate(${sx},${sy}) rotate(-8)"><path d="${rays}" fill="none" stroke="${ink}" stroke-width="7" stroke-linecap="round"/><path d="${rays}" fill="none" stroke="#FFB84A" stroke-width="3.4" stroke-linecap="round"/>
+        <circle r="13.5" fill="#FFD66B" stroke="${ink}" stroke-width="2.4"/><path d="M-8,-6 q3,-5 8,-5" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" opacity=".8"/>
+        <circle cx="-4.5" cy="-1" r="1.6" fill="${ink}"/><circle cx="4.5" cy="-1" r="1.6" fill="${ink}"/><path d="M-4.5,4.5 q4.5,4 9,0" fill="none" stroke="${ink}" stroke-width="1.8" stroke-linecap="round"/></g>`;
     }
     if (wearing.includes('halo')) {
       const hy = sp.topY - (species === 'inkdrop' ? 26 : species === 'owl' ? 16 : 14);

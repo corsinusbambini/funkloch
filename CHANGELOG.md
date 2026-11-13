@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-13 · Wörter-Suchbild / Word Search (solo classic, focus) · find 5-6 made-up words in a generated 8×8 letter grid by tapping first and last letter, 2 grids
+- 2026-11-13 · Glückskeks / Fortune Cookie (fun, no daily) · tap a cookie open, read a generated fortune and lucky numbers, 3 cookies
+- 2026-11-13 · Buddy item: Sonne / Sunshine (new sun slot, 55 ink)
+- 2026-11-13 · Style: Terrakotta / Terracotta (light clay pink with teal accent)
 - 2026-11-13 · Polish pass over 50 older solo games: layouts that use the whole phone screen, hand-drawn motifs, drawn boards and pieces, feedback on every tap, centred button rows, readable sizes in light and dark themes · owner asked for better visuals; rules, scoring and puzzles unchanged
 - 2026-11-13 · Doodle celebration (`Funkloch.cheer`) on the result screen for good results and records, plus opt-in CSS helpers (`.options.tall`, `.options.three`, `.options.center-last`, `.motif`, `.tap-pop`) · one shared look for old and new games
 - 2026-11-13 · Neutral names for 8 games: Frog Crossing, Rechen-Gitter / Calcudoku, Würfelpoker / Dice Poker, Minenfeld / Minefield, Zahlen verdoppeln / Double Up, Mauerbrecher / Brick Breaker, Vier in einer Reihe / Four in a Row, Kritzel-Tennis / Doodle Tennis · owner's decision: no brand names; ids unchanged, so records and favourites stay

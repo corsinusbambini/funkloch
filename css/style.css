@@ -285,6 +285,28 @@
   --shadow: 3px 3px 0 #FF9E5E;
   color-scheme: dark;
 }
+[data-theme="terracotta"] {
+  --paper: #F6DFD2;
+  --paper-2: #EDCDBB;
+  --card: #FFF6EF;
+  --ink: #3A1C17;
+  --ink-soft: #6A453C;
+  --ink-faint: #D2AB9A;
+  --dot: #E8C6B4;
+  --accent: #4DB3C0;
+  --good: #4E9A63;
+  --bad: #C8493F;
+  --c-memory: #F4B9A3;
+  --c-math: #F7D58A;
+  --c-logic: #D3C3EC;
+  --c-spatial: #B4DDBE;
+  --c-focus: #A9D3E6;
+  --c-chem: #9AD7CF;
+  --c-fun: #F3B6CB;
+  --c-duo: #EE9F8F;
+  --shadow: 3px 3px 0 #3A1C17;
+  color-scheme: light;
+}
 [data-theme="mint"] {
   --paper: #E6F6EE;
   --paper-2: #D4EEE1;
