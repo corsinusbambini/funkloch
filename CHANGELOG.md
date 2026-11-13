@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-13 · Einundzwanzig / Twenty-One (solo classic, math) · card game against the dealer, get closer to 21 without going over, 6 hands
+- 2026-11-13 · Messzylinder / Graduated Cylinder (chem) · pour liquid to a given volume by reading the scale of a drawn measuring cylinder, 5 orders
+- 2026-11-13 · Buddy item: Vögelchen / Little bird (new bird slot, 60 ink)
+- 2026-11-13 · Style: Schokolade / Chocolate (dark cocoa brown with mint accent)
 - 2026-11-13 · Wörter-Suchbild / Word Search (solo classic, focus) · find 5-6 made-up words in a generated 8×8 letter grid by tapping first and last letter, 2 grids
 - 2026-11-13 · Glückskeks / Fortune Cookie (fun, no daily) · tap a cookie open, read a generated fortune and lucky numbers, 3 cookies
 - 2026-11-13 · Buddy item: Sonne / Sunshine (new sun slot, 55 ink)

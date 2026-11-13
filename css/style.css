@@ -307,6 +307,28 @@
   --shadow: 3px 3px 0 #3A1C17;
   color-scheme: light;
 }
+[data-theme="chocolate"] {
+  --paper: #2B1D16;
+  --paper-2: #3A2820;
+  --card: #46322A;
+  --ink: #F6E7D5;
+  --ink-soft: #D2BDA8;
+  --ink-faint: #7A5E50;
+  --dot: #36251D;
+  --accent: #6FD6C6;
+  --good: #86D9A0;
+  --bad: #FF8F82;
+  --c-memory: #8E5A4A;
+  --c-math: #9A7A3A;
+  --c-logic: #6D5A9C;
+  --c-spatial: #4A8467;
+  --c-focus: #4A74A0;
+  --c-chem: #3F8A86;
+  --c-fun: #A65C80;
+  --c-duo: #A8625A;
+  --shadow: 3px 3px 0 #6FD6C6;
+  color-scheme: dark;
+}
 [data-theme="mint"] {
   --paper: #E6F6EE;
   --paper-2: #D4EEE1;
@@ -661,7 +683,7 @@ button { font: inherit; color: inherit; }
 .chaos-btn .bolt { font-size: 40px; transform: rotate(-10deg); }
 .chaos-btn .t1 { font-size: 28px; line-height: 1; }
 .chaos-btn .t2 { font-size: 16px; color: #2B2522; opacity: .75; }
-[data-theme="night"] .chaos-btn .t2, [data-theme="chalk"] .chaos-btn .t2, [data-theme="blueprint"] .chaos-btn .t2, [data-theme="arcade"] .chaos-btn .t2, [data-theme="volcano"] .chaos-btn .t2, [data-theme="contrast"] .chaos-btn .t2, [data-theme="aurora"] .chaos-btn .t2, [data-theme="cherry"] .chaos-btn .t2, [data-theme="gilded"] .chaos-btn .t2, [data-theme="graphite"] .chaos-btn .t2, [data-theme="plum"] .chaos-btn .t2, [data-theme="lagoon"] .chaos-btn .t2 { color: var(--ink); }
+[data-theme="night"] .chaos-btn .t2, [data-theme="chalk"] .chaos-btn .t2, [data-theme="blueprint"] .chaos-btn .t2, [data-theme="arcade"] .chaos-btn .t2, [data-theme="volcano"] .chaos-btn .t2, [data-theme="contrast"] .chaos-btn .t2, [data-theme="aurora"] .chaos-btn .t2, [data-theme="cherry"] .chaos-btn .t2, [data-theme="gilded"] .chaos-btn .t2, [data-theme="graphite"] .chaos-btn .t2, [data-theme="plum"] .chaos-btn .t2, [data-theme="lagoon"] .chaos-btn .t2, [data-theme="chocolate"] .chaos-btn .t2 { color: var(--ink); }
 .quests { margin-top: 14px; padding: 12px 14px; background: var(--card); }
 .quest { display: flex; align-items: center; gap: 10px; padding: 4px 0; font-size: 18px; }
 .quest .box { width: 22px; height: 22px; border: 2.5px solid var(--ink); border-radius: 5px 8px 4px 7px; flex: none; display:flex; align-items:center; justify-content:center; font-size: 16px; }

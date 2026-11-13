@@ -82,6 +82,7 @@
     { id: 'notes', slot: 'music', price: 55, icon: '🎵' },
     { id: 'cloud', slot: 'weather', price: 50, icon: '☁️' },
     { id: 'sun', slot: 'sun', price: 55, icon: '☀️' },
+    { id: 'bird', slot: 'bird', price: 60, icon: '🐦' },
   ];
 
   const ACC = {
@@ -291,6 +292,14 @@
       s += `<g transform="translate(${sx},${sy}) rotate(-8)"><path d="${rays}" fill="none" stroke="${ink}" stroke-width="7" stroke-linecap="round"/><path d="${rays}" fill="none" stroke="#FFB84A" stroke-width="3.4" stroke-linecap="round"/>
         <circle r="13.5" fill="#FFD66B" stroke="${ink}" stroke-width="2.4"/><path d="M-8,-6 q3,-5 8,-5" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" opacity=".8"/>
         <circle cx="-4.5" cy="-1" r="1.6" fill="${ink}"/><circle cx="4.5" cy="-1" r="1.6" fill="${ink}"/><path d="M-4.5,4.5 q4.5,4 9,0" fill="none" stroke="${ink}" stroke-width="1.8" stroke-linecap="round"/></g>`;
+    }
+    if (wearing.includes('bird')) {
+      const bx = Math.min(sp.earX[1] + 14, 172), by = sp.topY + 38;
+      s += `<g transform="translate(${bx},${by}) scale(-1,1)"><path d="M-6,13 l-3,8 M2,13 l-1,8" fill="none" stroke="#E08A2E" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M13,-2 C20,-5 24,-3 25,0 C22,3 18,4 13,3 Z" fill="#F5A83A" stroke="${ink}" stroke-width="1.8" stroke-linejoin="round"/>
+        <path d="M-17,6 C-20,-6 -14,-16 -3,-16 C7,-16 14,-8 13,2 C12,12 2,15 -8,14 C-12,19 -18,21 -22,20 C-19,16 -17,11 -17,6 Z" fill="#7FB2E5" stroke="${ink}" stroke-width="2.2" stroke-linejoin="round"/>
+        <path d="M-6,0 C-1,-4 7,-2 8,4 C4,10 -4,10 -8,6 Z" fill="#A9CFF2" stroke="${ink}" stroke-width="1.6" stroke-linejoin="round"/>
+        <circle cx="6" cy="-6" r="2.3" fill="${ink}"/><circle cx="6.8" cy="-6.8" r=".8" fill="#fff"/><path d="M-12,-9 q4,-6 9,-6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".75"/></g>`;
     }
     if (wearing.includes('halo')) {
       const hy = sp.topY - (species === 'inkdrop' ? 26 : species === 'owl' ? 16 : 14);
