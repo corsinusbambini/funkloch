@@ -120,14 +120,22 @@
         const labels = opts.map((o) => F.h(`<div class="opt-svg" style="width:100%">${sheetSVG(o)}</div>`));
         const optEl = F.options(labels, async (i, b, wrap) => {
           const ok = i === correctIdx;
-          b.classList.add(ok ? 'right' : 'wrong');
+          b.classList.add(ok ? 'right' : 'wrong', ok ? 'tap-pop' : 'flash-bad');
           if (!ok) wrap.children[correctIdx].classList.add('right');
           ctx.sfx(ok ? 'good' : 'bad');
           if (ok) correct++;
+          if (ok && round < ROUNDS) F.cheer(8);
           await ctx.wait(ok ? 700 : 1600);
           next();
         });
-        ctx.el.append(steps, optEl);
+        // small drawn hole punch next to the question
+        const ask = F.h(`<div style="display:flex;align-items:center;justify-content:center;gap:10px;margin:-4px 0 10px">
+          <svg viewBox="0 0 56 36" width="50" height="32" aria-hidden="true" style="flex:none;transform:rotate(-6deg)"><g stroke="var(--ink)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+            <path d="M4 30 L52 30 L50 20 L6 20 Z" fill="var(--c-spatial)"/><path d="M12 20 L14 8 Q28 2 42 8 L44 20" fill="var(--card)"/>
+            <path d="M28 8 L28 14" fill="none"/><circle cx="28" cy="25" r="2.6" fill="var(--paper)"/></g></svg>
+          <span style="font-size:19px">${F.tt({ de: 'Wie sieht es offen aus?', en: 'What does it look like open?' })}</span></div>`);
+        ctx.el.append(steps, ask, optEl);
+        steps.classList.add('pop-in');
       }
       function end() {
         ctx.finish({

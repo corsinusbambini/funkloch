@@ -32,6 +32,26 @@
     return wrong === 'skipCount' ? m : m * n;
   }
   const round1 = (x) => Math.round(x * 10) / 10;
+  // Hand-drawn lab balance with a weighing boat (decoration only, shows nothing about the answer).
+  const TINTS = ['var(--c-chem)', 'var(--c-math)', 'var(--c-fun)', 'var(--c-focus)'];
+  const scale = (i) => `<svg class="motif" viewBox="0 0 320 150" width="344" height="161" aria-hidden="true" style="margin:18px auto 20px;transform:rotate(-1.5deg);stroke:var(--ink);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;fill:none">
+    <path d="M10 141 C80 138 220 144 310 139"/>
+    <path d="M36 136 L39 74 C38 66 42 62 50 62 L60 62 C67 62 70 66 70 74 L71 136 Z" style="fill:var(--card)"/>
+    <path d="M42 62 L43 52 L66 51 L67 62" style="fill:var(--paper-2)"/>
+    <path d="M40 92 L69 91 L70 114 L41 115 Z" style="fill:${TINTS[(i + 1) % 4]}"/>
+    <path d="M46 101 L63 100 M46 107 L58 107" style="stroke-width:2"/>
+    <path d="M90 137 L97 99 C150 95 205 99 262 96 L270 136 Z" style="fill:var(--paper-2)"/>
+    <path d="M168 109 L246 107 L247 127 L169 128 Z" style="fill:var(--card)"/>
+    <path d="M181 118 L191 118 M201 118 L211 118 M221 117 L231 117" style="stroke-width:3"/>
+    <circle cx="116" cy="118" r="7" style="fill:${TINTS[(i + 2) % 4]}"/><circle cx="140" cy="118" r="7" style="fill:var(--card)"/>
+    <path d="M180 96 L180 86"/>
+    <path d="M128 86 C155 78 205 78 232 86 C205 93 155 93 128 86 Z" style="fill:var(--card)"/>
+    <path d="M152 82 L208 82 L200 70 L160 70 Z" style="fill:var(--paper-2)"/>
+    <path d="M165 71 C171 56 188 56 195 71 Z" style="fill:${TINTS[i % 4]}"/>
+    <path d="M172 64 C175 61 179 60 182 61" style="stroke:#fff;opacity:.7;stroke-width:2"/>
+    <path d="M268 26 L226 60" style="stroke-width:3"/><path d="M228 57 C220 62 214 70 218 74 C224 76 232 68 234 62 Z" style="fill:var(--card)"/>
+    <path d="M286 40 L292 34 M290 52 L298 52 M108 46 L102 40" style="stroke-width:2"/>
+  </svg>`;
 
   function makeQuestion(r, lvl) {
     const tier = lvl >= 4 ? 1 : 0;
@@ -77,18 +97,19 @@
         const sh = r.shuffle(opts), ci = sh.indexOf(q.answer);
         ctx.el.innerHTML = '';
         const masses = q.used.sort().map((s) => `${s} = ${MASS[s].toFixed(1)}`).join('  ·  ');
-        ctx.el.appendChild(F.h(`<div class="card sketch big-display pop-in" style="font-size:38px;flex-direction:column;gap:6px"><span>${q.text}</span><span style="font-size:17px;color:var(--ink-soft)">${masses} g/mol</span></div>`));
+        ctx.el.appendChild(F.h(`<div class="card sketch big-display pop-in" style="font-size:48px;flex-direction:column;gap:8px;word-break:normal;min-height:160px;padding:18px 10px;letter-spacing:1px"><span>${q.text}</span><span style="font-size:18px;color:var(--ink-soft);letter-spacing:0">${masses} g/mol</span></div>`));
         let answered = false;
         const tb = ctx.timer(ctx.el, TIME, () => pick(-1, null, optEl));
-        const optEl = F.options(sh.map((v) => `${v.toFixed(1)} g/mol`), (i, b, wrap) => pick(i, b, wrap));
+        ctx.el.appendChild(F.h(scale(round)));
+        const optEl = F.options(sh.map((v) => `${v.toFixed(1)} g/mol`), (i, b, wrap) => pick(i, b, wrap), 'tall');
         async function pick(i, b, wrap) {
           if (answered) return;
           answered = true;
           const ms = tb.stop(), ok = i === ci;
-          if (b) b.classList.add(ok ? 'right' : 'wrong');
+          if (b) b.classList.add(ok ? 'right' : 'wrong', ok ? 'tap-pop' : 'flash-bad');
           wrap.children[ci].classList.add('right');
           ctx.sfx(ok ? 'good' : 'bad');
-          if (ok) { correct++; points += 5 + Math.ceil((TIME - ms) / 3000); }
+          if (ok) { correct++; points += 5 + Math.ceil((TIME - ms) / 3000); if (round < ROUNDS) F.cheer(8); }
           await ctx.wait(ok ? 600 : 1700);
           next();
         }

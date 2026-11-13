@@ -1,23 +1,26 @@
-/* 2048: slide all tiles, equal tiles merge. Swipe or use the arrow buttons. */
+/* Double Up: slide all tiles, equal tiles merge. Swipe or use the arrow buttons. */
 (function () {
   const F = Funkloch;
   const SIZE = 4;
-  const TILE = { 2: '#FFE08A', 4: '#FFC9B0', 8: '#F8C3DD', 16: '#CFC2F2', 32: '#B5D8F5', 64: '#A8E0D6', 128: '#B9E6C9', 256: '#F2B84B', 512: '#F28C6B', 1024: '#EE8FBC', 2048: '#FFD400' };
+  // Tile colours from the style variables (readable in light and dark); big tiles get an accent rim.
+  const TILE = ['--c-math', '--c-memory', '--c-fun', '--c-logic', '--c-focus', '--c-chem', '--c-spatial', '--c-duo'];
+  const tileVar = (v) => `var(${TILE[(Math.log2(v) - 1) % TILE.length]})`;
 
-  // Slide one line towards index 0; returns the new line and the points gained.
+  // Slide one line towards index 0; returns the new line, the points gained and where merges landed.
   function slide(line) {
-    const v = line.filter(Boolean), out = [];
+    const v = line.filter(Boolean), out = [], merged = [];
     let gain = 0;
     for (let i = 0; i < v.length; i++) {
-      if (v[i] === v[i + 1]) { out.push(v[i] * 2); gain += v[i] * 2; i++; } else out.push(v[i]);
+      if (v[i] === v[i + 1]) { merged.push(out.length); out.push(v[i] * 2); gain += v[i] * 2; i++; } else out.push(v[i]);
     }
     while (out.length < SIZE) out.push(0);
-    return { out, gain };
+    return { out, gain, merged };
   }
   // dir: 0 left, 1 up, 2 right, 3 down
   function move(g, dir) {
     const n = g.slice();
     let gain = 0, moved = false;
+    const merged = [];
     for (let k = 0; k < SIZE; k++) {
       const idx = [];
       for (let j = 0; j < SIZE; j++) {
@@ -25,16 +28,17 @@
       }
       const res = slide(idx.map((i) => g[i]));
       gain += res.gain;
+      res.merged.forEach((j) => merged.push(idx[j]));
       idx.forEach((i, j) => { if (n[i] !== res.out[j]) moved = true; n[i] = res.out[j]; });
     }
-    return { g: n, gain, moved };
+    return { g: n, gain, moved, merged };
   }
   const canMove = (g) => [0, 1, 2, 3].some((d) => move(g, d).moved);
 
   F.registerGame({
-    id: 'game-2048', skill: 'logic', added: '2026-10-22', glyph: '2048',
-    name: { de: '2048', en: '2048' },
-    desc: { de: 'Wische die Kacheln in eine Richtung. Gleiche Zahlen verschmelzen zur doppelten. Baue möglichst grosse Zahlen (Ziel: 2048), bis nichts mehr geht.', en: 'Swipe the tiles in one direction. Equal numbers merge into their double. Build the biggest numbers you can (goal: 2048) until no move is left.' },
+    id: 'game-2048', skill: 'logic', added: '2026-10-22', glyph: '×2',
+    name: { de: 'Zahlen verdoppeln', en: 'Double Up' },
+    desc: { de: 'Wische die Kacheln in eine Richtung. Gleiche Zahlen verschmelzen zur doppelten. Baue möglichst grosse Zahlen (Ziel: eine Kachel mit 2048), bis nichts mehr geht.', en: 'Swipe the tiles in one direction. Equal numbers merge into their double. Build the biggest numbers you can (goal: a 2048 tile) until no move is left.' },
     noLevel: true,
     start(ctx) {
       const r = ctx.rng;
@@ -48,33 +52,46 @@
       addTile(); addTile();
 
       ctx.el.innerHTML = '';
-      const board = F.h(`<div style="display:grid;grid-template-columns:repeat(${SIZE},minmax(0,1fr));gap:8px;max-width:340px;margin:10px auto;padding:8px;border:2.5px solid var(--ink);border-radius:16px;background:var(--paper-2);touch-action:none;box-shadow:var(--shadow)"></div>`);
-      const cells = g.map(() => {
-        const c = F.h(`<div style="aspect-ratio:1;min-width:0;padding:0;border:2px solid var(--ink-faint);border-radius:12px;background:var(--card);display:flex;align-items:center;justify-content:center;font-size:26px;color:#2B2522;overflow:hidden"></div>`);
+      // A sketched tray holding the tiles; empty slots are faint dashed squares.
+      const board = F.h(`<div class="sketch" style="display:grid;grid-template-columns:repeat(${SIZE},minmax(0,1fr));gap:9px;max-width:356px;margin:8px auto 18px;padding:10px;border-width:3px;background:var(--paper-2);touch-action:none;box-shadow:var(--shadow)"></div>`);
+      const cells = g.map((_, i) => {
+        const c = F.h(`<div style="aspect-ratio:1;min-width:0;padding:0;border:2.5px dashed var(--ink-faint);border-radius:${12 + (i % 3) * 2}px ${14 - (i % 2) * 3}px ${11 + (i % 2) * 3}px ${13 - (i % 3)}px;background:var(--card);display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:bold;color:var(--ink);overflow:hidden"></div>`);
         board.appendChild(c);
         return c;
       });
-      const pad = F.h(`<div style="display:grid;grid-template-columns:repeat(3,64px);grid-template-rows:repeat(2,56px);gap:8px;justify-content:center;margin:6px auto"></div>`);
-      [['', 0], ['↑', 1], ['', 0], ['←', 0], ['↓', 3], ['→', 2]].forEach(([lab, dir]) => {
-        if (!lab) { pad.appendChild(F.h('<span></span>')); return; }
-        const b = F.h(`<button class="btn" style="min-height:56px;min-width:0;padding:0;font-size:28px">${lab}</button>`);
+      // Thumb pad: Done | ↑ | doodle, then ← ↓ →. Arrows are drawn strokes.
+      const arrow = (rot) => `<svg viewBox="0 0 40 40" width="34" height="34" aria-hidden="true" style="transform:rotate(${rot}deg)"><path d="M20 33 Q19 20 20.5 8 M10 17 Q15 12 20.5 7 Q25.5 12 30 17.5" fill="none" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+      const pad = F.h(`<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:74px;gap:12px;max-width:310px;margin:0 auto"></div>`);
+      const endBtn = F.h(`<button class="btn" style="min-height:0;min-width:0;padding:0;font-size:19px;background:var(--paper-2)">${F.tt({ de: 'Fertig', en: 'Done' })}</button>`);
+      endBtn.onclick = () => end();
+      const doodle = F.h(`<svg class="motif" viewBox="0 0 90 66" aria-hidden="true" style="width:100%;height:74px">
+        <g transform="rotate(-8 24 30)"><rect x="8" y="16" width="30" height="30" rx="8" fill="var(--c-math)" stroke="var(--ink)" stroke-width="2.6"/><path d="M14 22 Q19 19 25 20" fill="none" stroke="var(--card)" stroke-width="2.2" stroke-linecap="round"/></g>
+        <path d="M40 33 Q46 27 52 33" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round"/><path d="M49 28 L52.5 33.5 L46.5 34" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <g transform="rotate(6 70 32)"><rect x="55" y="13" width="32" height="36" rx="9" fill="var(--c-memory)" stroke="var(--ink)" stroke-width="2.6"/><path d="M62 21 L77 37 M77 21 L62 37" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/></g></svg>`);
+      [['end'], ['↑', 1, 0], ['doodle'], ['←', 0, -90], ['↓', 3, 180], ['→', 2, 90]].forEach(([lab, dir, rot]) => {
+        if (lab === 'end') return pad.appendChild(endBtn);
+        if (lab === 'doodle') return pad.appendChild(doodle);
+        const b = F.h(`<button class="btn" aria-label="${lab}" style="min-height:0;min-width:0;padding:0">${arrow(rot)}</button>`);
         b.addEventListener('pointerdown', (e) => { e.preventDefault(); act(dir); });
         pad.appendChild(b);
       });
-      const endBtn = F.h(`<button class="btn small ghost" style="display:block;margin:6px auto">${F.tt({ de: 'Fertig', en: 'Done' })}</button>`);
-      endBtn.onclick = () => end();
       ctx.el.appendChild(board);
       ctx.el.appendChild(pad);
-      ctx.el.appendChild(endBtn);
 
+      let merged = [];
+      const replay = (el, cls) => { el.classList.remove('pop-in', 'tap-pop'); void el.offsetWidth; el.classList.add(cls); };
       function draw() {
         cells.forEach((c, i) => {
           const v = g[i];
           c.textContent = v || '';
-          c.style.background = v ? (TILE[v] || '#FFD400') : 'var(--card)';
-          c.style.fontSize = v >= 1024 ? '20px' : v >= 128 ? '23px' : '26px';
-          c.style.transform = i === fresh ? 'scale(.9)' : '';
+          c.style.background = v ? tileVar(v) : 'var(--card)';
+          c.style.border = v ? `${v >= 256 ? '3.5px solid var(--accent)' : '2.5px solid var(--ink)'}` : '2.5px dashed var(--ink-faint)';
+          c.style.boxShadow = v ? 'inset 3px 3px 0 rgba(255,255,255,.3), 2px 2px 0 var(--ink)' : 'none';
+          c.style.fontSize = v >= 1024 ? '24px' : v >= 128 ? '28px' : '34px';
+          if (v && i === fresh) replay(c, 'pop-in');
+          else if (v && merged.includes(i)) replay(c, 'tap-pop');
         });
+        fresh = -1; merged = [];
         ctx.setScore(score);
         ctx.setInfo(F.tt({ de: 'Höchste: ', en: 'Best tile: ' }) + Math.max(...g));
       }
@@ -82,10 +99,10 @@
         if (over) return;
         const m = move(g, dir);
         if (!m.moved) return;
-        g = m.g; score += m.gain;
+        g = m.g; score += m.gain; merged = m.merged;
         addTile();
         ctx.sfx(m.gain ? 'good' : 'tick');
-        if (!won && Math.max(...g) >= 2048) { won = true; F.toast(F.tt({ de: '2048 geschafft! 🎉', en: 'You made 2048! 🎉' })); }
+        if (!won && Math.max(...g) >= 2048) { won = true; F.cheer(8); F.toast(F.tt({ de: 'Kachel 2048 geschafft! 🎉', en: 'You built the 2048 tile! 🎉' })); }
         draw();
         if (!canMove(g)) { over = true; ctx.wait(900).then(end); }
       }

@@ -2,6 +2,11 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-13 · Polish pass over 50 older solo games: layouts that use the whole phone screen, hand-drawn motifs, drawn boards and pieces, feedback on every tap, centred button rows, readable sizes in light and dark themes · owner asked for better visuals; rules, scoring and puzzles unchanged
+- 2026-11-13 · Doodle celebration (`Funkloch.cheer`) on the result screen for good results and records, plus opt-in CSS helpers (`.options.tall`, `.options.three`, `.options.center-last`, `.motif`, `.tap-pop`) · one shared look for old and new games
+- 2026-11-13 · Neutral names for 8 games: Frog Crossing, Rechen-Gitter / Calcudoku, Würfelpoker / Dice Poker, Minenfeld / Minefield, Zahlen verdoppeln / Double Up, Mauerbrecher / Brick Breaker, Vier in einer Reihe / Four in a Row, Kritzel-Tennis / Doodle Tennis · owner's decision: no brand names; ids unchanged, so records and favourites stay
+- 2026-11-13 · Unique card glyphs for games that shared one (Falling Blocks, Mini Sudoku, Reversi, Simon Says, What Changed?, 15-Puzzle, Hot Potato, Snakes and Ladders)
+- 2026-11-13 · Fixed the daily challenge differing between phones (wandering drew from ctx.rng once per animation frame) · game Focus Tunnel
 - 2026-11-12 · Galgenmännchen / Hangman (solo classic, logic) · guess made-up syllable words letter by letter, 6 mistakes allowed, 3 words
 - 2026-11-12 · Wochentag-Zauberer / Weekday Wizard (math) · which weekday is a given date, 10 rounds, dates get further from today with your level
 - 2026-11-12 · Buddy item: Wölkchen / Little cloud (new weather slot, 50 ink)

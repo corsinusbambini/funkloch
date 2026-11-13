@@ -78,51 +78,86 @@
         const puz = ctx.fresh(() => makePuzzle(r, n, round > 1), (p) => key(p.start) + p.goalPeg);
         const st = puz.start.slice();
         const history = [];
-        let sel = -1, moves = 0, done = false;
+        let sel = -1, moves = 0, done = false, moved = -1;
         ctx.el.innerHTML = '';
-        const info = F.h(`<div class="info-line"></div>`);
-        const board = F.h(`<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;max-width:340px;margin:12px auto"></div>`);
+        // Status: two drawn counters, moves so far and the best possible.
+        const stat = F.h('<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:4px 0 10px"></div>');
+        const box = (label) => {
+          const el = F.h(`<div class="card sketch" style="padding:6px 10px;display:flex;align-items:baseline;justify-content:center;gap:10px"><span style="font-size:18px;color:var(--ink-soft)">${F.tt(label)}</span><b style="font-size:34px;font-weight:normal;line-height:1.1">0</b></div>`);
+          stat.appendChild(el);
+          return el.querySelector('b');
+        };
+        const movesEl = box({ de: 'Züge', en: 'Moves' }), parEl = box({ de: 'Bestwert', en: 'Best' });
+        parEl.textContent = puz.par;
+        // The board: one wooden plank, three sticks; each third is one tap target.
+        const board = F.h(`<div class="sketch" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;padding:6px 4px 2px;background:var(--paper-2);transform:rotate(-0.5deg)"></div>`);
+        const H = 412, dh = Math.min(52, Math.floor(280 / n));
         const pegs = [0, 1, 2].map((p) => {
-          const b = F.h(`<button style="min-width:0;padding:6px 2px;height:${n * 30 + 70}px;border:2.5px solid var(--ink);border-radius:14px;background:var(--card);color:var(--ink);cursor:pointer;box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px;position:relative"></button>`);
+          const b = F.h('<button style="min-width:0;padding:0;border:0;background:transparent;color:var(--ink);cursor:pointer;display:block"></button>');
           b.onclick = () => tap(p);
           board.appendChild(b);
           return b;
         });
-        const undo = F.h(`<button class="btn small" style="display:block;margin:4px auto">↩ ${F.tt({ de: 'Zurück', en: 'Undo' })}</button>`);
+        const undo = F.h(`<button class="btn block" style="min-height:56px;margin-top:12px">↩ ${F.tt({ de: 'Zurück', en: 'Undo' })}</button>`);
         undo.onclick = () => {
           if (done || !history.length) return;
           const [d, from] = history.pop();
-          st[d] = from; sel = -1; moves++;
+          st[d] = from; sel = -1; moves++; moved = d;
           ctx.sfx('tick'); draw();
         };
-        function draw() {
-          pegs.forEach((b, p) => {
-            let h = `<div style="font-size:20px;line-height:1;height:22px">${p === puz.goalPeg ? '🏁' : ''}</div><div style="flex:1;width:6px;border-radius:3px;background:var(--ink-faint);position:absolute;top:30px;bottom:6px;left:calc(50% - 3px);z-index:0"></div>`;
-            const disks = st.map((q, d) => (q === p ? d : -1)).filter((d) => d >= 0).sort((a, c) => c - a); // big first = bottom
-            // bottom disk is last in the flex column, so list top first
-            disks.slice().reverse().forEach((d) => {
-              const w = 34 + (d * 58) / Math.max(1, n - 1);
-              h += `<div style="width:${w}%;height:26px;border:2.5px solid var(--ink);border-radius:9px;background:var(${COLS[d % COLS.length]});position:relative;z-index:1"></div>`;
-            });
-            b.innerHTML = h;
-            b.style.outline = p === sel ? '4px dashed var(--accent)' : '';
-            b.style.outlineOffset = p === sel ? '2px' : '';
+        const ink = 'stroke:var(--ink)';
+        function pegSvg(p) {
+          const y0 = H - 34; // top of the plank
+          let s = `<svg viewBox="0 0 120 ${H}" style="width:100%;height:auto;display:block" stroke-linecap="round" stroke-linejoin="round">`;
+          if (p === sel) s += `<rect x="6" y="8" width="108" height="${y0 - 6}" rx="16" style="fill:none;stroke:var(--accent)" stroke-width="3.5" stroke-dasharray="9 7"/>`;
+          // plank
+          s += `<path d="${p === 0 ? `M10,${y0} L120,${y0 + 1} L120,${H - 8} L10,${H - 8} C4,${H - 12} 4,${y0 + 6} 10,${y0} Z` : p === 2 ? `M0,${y0 + 1} L110,${y0} C116,${y0 + 6} 116,${H - 12} 110,${H - 8} L0,${H - 8} Z` : `M0,${y0 + 1} L120,${y0} L120,${H - 8} L0,${H - 8} Z`}" style="fill:var(--c-memory);stroke:none"/>`;
+          s += `<path d="M${p === 0 ? 10 : 0},${y0 + (p % 2)} L${p === 2 ? 110 : 120},${y0 + ((p + 1) % 2)} M${p === 0 ? 10 : 0},${H - 8} L${p === 2 ? 110 : 120},${H - 8}" style="${ink};fill:none" stroke-width="2.5"/>`;
+          if (p === 0) s += `<path d="M10,${y0} C4,${y0 + 6} 4,${H - 12} 10,${H - 8}" style="${ink};fill:none" stroke-width="2.5"/>`;
+          if (p === 2) s += `<path d="M110,${y0} C116,${y0 + 6} 116,${H - 12} 110,${H - 8}" style="${ink};fill:none" stroke-width="2.5"/>`;
+          s += `<path d="M${14 + p * 9},${y0 + 10} l${30 - p * 4},1 M${70 - p * 6},${y0 + 18} l26,-1" style="stroke:var(--ink-soft);fill:none" stroke-width="1.5"/>`;
+          // stick
+          s += `<path d="M56,${y0 + 1} L56.5,58 C57,52 63,52 63.5,58 L64,${y0 + 1} Z" style="fill:var(--c-memory);${ink}" stroke-width="2.5"/>`;
+          if (p === puz.goalPeg) {
+            s += `<path d="M60,54 L60,20" style="${ink}" stroke-width="2.5"/><path d="M61,20 L92,23 L90,40 L61,38 Z" style="fill:var(--card);${ink}" stroke-width="2.5"/>`;
+            s += `<path d="M61,20 L69,21 L69,29 L61,29 Z M77,22 L85,22.5 L84,31 L76,30 Z M69,29 L77,30 L76,39 L69,38.5 Z M84,31 L90.5,31.5 L90,40 L83,39.5 Z" style="fill:var(--ink)"/>`;
+          }
+          // valid target hint while a disk is lifted
+          if (sel >= 0 && p !== sel) {
+            const top = st.findIndex((q) => q === sel);
+            if (top >= 0 && !st.slice(0, top).some((q) => q === p)) s += `<path d="M48,${p === puz.goalPeg ? 6 : 26} L72,${p === puz.goalPeg ? 6 : 26} L60,${p === puz.goalPeg ? 18 : 40} Z" style="fill:var(--accent);${ink}" stroke-width="2"/>`;
+          }
+          const disks = st.map((q, d) => (q === p ? d : -1)).filter((d) => d >= 0).sort((a, c) => c - a); // big first = bottom
+          disks.forEach((d, k) => {
+            const w = 40 + (d * 72) / Math.max(1, n - 1);
+            const lift = p === sel && k === disks.length - 1 ? 26 : 0;
+            const y = y0 - (k + 1) * dh - lift, x = 60 - w / 2;
+            s += `<g class="${d === moved ? 'tap-pop' : ''}" style="transform-box:fill-box;transform-origin:center">`;
+            s += `<rect x="${x}" y="${y + 1}" width="${w}" height="${dh - 2}" rx="${Math.min(14, dh / 2.4)}" style="fill:var(${COLS[d % COLS.length]});${ink}" stroke-width="2.5"/>`;
+            s += `<path d="M${x + 9},${y + 8} L${x + Math.min(w * 0.45, 40)},${y + 7}" style="stroke:#FFFFFF;fill:none;opacity:.7" stroke-width="3"/></g>`;
           });
-          info.textContent = F.tt({ de: `Züge: ${moves} · Bestwert: ${puz.par}`, en: `Moves: ${moves} · Best: ${puz.par}` });
-          undo.disabled = done || !history.length;
+          return s + '</svg>';
         }
+        function draw() {
+          pegs.forEach((b, p) => { b.innerHTML = pegSvg(p); });
+          movesEl.textContent = moves;
+          movesEl.style.color = moves > puz.par ? 'var(--ink-soft)' : '';
+          undo.disabled = done || !history.length;
+          moved = -1;
+        }
+        const shake = (b) => { b.classList.remove('flash-bad'); void b.offsetWidth; b.classList.add('flash-bad'); };
         async function tap(p) {
           if (done) return;
           if (sel < 0) {
-            if (!st.includes(p)) { ctx.sfx('bad'); return; }
+            if (!st.includes(p)) { ctx.sfx('bad'); shake(pegs[p]); return; }
             sel = p; ctx.sfx('tick'); draw(); return;
           }
           if (sel === p) { sel = -1; draw(); return; }
           const top = st.findIndex((q) => q === sel); // smallest disk on the source peg
           const blocked = st.slice(0, top).some((q) => q === p);
-          if (top < 0 || blocked) { ctx.sfx('bad'); sel = -1; draw(); return; }
+          if (top < 0 || blocked) { ctx.sfx('bad'); shake(pegs[p]); sel = -1; draw(); return; }
           history.push([top, sel]);
-          st[top] = p; sel = -1; moves++;
+          st[top] = p; sel = -1; moves++; moved = top;
           ctx.sfx('tick');
           draw();
           if (!st.every((q) => q === puz.goalPeg)) return;
@@ -130,10 +165,12 @@
           points += Math.max(2, 10 - Math.max(0, moves - puz.par));
           ctx.setScore(points);
           ctx.sfx('good');
+          board.classList.add('flash-ok');
+          if (round < ROUNDS) F.cheer(8);
           await ctx.wait(1000);
           next();
         }
-        ctx.el.appendChild(info);
+        ctx.el.appendChild(stat);
         ctx.el.appendChild(board);
         ctx.el.appendChild(undo);
         draw();

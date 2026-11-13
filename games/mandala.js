@@ -23,7 +23,7 @@
 
       ctx.el.innerHTML = '';
       const size = Math.max(240, Math.min(340, window.innerWidth - 32));
-      const cv = F.h(`<canvas style="display:block;margin:8px auto;border:3px solid var(--ink);border-radius:50%;background:var(--card);touch-action:none;width:${size}px;height:${size}px;box-shadow:var(--shadow)"></canvas>`);
+      const cv = F.h(`<canvas style="display:block;margin:4px auto 0;border:3px solid var(--ink);border-radius:50%;background:var(--card);touch-action:none;width:${size}px;height:${size}px;box-shadow:var(--shadow)"></canvas>`);
       const dpr = window.devicePixelRatio || 1;
       cv.width = size * dpr; cv.height = size * dpr;
       const g = cv.getContext('2d');
@@ -68,21 +68,23 @@
       const stop = (e) => { if (e.pointerId === pid) { last = null; pid = null; } };
       cv.addEventListener('pointerup', stop); cv.addEventListener('pointercancel', stop);
 
-      const bar = F.h('<div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:8px 0"></div>');
+      const pop = (el) => { el.classList.remove('tap-pop'); void el.offsetWidth; el.classList.add('tap-pop'); };
+      // paint palette: colour blobs on a sketched card
+      const bar = F.h('<div class="card sketch alt" style="display:flex;justify-content:center;gap:10px;margin:16px 0 0;padding:14px 10px"></div>');
       const sw = colors.map((c, i) => {
-        const b = F.h(`<button aria-label="colour ${i + 1}" style="width:48px;height:48px;border-radius:50%;border:3px solid var(--ink);background:${c};cursor:pointer;padding:0"></button>`);
-        b.onclick = () => { color = i; paint(); };
+        const b = F.h(`<button aria-label="colour ${i + 1}" style="width:54px;height:54px;flex:none;border-radius:52% 48% 50% 46%;border:3px solid var(--ink);background:${c};cursor:pointer;padding:0;position:relative"><i style="position:absolute;left:22%;top:18%;width:34%;height:30%;border-top:3px solid #FFFFFF;border-radius:50%;opacity:.6"></i></button>`);
+        b.onclick = () => { color = i; paint(); pop(b); };
         bar.appendChild(b);
         return b;
       });
-      const bar2 = F.h('<div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:8px 0"></div>');
-      const brush = F.h(`<button class="btn" style="min-height:48px"></button>`);
-      brush.onclick = () => { width = width === 3 ? 7 : width === 7 ? 1.5 : 3; paint(); };
-      const fresh = F.h(`<button class="btn" style="min-height:48px">${F.tt({ de: 'Neu', en: 'New' })}</button>`);
+      const bar2 = F.h('<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:16px 0 0"></div>');
+      const brush = F.h(`<button class="btn" style="min-height:76px;padding:4px 6px;display:flex;align-items:center;justify-content:center;gap:6px"></button>`);
+      brush.onclick = () => { width = width === 3 ? 7 : width === 7 ? 1.5 : 3; paint(); pop(brush); };
+      const fresh = F.h(`<button class="btn" style="min-height:76px;padding:4px 6px">${F.tt({ de: 'Neu', en: 'New' })}</button>`);
       fresh.onclick = () => {
-        sheets++; folds = r.pick(FOLDS.filter((f) => f !== folds)); blank(); ctx.sfx('tick');
+        sheets++; folds = r.pick(FOLDS.filter((f) => f !== folds)); blank(); ctx.sfx('tick'); pop(fresh); pop(cv);
       };
-      const done = F.h(`<button class="btn" style="min-height:48px">${F.tt({ de: 'Fertig', en: 'Done' })}</button>`);
+      const done = F.h(`<button class="btn primary" style="min-height:76px;padding:4px 6px">${F.tt({ de: 'Fertig', en: 'Done' })}</button>`);
       done.onclick = () => ctx.finish({
         score: strokes, display: `${strokes} ❁`,
         detail: F.tt({ de: `${strokes} Striche · ${sheets} Blätter`, en: `${strokes} strokes · ${sheets} sheets` }),
@@ -91,7 +93,8 @@
       bar2.append(brush, fresh, done);
       function paint() {
         sw.forEach((b, i) => { b.style.outline = i === color ? '4px solid var(--accent)' : 'none'; b.style.outlineOffset = '2px'; });
-        brush.textContent = F.tt({ de: 'Pinsel: ', en: 'Brush: ' }) + (width === 1.5 ? '·' : width === 3 ? '●' : '⬤');
+        const rr = width === 1.5 ? 3 : width === 3 ? 5.5 : 9;
+        brush.innerHTML = `<span>${F.tt({ de: 'Pinsel', en: 'Brush' })}</span><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" style="flex:none"><circle cx="12" cy="12" r="${rr}" style="fill:${colors[color]};stroke:var(--ink);stroke-width:2"/></svg>`;
       }
       paint();
       ctx.setScore(0);

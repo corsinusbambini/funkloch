@@ -1,4 +1,4 @@
-/* KenKen: fill the grid with 1..N, no repeats in rows or columns, and make every cage hit its target. */
+/* Calcudoku (Rechen-Gitter): fill the grid with 1..N, no repeats in rows or columns, and make every cage hit its target. */
 (function () {
   const F = Funkloch;
 
@@ -50,9 +50,29 @@
     return c.op === '−' ? mx - mn === c.target : mx / mn === c.target;
   }
 
+  // Doodle above the board: four tilted chips with the operations, drawn as strokes, plus a pencil.
+  function motif() {
+    const ink = 'stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"';
+    const chip = (x, rot, fill, sym) => `<g transform="translate(${x} 28) rotate(${rot})">
+      <path d="M-19 -17 Q0 -19.5 19 -17 Q21 0 19 17 Q0 19.5 -19 17 Q-21 0 -19 -17Z" fill="var(${fill})" ${ink}/>
+      <path d="M-13 -11 Q-8 -14 -2 -13.5" fill="none" stroke="var(--card)" stroke-width="2.5" stroke-linecap="round" opacity=".8"/>
+      ${sym}</g>`;
+    const plus = `<path d="M-8 0H8M0 -8V8" fill="none" ${ink}/>`;
+    const minus = `<path d="M-8 0H8" fill="none" ${ink}/>`;
+    const times = `<path d="M-6.5 -6.5L6.5 6.5M6.5 -6.5L-6.5 6.5" fill="none" ${ink}/>`;
+    const div = `<path d="M-8 0H8" fill="none" ${ink}/><circle cx="0" cy="-7" r="2.2" fill="var(--ink)"/><circle cx="0" cy="7" r="2.2" fill="var(--ink)"/>`;
+    return F.h(`<svg class="motif" viewBox="0 0 300 58" width="320" height="62" aria-hidden="true" style="margin:0 auto 6px">
+      ${chip(40, -6, '--c-math', plus)}${chip(92, 4, '--c-fun', minus)}${chip(144, -3, '--c-focus', times)}${chip(196, 5, '--c-spatial', div)}
+      <g transform="translate(252 30) rotate(-32)">
+        <path d="M-30 -6 L18 -6 L30 0 L18 6 L-30 6 Z" fill="var(--c-math)" ${ink}/>
+        <path d="M18 -6 L18 6 M-22 -6 L-22 6" fill="none" ${ink}/>
+        <path d="M30 0 L25 -2.4 L25 2.4Z" fill="var(--ink)"/>
+      </g></svg>`);
+  }
+
   F.registerGame({
     id: 'kenken', skill: 'math', added: '2026-11-04', glyph: '3×+',
-    name: { de: 'KenKen', en: 'KenKen' },
+    name: { de: 'Rechen-Gitter', en: 'Calcudoku' },
     desc: {
       de: 'Fülle das Gitter mit den Zahlen von 1 bis N: keine Zahl doppelt in einer Zeile oder Spalte. Die Zahl in einem umrandeten Block ist das Ziel: Die Zahlen darin müssen es mit + − × ÷ ergeben. Löse 2 Rätsel.',
       en: 'Fill the grid with the numbers 1 to N: no repeats in any row or column. The small number in each outlined block is its target: the numbers inside must reach it with + − × ÷. Solve 2 puzzles.',
@@ -70,9 +90,11 @@
         let sel = null, done = false;
         ctx.el.innerHTML = '';
         const msg = F.h('<div class="info-line" style="text-align:center;min-height:26px">' + F.tt({ de: 'Tippe ein Feld, dann eine Zahl.', en: 'Tap a cell, then a number.' }) + '</div>');
-        const board = F.h(`<div style="display:grid;grid-template-columns:repeat(${n},minmax(0,1fr));gap:0;max-width:${n * 84}px;margin:10px auto;border:3px solid var(--ink);border-radius:10px;overflow:hidden;box-shadow:var(--shadow)"></div>`);
-        const pad = F.h(`<div style="display:grid;grid-template-columns:repeat(${n + 1},minmax(0,1fr));gap:8px;max-width:${(n + 1) * 70}px;margin:10px auto"></div>`);
-        ctx.el.appendChild(msg); ctx.el.appendChild(board); ctx.el.appendChild(pad);
+        const board = F.h(`<div style="display:grid;grid-template-columns:repeat(${n},minmax(0,1fr));gap:0;max-width:340px;margin:8px auto 16px;border:3.5px solid var(--ink);border-radius:12px;overflow:hidden;box-shadow:var(--shadow)"></div>`);
+        const pad = F.h(`<div style="display:grid;grid-template-columns:repeat(${n + 1},minmax(0,1fr));gap:10px;max-width:340px;margin:0 auto"></div>`);
+        ctx.el.appendChild(motif()); ctx.el.appendChild(msg); ctx.el.appendChild(board); ctx.el.appendChild(pad);
+        let popAt = -1;
+        const shake = () => { board.classList.remove('flash-bad'); void board.offsetWidth; board.classList.add('flash-bad'); };
         const same = (x, y, dx, dy) => { const a = x + dx, b = y + dy; return a >= 0 && b >= 0 && a < n && b < n && q.cage[b][a] === q.cage[y][x]; };
 
         function conflicts() {
@@ -94,18 +116,21 @@
             const first = c.cells[0][0] === x && c.cells[0][1] === y;
             const bw = (dx, dy) => (same(x, y, dx, dy) ? '1px dotted var(--ink-faint)' : '3px solid var(--ink)');
             const isSel = sel && sel[0] === x && sel[1] === y;
-            const b = F.h(`<button style="position:relative;min-width:0;padding:0;aspect-ratio:1;font-size:30px;font-family:inherit;cursor:pointer;color:${bad.has(y * n + x) ? 'var(--bad)' : 'var(--ink)'};background:${isSel ? 'var(--accent)' : 'var(--card)'};border-top:${bw(0, -1)};border-bottom:${bw(0, 1)};border-left:${bw(-1, 0)};border-right:${bw(1, 0)};border-radius:0">${first ? `<span style="position:absolute;top:2px;left:4px;font-size:14px;line-height:1;color:var(--ink)">${c.target}${c.op === '=' ? '' : c.op}</span>` : ''}${v[y][x] || ''}</button>`);
+            const b = F.h(`<button style="position:relative;min-width:0;padding:0;aspect-ratio:1;font-size:${n === 3 ? 44 : 38}px;font-family:inherit;cursor:pointer;color:${bad.has(y * n + x) ? 'var(--bad)' : 'var(--ink)'};background:${isSel ? 'var(--c-focus)' : 'var(--card)'};${isSel ? 'box-shadow:inset 0 0 0 3px var(--accent);' : ''}border-top:${bw(0, -1)};border-bottom:${bw(0, 1)};border-left:${bw(-1, 0)};border-right:${bw(1, 0)};border-radius:0"><span style="display:inline-block;padding-top:12px">${v[y][x] || ''}</span>${first ? `<span style="position:absolute;top:3px;left:5px;font-size:18px;line-height:1;color:var(--ink);white-space:nowrap">${c.target}${c.op === '=' ? '' : c.op}</span>` : ''}</button>`);
             b.onclick = () => { if (done) return; sel = [x, y]; ctx.sfx('tap'); render(); };
             board.appendChild(b);
+            if (popAt === y * n + x && v[y][x]) b.firstElementChild.classList.add('tap-pop');
           }
+          popAt = -1;
         }
         for (let k = 1; k <= n + 1; k++) {
           const label = k <= n ? String(k) : '⌫';
-          const b = F.h(`<button style="min-width:0;padding:0;min-height:56px;font-size:26px;font-family:inherit;border:3px solid var(--ink);border-radius:14px;background:var(--c-math);color:var(--ink);cursor:pointer;box-shadow:var(--shadow)">${label}</button>`);
+          const b = F.h(`<button class="btn" style="min-width:0;padding:0;min-height:82px;font-size:34px;background:var(--c-math);color:var(--ink)">${label}</button>`);
           b.onclick = () => {
             if (done) return;
             if (!sel) { msg.textContent = F.tt({ de: 'Tippe zuerst ein Feld.', en: 'Tap a cell first.' }); return; }
             v[sel[1]][sel[0]] = k <= n ? k : 0;
+            popAt = sel[1] * n + sel[0];
             ctx.sfx('tap'); render(); check();
           };
           pad.appendChild(b);
@@ -118,9 +143,10 @@
           if (rowsOk && colsOk && !bad.some(Boolean)) {
             done = true; solved++; ctx.sfx('good');
             msg.textContent = F.tt({ de: 'Gelöst!', en: 'Solved!' }); sel = null; render();
+            if (round < ROUNDS) F.cheer(8);
             await ctx.wait(1000); next();
           } else {
-            errors++; ctx.sfx('bad');
+            errors++; ctx.sfx('bad'); shake();
             const nb = bad.filter(Boolean).length;
             msg.textContent = nb ? F.tt({ de: `${nb} Block stimmt nicht.`, en: `${nb} block is off.` }) : F.tt({ de: 'Eine Zahl kommt doppelt vor.', en: 'A number repeats in a row or column.' });
           }

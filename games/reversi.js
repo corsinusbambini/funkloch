@@ -58,7 +58,7 @@
   }
 
   F.registerGame({
-    id: 'reversi', skill: 'logic', added: '2026-11-11', glyph: '⚫',
+    id: 'reversi', skill: 'logic', added: '2026-11-11', glyph: '⚪⚫',
     name: { de: 'Reversi', en: 'Reversi' },
     desc: {
       de: 'Du bist dunkel. Setze eine Scheibe so, dass sie helle Scheiben einklemmt, dann drehen sie um. Gewonnen hat, wer am Ende mehr Scheiben hat. Ecken sind Gold wert! Kleines 6×6-Feld gegen den Computer.',
@@ -73,26 +73,49 @@
 
       ctx.el.innerHTML = '';
       const info = F.h('<div class="info-line" style="min-height:26px"></div>');
-      const board = F.h(`<div style="display:grid;grid-template-columns:repeat(${N},minmax(0,1fr));gap:4px;max-width:340px;margin:10px auto;padding:6px;border:2.5px solid var(--ink);border-radius:14px;background:var(--card)"></div>`);
+      // Wooden frame around a felt board; the lines are the ink showing through 2px gaps.
+      const frame = F.h('<div class="sketch" style="padding:9px;margin:6px 0 0;background:var(--c-memory);box-shadow:var(--shadow)"></div>');
+      const board = F.h(`<div style="display:grid;grid-template-columns:repeat(${N},minmax(0,1fr));gap:2px;padding:2px;background:var(--ink);border-radius:6px"></div>`);
+      frame.appendChild(board);
       const cells = b.map((_, i) => {
-        const c = F.h('<button style="aspect-ratio:1;min-width:0;padding:0;min-height:48px;border:2px solid var(--ink-faint);border-radius:10px;background:var(--c-logic);display:flex;align-items:center;justify-content:center;cursor:pointer"></button>');
+        const c = F.h('<button style="aspect-ratio:1;min-width:0;padding:0;min-height:48px;border:0;border-radius:3px;background:var(--c-spatial);display:flex;align-items:center;justify-content:center;cursor:pointer"></button>');
         c.onclick = () => tap(i);
         board.appendChild(c);
         return c;
       });
-      const tally = F.h('<div class="info-line" style="min-height:24px"></div>');
-      ctx.el.append(info, board, tally);
+      // Discs keep fixed dark/light colours in every theme ("you are dark"); both show on light and dark felt.
+      const DARK = '#2B2522', LIGHT = '#FFFDF8';
+      const disc = (p, size, extra = '') => `<svg viewBox="0 0 40 40" style="width:${size};height:${size};display:block" ${extra}>
+        <circle cx="20" cy="21.5" r="16" style="fill:${DARK};opacity:.25"/>
+        <circle cx="20" cy="19.5" r="16" style="fill:${p === ME ? DARK : LIGHT};stroke:var(--ink)" stroke-width="2.5"/>
+        ${p === ME ? `<path d="M10,16 C11,11 15,8 20,7.5" style="fill:none;stroke:${LIGHT};opacity:.7" stroke-width="2.6" stroke-linecap="round"/>`
+          : `<path d="M30,23 C29,28 25,31 20,31.5" style="fill:none;stroke:${DARK};opacity:.3" stroke-width="2.6" stroke-linecap="round"/>`}</svg>`;
+      const tally = F.h('<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px"></div>');
+      const side = (p, label) => {
+        const el = F.h(`<div class="card sketch" style="padding:12px 10px;display:flex;align-items:center;justify-content:center;gap:10px">${disc(p, '46px')}<div style="line-height:1.1;text-align:left"><div style="font-size:17px;color:var(--ink-soft)">${F.tt(label)}</div><b style="font-size:36px;font-weight:normal">2</b></div></div>`);
+        tally.appendChild(el);
+        return el.querySelector('b');
+      };
+      const meEl = side(ME, { de: 'Du', en: 'You' }), cpuEl = side(CPU, { de: 'Computer', en: 'Computer' });
+      // Who is ahead, as a bar split dark | light.
+      const bar = F.h(`<div style="display:flex;height:24px;margin-top:16px;border:2.5px solid var(--ink);border-radius:10px 14px 9px 12px;overflow:hidden;background:${LIGHT}"><div style="background:${DARK}"></div></div>`);
+      ctx.el.append(info, frame, tally, bar);
 
+      let prev = b.slice();
       function draw(hints) {
         cells.forEach((c, i) => {
           const v = b[i];
           let inner = '';
-          if (v) inner = `<span style="display:block;width:78%;aspect-ratio:1;border-radius:50%;border:2.5px solid var(--ink);background:${v === ME ? 'var(--ink)' : 'var(--card)'};${i === last ? 'outline:3px dashed var(--accent);outline-offset:1px;' : ''}"></span>`;
-          else if (hints && flips(b, i, ME).length) inner = '<span style="display:block;width:26%;aspect-ratio:1;border-radius:50%;background:var(--accent);opacity:.8"></span>';
+          if (v) inner = disc(v, '82%', `class="${prev[i] !== v ? 'tap-pop' : ''}"`);
+          else if (hints && flips(b, i, ME).length) inner = '<svg viewBox="0 0 40 40" style="width:34%;height:34%;display:block"><circle cx="20" cy="20" r="14" style="fill:var(--accent);stroke:var(--ink)" stroke-width="3"/></svg>';
           c.innerHTML = inner;
+          c.style.outline = v && i === last ? '3px dashed var(--accent)' : '';
+          c.style.outlineOffset = '-4px';
         });
+        prev = b.slice();
         const a = count(b, ME), d = count(b, CPU);
-        tally.textContent = F.tt({ de: `Du: ${a} · Computer: ${d}`, en: `You: ${a} · Computer: ${d}` });
+        meEl.textContent = a; cpuEl.textContent = d;
+        bar.firstChild.style.width = `${Math.round((a / Math.max(1, a + d)) * 100)}%`;
         ctx.setScore(a * 3);
       }
 

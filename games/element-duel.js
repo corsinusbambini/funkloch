@@ -11,6 +11,24 @@
     metalloid: { de: 'ein Halbmetall', en: 'a metalloid' },
   };
   const nm = (e) => F.tt({ de: e.de, en: e.en });
+  // Hand-drawn mini periodic table (periods 1–5, coloured by block) with a magnifying glass. Decoration only.
+  const pse = (i) => {
+    const cells = [];
+    for (let p = 0; p < 5; p++) for (let c = 0; c < 18; c++) {
+      if (p === 0 && c > 0 && c < 17) continue;
+      if ((p === 1 || p === 2) && c > 1 && c < 12) continue;
+      const k = p * 18 + c, j = ((k * 37 + i * 11) % 5 - 2) * 0.35, x = 12 + c * 16.4, y = 14 + p * 17.5;
+      const fill = c < 2 ? 'var(--c-fun)' : c < 12 ? 'var(--c-math)' : c === 17 ? 'var(--c-focus)' : 'var(--c-chem)';
+      cells.push(`<path d="M${x + j} ${y} L${x + 14.6} ${y + j} L${x + 14.6 - j} ${y + 15.4} L${x} ${y + 15.4 - j} Z" style="fill:${fill}"/>`);
+    }
+    return `<svg class="motif" viewBox="0 0 320 130" width="340" height="138" aria-hidden="true" style="margin:16px auto 18px;transform:rotate(${i % 2 ? 1.2 : -1.5}deg);stroke:var(--ink);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;fill:none">
+      ${cells.join('')}
+      <path d="M8 112 C90 109 220 115 312 110" style="stroke-width:2.4"/>
+      <circle cx="232" cy="62" r="24" style="fill:var(--card);fill-opacity:.55;stroke-width:3.2"/>
+      <path d="M218 52 C222 45 230 42 237 43" style="stroke:#fff;opacity:.8;stroke-width:2.6"/>
+      <path d="M249 80 L272 104" style="stroke-width:8"/><path d="M249 80 L272 104" style="stroke:var(--accent);stroke-width:4"/>
+    </svg>`;
+  };
 
   F.registerGame({
     id: 'element-duel', skill: 'chem', glyph: 'Na',
@@ -64,21 +82,22 @@
         ctx.setInfo(`${round} / ${ROUNDS}`);
         const q = ctx.fresh(question, (x) => x.q + x.el.sym, 6);
         ctx.el.innerHTML = '';
-        const qEl = F.h(`<div class="card sketch big-display pop-in" style="font-size:30px;letter-spacing:0">${q.q}</div>`);
+        const qEl = F.h(`<div class="card sketch big-display pop-in" style="font-size:32px;letter-spacing:0;word-break:normal;overflow-wrap:break-word;line-height:1.2;min-height:180px;padding:18px 12px"><span>${q.q}</span></div>`);
         ctx.el.appendChild(qEl);
         let answered = false;
         const tb = ctx.timer(ctx.el, TIME, () => pick(-1, null, optEl));
-        const optEl = F.options(q.labels, (i, b, wrap) => pick(i, b, wrap));
+        ctx.el.appendChild(F.h(pse(round)));
+        const optEl = F.options(q.labels, (i, b, wrap) => pick(i, b, wrap), 'tall');
         async function pick(i, b, wrap) {
           if (answered) return;
           answered = true;
           const ms = tb.stop();
           const ok = i === q.ci;
-          if (b) b.classList.add(ok ? 'right' : 'wrong');
+          if (b) b.classList.add(ok ? 'right' : 'wrong', ok ? 'tap-pop' : 'flash-bad');
           wrap.children[q.ci].classList.add('right');
           ctx.sfx(ok ? 'good' : 'bad');
           const s = q.el.sym;
-          if (ok) { correct++; points += 5 + Math.ceil((TIME - ms) / 1000); gd.weak[s] = Math.max(0, (gd.weak[s] || 0) - 1); }
+          if (ok) { correct++; points += 5 + Math.ceil((TIME - ms) / 1000); gd.weak[s] = Math.max(0, (gd.weak[s] || 0) - 1); if (round < ROUNDS) F.cheer(8); }
           else gd.weak[s] = Math.min(5, (gd.weak[s] || 0) + 2);
           await ctx.wait(ok ? 600 : 1600);
           next();

@@ -18,24 +18,58 @@
       let n = 0, side = 0, total = 0, v = 0, zone = [0, 0], busy = true, over = false, sideScores = [];
 
       ctx.el.innerHTML = '';
-      const wrap = F.h('<div style="max-width:340px;margin:8px auto;text-align:center"></div>');
-      const head = F.h('<div class="info-line" style="min-height:26px"></div>');
-      const pan = F.h(`<div style="position:relative;height:150px;margin:6px 0">
-        <div class="pf-pan" style="position:absolute;left:8%;right:8%;bottom:14px;height:34px;border:3px solid var(--ink);border-radius:50%;background:var(--ink-faint);box-shadow:var(--shadow)"></div>
-        <div class="pf-cake" style="position:absolute;left:50%;bottom:34px;width:170px;height:46px;margin-left:-85px;border:3px solid var(--ink);border-radius:50%;transition:bottom .35s ease-out,transform .35s ease-out"></div>
+      const wrap = F.h('<div style="max-width:340px;margin:4px auto 0;text-align:center"></div>');
+      // the round counter lives in the free info line above the stage
+      const head = { set textContent(v) { ctx.setInfo(F.esc(v)); } };
+      // eight little pancakes: done, current, still to come
+      const plates = F.h('<div style="display:flex;justify-content:center;gap:6px;min-height:28px"></div>');
+      const plateIcons = Array.from({ length: TOTAL }, () => {
+        const el = F.h('<svg viewBox="0 0 36 22" width="36" height="22" aria-hidden="true" style="display:block"><ellipse cx="18" cy="12" rx="15" ry="7.5" style="stroke-width:2.2"/></svg>');
+        plates.appendChild(el);
+        return el;
+      });
+      // hand-drawn stove: pan with handle, burner and steam; the cake is a div on top so it can flip
+      const pan = F.h(`<div style="position:relative;height:300px;margin:6px 0 0">
+        <svg class="motif" viewBox="0 0 340 290" width="340" height="290" aria-hidden="true" style="position:absolute;left:50%;top:10px;margin-left:-170px;max-width:none">
+          <g style="fill:none;stroke:var(--ink-faint);stroke-width:3;stroke-linecap:round">
+            <path d="M140 92c-8-12 8-18 0-30s6-18 0-28"/><path d="M172 84c-8-12 8-18 0-30s6-18 0-28"/><path d="M204 92c-8-12 8-18 0-30s6-18 0-28"/>
+          </g>
+          <path d="M14 262c60-3 250-2 312 1" style="fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round"/>
+          <g style="stroke:var(--ink);stroke-width:1.4;opacity:.35">
+            <path d="M24 284l14-18M50 284l14-18M76 284l14-18M102 284l14-18M128 284l14-18M154 284l14-18M180 284l14-18M206 284l14-18M232 284l14-18M258 284l14-18M284 284l14-18M310 284l14-18"/>
+          </g>
+          <path d="M96 258c8-14 140-15 150 1" style="fill:var(--bad);stroke:var(--ink);stroke-width:2.5;stroke-linejoin:round;opacity:.85"/>
+          <path d="M262 224c26-4 52-6 70-3 4 1 4 9 0 10-18 3-44 2-70-1z" style="fill:var(--ink-soft);stroke:var(--ink);stroke-width:3;stroke-linejoin:round"/>
+          <path d="M28 214c2-22 270-24 280-1 3 26-36 40-140 41C66 255 24 238 28 214z" style="fill:var(--ink-faint);stroke:var(--ink);stroke-width:3;stroke-linejoin:round"/>
+          <path d="M44 212c6-14 238-15 248 0-8 14-238 15-248 0z" style="fill:var(--paper-2);stroke:var(--ink);stroke-width:2.2;stroke-linejoin:round"/>
+          <path d="M60 236c30 8 90 10 150 6" style="fill:none;stroke:#FFFFFF;stroke-width:3;stroke-linecap:round;opacity:.45"/>
+        </svg>
+        <div class="pf-cake" style="position:absolute;left:50%;bottom:56px;width:190px;height:50px;margin-left:-95px;border:3px solid var(--ink);border-radius:50%;transition:transform .35s ease-out">
+          <i style="position:absolute;left:20%;top:16%;width:38%;height:34%;border-top:3px solid #FFFFFF;border-radius:50%;opacity:.55"></i>
+        </div>
       </div>`);
       const cake = pan.querySelector('.pf-cake');
-      const gauge = F.h('<div style="position:relative;height:34px;border:3px solid var(--ink);border-radius:12px;overflow:hidden;margin:8px 0"><div class="pf-mark" style="position:absolute;top:0;bottom:0;width:6px;margin-left:-3px;background:var(--ink);border-radius:3px"></div></div>');
+      const gauge = F.h('<div style="position:relative;height:54px;border:3px solid var(--ink);border-radius:14px 18px 12px 16px;overflow:hidden;margin:6px 0 0;box-shadow:var(--shadow)"><div class="pf-mark" style="position:absolute;top:0;bottom:0;width:8px;margin-left:-4px;background:var(--ink);border-radius:4px"></div></div>');
       const mark = gauge.querySelector('.pf-mark');
-      const hint = F.h('<div class="info-line" style="min-height:24px;font-size:15px"></div>');
-      const btn = F.h(`<button style="width:100%;min-height:64px;font-size:26px;border:3px solid var(--ink);border-radius:16px;background:var(--accent);color:#2B2522;box-shadow:var(--shadow);cursor:pointer;touch-action:manipulation"></button>`);
+      const hint = F.h('<div class="info-line" style="min-height:40px;font-size:24px;margin-top:8px;display:flex;align-items:center;justify-content:center"><span></span></div>');
+      const hintText = hint.firstChild;
+      const btn = F.h(`<button class="btn primary big" style="min-height:96px;font-size:32px;margin-top:6px;touch-action:manipulation"></button>`);
       btn.textContent = F.tt({ de: 'Wenden!', en: 'Flip!' });
-      wrap.append(head, pan, gauge, hint, btn);
+      wrap.append(plates, pan, gauge, hint, btn);
       ctx.el.appendChild(wrap);
+      const pop = (el) => { el.classList.remove('tap-pop'); void el.offsetWidth; el.classList.add('tap-pop'); };
+      const showPlates = () => plateIcons.forEach((el, i) => {
+        const e = el.firstChild;
+        e.style.fill = i < n ? 'var(--c-math)' : i === n ? 'var(--card)' : 'none';
+        e.style.stroke = i === n ? 'var(--accent)' : i < n ? 'var(--ink)' : 'var(--ink-faint)';
+        e.style.strokeDasharray = i > n ? '4 3' : '';
+      });
+      const sideGolden = [];
 
       const colorOf = (x) => `hsl(38, 72%, ${Math.round(82 - 50 * Math.min(1, x))}%)`;
       const showHead = () => {
         head.textContent = F.tt({ de: `Pfannkuchen ${n + 1}/${TOTAL} · Seite ${side + 1}/2 · ${total} Pkt.`, en: `Pancake ${n + 1}/${TOTAL} · side ${side + 1}/2 · ${total} pts` });
+        showPlates();
       };
       function newSide() {
         v = 0;
@@ -62,14 +96,20 @@
         ctx.setScore(total);
         const golden = v >= zone[0] && v <= zone[1];
         ctx.sfx(burnt ? 'bad' : golden ? 'good' : 'tick');
-        hint.textContent = burnt ? F.tt({ de: 'Verbrannt! 0 Punkte', en: 'Burnt! 0 points' })
+        hintText.textContent = burnt ? F.tt({ de: 'Verbrannt! 0 Punkte', en: 'Burnt! 0 points' })
           : F.tt({ de: golden ? `Goldrichtig! +${pts}` : (v < zone[0] ? `Noch roh. +${pts}` : `Schon dunkel. +${pts}`), en: golden ? `Golden! +${pts}` : (v < zone[0] ? `Still raw. +${pts}` : `A bit dark. +${pts}`) });
-        cake.style.bottom = '110px'; cake.style.transform = 'rotateX(360deg)';
+        hintText.style.color = burnt ? 'var(--bad)' : golden ? 'var(--ink)' : 'var(--ink-soft)';
+        pop(hint); pop(btn);
+        sideGolden[side] = golden && !burnt;
+        cake.style.transform = 'translateY(-76px) rotateX(360deg)';
         await ctx.wait(380);
-        cake.style.transition = 'none'; cake.style.transform = ''; cake.style.bottom = '34px';
-        void cake.offsetWidth; cake.style.transition = 'bottom .35s ease-out,transform .35s ease-out';
+        cake.style.transition = 'none'; cake.style.transform = '';
+        void cake.offsetWidth; cake.style.transition = 'transform .35s ease-out';
         if (side === 0) { side = 1; }
-        else { side = 0; n++; }
+        else {
+          side = 0; n++;
+          if (n < TOTAL && sideGolden[0] && sideGolden[1]) F.cheer(8);
+        }
         if (n >= TOTAL) return finish();
         newSide();
         await ctx.wait(250);
@@ -93,7 +133,7 @@
         const win = total >= 1000;
         ctx.sfx(win ? 'win' : 'bad');
         head.textContent = F.tt(win ? { de: 'Bestes Frühstück!', en: 'Best breakfast!' } : { de: 'Fertig serviert', en: 'Served up' });
-        hint.textContent = '';
+        hintText.textContent = ''; showPlates();
         await ctx.wait(1000);
         ctx.finish({
           score: total, detail: F.tt({ de: `${total} Punkte von 1600`, en: `${total} points out of 1600` }),

@@ -53,9 +53,9 @@
         const put = new Array(9).fill(null);   // value placed in each blank cell
         const used = new Array(q.blank.length).fill(false); // pool chips used
         const poolVals = r.shuffle(q.blank.map((i) => q.vals[i]));
-        let sel = -1, done = false, mistakes = 0;
+        let sel = -1, done = false, mistakes = 0, lastPut = -1;
         ctx.el.innerHTML = '';
-        const sumEl = F.h(`<div class="card sketch big-display pop-in" style="font-size:26px">${F.tt({ de: 'Magische Summe', en: 'Magic sum' })}: <b style="color:var(--accent)">${q.sum}</b></div>`);
+        const sumEl = F.h(`<div class="card sketch big-display pop-in" style="font-size:26px;letter-spacing:1px"><svg viewBox="0 0 48 48" width="44" height="44" style="flex:none;margin-right:8px;transform:rotate(-8deg);stroke:var(--ink);stroke-width:2.4;stroke-linejoin:round;stroke-linecap:round" aria-hidden="true"><path d="M24 4 L29.5 17.5 L44 18.5 L32.5 28 L36.5 43 L24 34.5 L11 43.5 L15.5 28.5 L4 18 L18.5 17 Z" style="fill:var(--c-math)"/><path d="M15 21 q3 -3 7 -3" style="fill:none;stroke:#fff;stroke-opacity:.6;stroke-width:2.6"/></svg><span>${F.tt({ de: 'Magische Summe', en: 'Magic sum' })}:&nbsp;</span><b style="color:var(--accent);font-size:40px">${q.sum}</b></div>`);
         const board = F.h('<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;max-width:300px;margin:12px auto"></div>');
         const poolEl = F.h('<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;max-width:300px;margin:8px auto"></div>');
         const msg = F.h('<div class="info-line" style="text-align:center;min-height:26px"></div>');
@@ -67,12 +67,13 @@
           for (let i = 0; i < 9; i++) {
             const isBlank = blank.has(i);
             const v = isBlank ? put[i] : q.vals[i];
-            const b = F.h(`<button style="${cellStyle};background:${isBlank ? (sel === i ? 'var(--accent)' : 'var(--card)') : 'var(--paper-2)'};${isBlank && v === null ? 'border-style:dashed;' : ''}">${v === null ? '' : v}</button>`);
+            const b = F.h(`<button style="${cellStyle};background:${isBlank ? (sel === i ? 'var(--accent)' : 'var(--card)') : 'var(--paper-2)'};${isBlank ? 'border-style:dashed;' : ''}">${v === null ? '' : v}</button>`);
             if (isBlank && !done) b.onclick = () => {
               if (put[i] !== null) { const k = poolIndexOf(put[i]); if (k >= 0) used[k] = false; put[i] = null; sel = i; }
               else sel = sel === i ? -1 : i;
               msg.textContent = ''; ctx.sfx('tap'); render();
             };
+            if (i === lastPut) b.classList.add('pop-in');
             board.appendChild(b);
           }
           poolVals.forEach((v, k) => {
@@ -80,10 +81,10 @@
             b.onclick = () => {
               if (used[k] || done) return;
               if (sel < 0) { const free = q.blank.find((i) => put[i] === null); if (free === undefined) return; sel = free; }
-              put[sel] = v; used[k] = true;
+              put[sel] = v; used[k] = true; lastPut = sel;
               const nextFree = q.blank.find((i) => put[i] === null);
               sel = nextFree === undefined ? -1 : nextFree;
-              ctx.sfx('tap'); render(); check();
+              ctx.sfx('tap'); render(); lastPut = -1; check();
             };
             poolEl.appendChild(b);
           });
@@ -96,10 +97,10 @@
           const ok = LINES.every((L) => L.reduce((a, i) => a + full[i], 0) === q.sum);
           if (ok) {
             done = true; solved++; points += Math.max(4, 10 - mistakes * 3);
-            ctx.sfx('good'); msg.textContent = F.tt({ de: 'Magisch!', en: 'Magical!' }); render();
+            ctx.sfx('good'); msg.textContent = F.tt({ de: 'Magisch!', en: 'Magical!' }); render(); board.classList.add('flash-ok'); if (round < ROUNDS) F.cheer(8);
             await ctx.wait(900); next();
           } else {
-            mistakes++; ctx.sfx('bad');
+            mistakes++; ctx.sfx('bad'); board.classList.remove('flash-bad'); void board.offsetWidth; board.classList.add('flash-bad');
             msg.textContent = F.tt({ de: 'Nicht ganz – tippe ein Feld, um es zu ändern.', en: 'Not quite – tap a cell to change it.' });
           }
         }

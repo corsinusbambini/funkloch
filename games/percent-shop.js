@@ -8,6 +8,20 @@
     { e: '🛋️', de: 'Sessel', en: 'armchair' }, { e: '🚲', de: 'Velo', en: 'bike' }, { e: '☕', de: 'Kaffeemaschine', en: 'coffee machine' },
   ];
 
+  // doodle: a price tag on a string with a big %, next to a little shopping bag
+  function tagMotif() {
+    return `<svg class="motif" viewBox="0 0 280 104" width="280" height="104" style="transform:rotate(-3deg);stroke:currentColor;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round" aria-hidden="true">
+      <path d="M14 14 q30 -4 46 26" style="fill:none;stroke-width:2"/>
+      <path d="M58 40 L96 14 L196 18 Q200 52 194 88 L95 90 Z" style="fill:var(--c-math)"/>
+      <circle cx="78" cy="46" r="7" style="fill:var(--paper)"/>
+      <path d="M104 26 q30 -5 60 -2" style="fill:none;stroke:#fff;stroke-opacity:.6;stroke-width:3"/>
+      <text x="146" y="76" text-anchor="middle" style="font-size:46px;fill:var(--ink);stroke:none">%</text>
+      <path d="M212 46 L268 44 L264 98 L216 99 Z" style="fill:var(--card)"/>
+      <path d="M226 46 q2 -22 14 -22 q13 0 14 21" style="fill:none"/>
+      <path d="M222 60 L258 59" style="fill:none;stroke:var(--accent);stroke-width:4"/>
+    </svg>`;
+  }
+
   function make(r, level) {
     const it = ITEMS[r.int(0, ITEMS.length - 1)];
     const pcts = level >= 4 ? [5, 10, 15, 20, 25, 30, 40, 50, 60, 75] : [10, 20, 25, 50];
@@ -61,10 +75,11 @@
       const r = ctx.rng, TOTAL = 10;
       let n = 0, right = 0, streak = 0, score = 0, over = false;
       ctx.el.innerHTML = '';
-      const qEl = F.h('<div style="font-size:24px;line-height:1.25;text-align:center;margin:16px 6px;min-height:100px;color:var(--ink)"></div>');
-      const opts = F.h('<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;max-width:360px;margin:8px auto"></div>');
+      const tagEl = F.h(`<div>${tagMotif()}</div>`);
+      const qEl = F.h('<div class="card sketch" style="font-size:26px;line-height:1.3;text-align:center;margin:6px 0 0;min-height:188px;display:flex;align-items:center;justify-content:center;color:var(--ink)"></div>');
+      const opts = F.h('<div class="options tall" style="margin-top:22px"></div>');
       const fb = F.h('<div class="info-line" style="text-align:center;min-height:28px;margin-top:10px"></div>');
-      ctx.el.appendChild(qEl); ctx.el.appendChild(opts); ctx.el.appendChild(fb);
+      ctx.el.appendChild(tagEl); ctx.el.appendChild(qEl); ctx.el.appendChild(opts); ctx.el.appendChild(fb);
       function next() {
         if (over) return;
         if (n >= TOTAL) return end();
@@ -78,17 +93,20 @@
           labels = all.map((v) => (item.unit === '%' ? v + '%' : 'CHF ' + v)); correct = all.indexOf(item.ans);
         }
         qEl.textContent = F.tt(item.q); fb.textContent = '';
+        qEl.classList.remove('pop-in'); void qEl.offsetWidth; qEl.classList.add('pop-in');
         opts.innerHTML = ''; let locked = false;
         labels.forEach((lab, i) => {
-          const b = F.h(`<button style="min-width:0;min-height:64px;padding:6px;font-size:24px;font-family:inherit;border:3px solid var(--ink);border-radius:14px;background:var(--card);color:var(--ink);cursor:pointer;box-shadow:var(--shadow)">${lab}</button>`);
+          const b = F.h(`<button class="opt" style="min-width:0;padding:6px">${lab}</button>`);
           b.onclick = async () => {
             if (locked || over) return; locked = true;
+            b.classList.add('tap-pop');
             if (i === correct) {
               right++; streak++; score += 10 + Math.min(streak - 1, 5) * 2; ctx.sfx('good');
-              b.style.background = 'var(--good)'; fb.textContent = F.tt({ de: 'Richtig!', en: 'Correct!' });
+              b.classList.add('right'); fb.textContent = F.tt({ de: 'Richtig!', en: 'Correct!' });
+              if (n < TOTAL) F.cheer(8);
             } else {
-              streak = 0; ctx.sfx('bad'); b.style.background = 'var(--bad)';
-              opts.children[correct].style.background = 'var(--good)';
+              streak = 0; ctx.sfx('bad'); b.classList.add('wrong');
+              opts.children[correct].classList.add('right');
               fb.textContent = F.tt({ de: 'Leider falsch.', en: 'Not quite.' });
             }
             ctx.setScore(score);

@@ -1,4 +1,4 @@
-/* Connect Four: two players take turns dropping discs. Four in a row wins the round. */
+/* Four in a Row: two players take turns dropping discs. Four in a row wins the round. */
 (function () {
   const F = Funkloch;
   const COLS = 7, ROWS = 6;
@@ -23,7 +23,7 @@
 
   F.registerGame({
     id: 'connect-four', skill: 'duo', added: '2026-10-22', glyph: '🔴', players: 2, maxPlayers: 2,
-    name: { de: 'Vier gewinnt', en: 'Connect Four' },
+    name: { de: 'Vier in einer Reihe', en: 'Four in a Row' },
     desc: { de: 'Ihr wechselt euch ab: tippe auf eine Spalte, dein Stein fällt nach unten. Wer zuerst vier Steine in einer Reihe hat (waagrecht, senkrecht oder diagonal), gewinnt die Runde. Wer zuerst 2 Runden hat, gewinnt.', en: 'Take turns: tap a column and your disc drops down. First to get four in a row (across, up or diagonal) wins the round. First to 2 rounds wins.' },
     modes: F.partyModes([2]),
     noLevel: true, formatBest: () => '🔴',

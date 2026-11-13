@@ -4,6 +4,19 @@
   const COLORS = ['#E8574F', '#4A90D9', '#4FB36B', '#F2B84B', '#A06BD6', '#F28C6B', '#35B3B0', '#E26FA6', '#8A6A4A', '#7A8A9A'];
   const LETTERS = 'ABCDEFGHIJ';
   const DIRS = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+  // drawn motif: a pencil pulling a wiggly line from one dot to its partner
+  const MOTIF = `<svg class="motif" viewBox="0 0 320 70" width="340" height="74" aria-hidden="true" style="transform:rotate(-1.2deg)">
+    <g stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M40 40 C80 8 110 64 150 36 S210 14 236 34" fill="none" stroke="var(--ink)" stroke-width="12"/>
+      <path d="M40 40 C80 8 110 64 150 36 S210 14 236 34" fill="none" stroke="#4A90D9" stroke-width="7"/>
+      <circle cx="36" cy="42" r="14" fill="#4A90D9"/><path d="M28 37 Q30 32 35 31" fill="none" stroke="#fff" opacity=".7"/>
+      <circle cx="286" cy="38" r="14" fill="#4A90D9"/><path d="M278 33 Q280 28 285 27" fill="none" stroke="#fff" opacity=".7"/>
+      <path d="M236 34 l10 -26 l12 5 l-10 26 Z" fill="var(--c-math)"/>
+      <path d="M236 34 l-2 9 l7 -5" fill="var(--card)"/>
+      <path d="M246 8 l3 -7 l12 5 l-3 7" fill="var(--c-fun)"/>
+      <circle cx="120" cy="12" r="7" fill="#E8574F"/><circle cx="190" cy="60" r="7" fill="#F2B84B"/>
+      <path d="M128 12 Q150 6 162 20" fill="none" stroke="var(--ink-soft)" stroke-dasharray="3 5"/>
+    </g></svg>`;
 
   // Build a solved grid: split it into paths that cover every cell (each path has >= 2 cells).
   function make(r, n) {
@@ -77,13 +90,16 @@
         const lines = ends.map(() => []); // drawn cells per colour
         let cur = -1, done = false;
         ctx.el.innerHTML = '';
-        const msg = F.h('<div class="info-line" style="text-align:center;min-height:26px"></div>');
-        const board = F.h(`<div style="display:grid;grid-template-columns:repeat(${n},minmax(0,1fr));gap:3px;max-width:${n * 58}px;margin:10px auto;padding:4px;border:3px solid var(--ink);border-radius:12px;background:var(--ink-faint);box-shadow:var(--shadow);touch-action:none;user-select:none;-webkit-user-select:none"></div>`);
-        const reset = F.h(`<button style="display:block;margin:6px auto;min-height:48px;padding:0 22px;font-size:20px;font-family:inherit;border:3px solid var(--ink);border-radius:14px;background:var(--card);color:var(--ink);cursor:pointer;box-shadow:var(--shadow)">${F.tt({ de: 'Neu starten', en: 'Restart' })}</button>`);
-        ctx.el.appendChild(msg); ctx.el.appendChild(board); ctx.el.appendChild(reset);
+        const status = F.h('<div class="sketch" style="background:var(--card);box-shadow:var(--shadow);margin:4px 6px 14px;padding:8px 10px;transform:rotate(.6deg)"></div>');
+        const msg = F.h('<div style="text-align:center;font-size:19px;min-height:26px;line-height:1.25"></div>');
+        const pills = F.h('<div style="display:flex;justify-content:center;gap:5px;margin-top:6px;flex-wrap:nowrap"></div>');
+        status.append(msg, pills);
+        const board = F.h(`<div style="display:grid;grid-template-columns:repeat(${n},minmax(0,1fr));gap:3px;padding:5px;border:3px solid var(--ink);border-radius:14px 10px 16px 9px;background:var(--ink-faint);box-shadow:var(--shadow);touch-action:none;user-select:none;-webkit-user-select:none"></div>`);
+        const reset = F.h(`<button class="btn" style="display:flex;margin:16px auto 0;min-height:56px;padding:0 26px;font-size:21px">↺ ${F.tt({ de: 'Neu starten', en: 'Restart' })}</button>`);
+        ctx.el.append(F.h(MOTIF), status, board, reset);
         const cells = [];
         for (let i = 0; i < n * n; i++) {
-          const d = F.h('<div style="position:relative;aspect-ratio:1;min-width:0;border-radius:8px;background:var(--card);overflow:hidden"></div>');
+          const d = F.h('<div style="position:relative;aspect-ratio:1;min-width:0;border-radius:7px 9px 6px 8px;background:var(--card);overflow:hidden"></div>');
           board.appendChild(d); cells.push(d);
         }
         msg.textContent = F.tt({ de: 'Zieh von einem Punkt zum gleichfarbigen.', en: 'Drag from a dot to the matching one.' });
@@ -95,12 +111,32 @@
           return endAt[a[1]][a[0]] === c && endAt[b[1]][b[0]] === c && (a[0] !== b[0] || a[1] !== b[1]);
         };
         function render() {
+          // which neighbours each drawn cell connects to (a drawn line, not filled squares)
+          const arms = Array.from({ length: n * n }, () => []);
+          lines.forEach((l) => l.forEach((p, k) => {
+            [l[k - 1], l[k + 1]].forEach((q) => { if (q) arms[p[1] * n + p[0]].push([q[0] - p[0], q[1] - p[1]]); });
+          }));
           for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
             const c = owner[y][x], e = endAt[y][x];
-            const d = cells[y * n + x];
-            d.innerHTML = (c >= 0 ? `<div style="position:absolute;inset:${e >= 0 ? 0 : 0}px;background:${COLORS[c]};opacity:${e >= 0 ? 0.35 : 0.8}"></div>` : '')
-              + (e >= 0 ? `<div style="position:absolute;inset:16%;border-radius:50%;background:${COLORS[e]};border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;text-shadow:0 0 2px #000">${LETTERS[e]}</div>` : '');
+            const d = cells[y * n + x], a = arms[y * n + x];
+            let s = '';
+            if (c >= 0) {
+              const segs = a.map(([dx, dy]) => `M20 20 L${20 + dx * 24} ${20 + dy * 24}`).join(' ');
+              s += `<rect x="0" y="0" width="40" height="40" fill="${COLORS[c]}" opacity=".22"/>`;
+              if (segs) s += `<path d="${segs}" stroke="var(--ink)" stroke-width="17" stroke-linecap="round"/><path d="${segs}" stroke="${COLORS[c]}" stroke-width="12" stroke-linecap="round"/>`;
+              if (a.length && e < 0) s += `<circle cx="20" cy="20" r="8.5" fill="var(--ink)"/><circle cx="20" cy="20" r="6" fill="${COLORS[c]}"/>`;
+            }
+            if (e >= 0) {
+              s += `<circle cx="20" cy="20" r="14" fill="${COLORS[e]}" stroke="var(--ink)" stroke-width="2.5"/>`
+                + `<path d="M11 15 Q13 10 18 9" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".7"/>`
+                + `<text x="20" y="21" text-anchor="middle" dominant-baseline="central" font-size="17" fill="#2B2522" stroke="none">${LETTERS[e]}</text>`;
+            }
+            d.innerHTML = s ? `<svg viewBox="0 0 40 40" style="position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible" fill="none">${s}</svg>` : '';
           }
+          pills.innerHTML = ends.map((_, c) => {
+            const ok = complete(c);
+            return `<svg viewBox="0 0 26 26" width="26" height="26" style="flex:none;display:block"><circle cx="13" cy="13" r="10" fill="${ok ? COLORS[c] : 'none'}" stroke="${ok ? 'var(--ink)' : COLORS[c]}" stroke-width="2.5" stroke-dasharray="${ok ? 'none' : '3 3'}"/>${ok ? '<path d="M8 13 L12 17 L19 8" fill="none" stroke="#2B2522" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>' : ''}</svg>`;
+          }).join('');
         }
         function cut(c, idx) { // keep the first idx cells of colour c
           const l = lines[c];
@@ -161,6 +197,8 @@
           const nDone = lines.filter((_, c) => complete(c)).length;
           if (all && !done) {
             done = true; solved++; ctx.sfx('good');
+            if (round < ROUNDS) F.cheer(8);
+            board.classList.add('flash-ok');
             msg.textContent = F.tt({ de: 'Gelöst!', en: 'Solved!' });
             await ctx.wait(1000); next();
           } else msg.textContent = F.tt({ de: `${nDone} von ${ends.length} verbunden`, en: `${nDone} of ${ends.length} connected` });

@@ -25,7 +25,7 @@
       const r = ctx.rng, COLS = 6, ROWS = 8;
       let popped = 0, gold = 0, secrets = 0, sheets = 0;
       const wrap = F.h('<div></div>');
-      const done = F.h(`<button class="btn block" style="margin-top:16px">${F.tt({ de: 'Fertig', en: 'Done' })}</button>`);
+      const done = F.h(`<button class="btn big" style="margin-top:16px">${F.tt({ de: 'Fertig', en: 'Done' })}</button>`);
       done.onclick = () => ctx.finish({
         score: popped, display: `${popped} ◌`,
         detail: F.tt({ de: `${sheets} Bögen · ${gold} golden · ${secrets} Geheimnisse`, en: `${sheets} sheets · ${gold} golden · ${secrets} secrets` }),
@@ -39,11 +39,11 @@
         let left = COLS * ROWS;
         ctx.setInfo(F.tt({ de: `Bogen ${sheets}`, en: `Sheet ${sheets}` }));
         wrap.innerHTML = '';
-        const grid = F.h(`<div class="bubbles card sketch" style="grid-template-columns:repeat(${COLS},1fr)"></div>`);
+        const grid = F.h(`<div class="bubbles card sketch" style="grid-template-columns:repeat(${COLS},minmax(0,1fr))"></div>`);
         for (let y = 0; y < ROWS; y++) for (let x = 0; x < COLS; x++) {
           const i = y * COLS + x;
           const isGold = i === goldIdx;
-          const b = F.h(`<div class="bub" style="background:${isGold ? '#FFD66B' : pal[pat(x, y, COLS, ROWS)]}"></div>`);
+          const b = F.h(`<div class="bub" style="min-width:0;padding:0;font-size:22px;background:${isGold ? '#FFD66B' : pal[pat(x, y, COLS, ROWS)]}"></div>`);
           b.addEventListener('pointerdown', (e) => {
             e.preventDefault();
             if (b.classList.contains('popped')) return;
@@ -53,6 +53,7 @@
             if (isGold) { gold++; ctx.sfx('win'); b.textContent = '✦'; F.toast(F.tt({ de: 'Goldene Blase! +3 Tinte', en: 'Golden bubble! +3 ink' }), 1200); }
             else if (secretIdx.has(i)) { secrets++; ctx.sfx('good'); b.textContent = r.pick(SECRETS); b.style.opacity = '1'; }
             else ctx.sfx('pop');
+            if (left === 0) F.cheer(8);
             if (left === 0) setTimeout(() => { if (!ctx.dead) sheet(); }, 450);
           });
           grid.appendChild(b);

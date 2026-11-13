@@ -49,8 +49,17 @@
         const t = ctx.fresh(() => task(r, ctx.level), (x) => x.q.en);
         let typed = '', locked = false;
         ctx.el.innerHTML = '';
-        const q = F.h(`<div class="card sketch" style="font-size:20px">${F.tt(t.q)}</div>`);
-        const line = F.h('<div class="answer-line"></div>');
+        const q = F.h(`<div class="card sketch pop-in" style="font-size:21px;line-height:1.4;padding:14px 16px">${F.tt(t.q)}</div>`);
+        // answer row: a hand-drawn volumetric flask next to the typed number (the flask is decoration only)
+        const row = F.h('<div style="display:flex;align-items:flex-end;gap:6px;margin:14px 4px 6px"></div>');
+        const flask = F.h(`<svg viewBox="0 0 60 80" width="70" height="93" aria-hidden="true" style="flex:none;transform:rotate(${round % 2 ? 4 : -4}deg);stroke:var(--ink);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;fill:none">
+          <path d="M14 50 C10 58 10 68 16 74 C24 78 36 78 44 74 C50 68 50 58 46 50 Z" style="fill:var(--c-chem)"/>
+          <path d="M25 6 L25 40 C12 46 8 60 14 72 C22 80 38 80 46 72 C52 60 48 46 35 40 L35 6"/>
+          <path d="M22 6 L38 6 M24 22 L36 22"/>
+          <path d="M18 56 C17 62 18 66 20 69" style="stroke:#fff;opacity:.75;stroke-width:2.6"/>
+        </svg>`);
+        const line = F.h('<div class="answer-line" style="flex:1;min-width:0;margin:0 12px 0 0;font-size:38px;line-height:1.2;word-break:normal;overflow-wrap:anywhere"></div>');
+        row.append(flask, line);
         const draw = () => { line.innerHTML = (typed || '&nbsp;') + ` <small class="muted">${t.unit}</small>`; };
         draw();
         const pad = F.keypad(async (k) => {
@@ -62,14 +71,20 @@
             locked = true;
             const v = parseFloat(typed), ok = Math.abs(v - t.a) <= Math.abs(t.a) * 0.01 + 1e-9;
             ctx.sfx(ok ? 'good' : 'bad');
-            if (ok) { correct++; line.classList.add('flash-ok'); }
-            else { line.classList.add('flash-bad'); line.innerHTML = `<span style="color:var(--bad)">${typed}</span> → ${fmt(t.a)} <small>${t.unit}</small>`; }
+            if (ok) { correct++; line.classList.add('flash-ok'); flask.classList.add('tap-pop'); if (round < ROUNDS) F.cheer(8); }
+            else { line.classList.add('flash-bad'); line.style.fontSize = '28px'; line.innerHTML = `<span style="color:var(--bad)">${typed}</span> → ${fmt(t.a)} <small>${t.unit}</small>`; }
             await ctx.wait(ok ? 800 : 2400);
             return next();
           } else if (typed.length < 9) typed += k;
           draw();
-        }, { dot: true });
-        ctx.el.append(q, line, pad);
+          line.classList.remove('tap-pop'); void line.offsetWidth; line.classList.add('tap-pop');
+        }, { keys: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', '⌫', 'ok'] });
+        // 12 keys in a 3×4 block, the check key as a full-width last row (no lonely key)
+        pad.style.gap = '12px';
+        [...pad.children].forEach((b) => { b.style.minHeight = '62px'; });
+        pad.lastChild.style.gridColumn = '1 / -1';
+        pad.lastChild.style.background = 'var(--c-chem)';
+        ctx.el.append(q, row, pad);
       }
       function end() {
         ctx.finish({

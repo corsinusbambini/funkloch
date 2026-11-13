@@ -15,6 +15,22 @@
   ];
   const ROUNDS = 4, PER = 2;
   const fmt = (c) => 'CHF ' + (c / 100).toFixed(2);
+  // doodles: a shopping basket (study phase), a torn receipt edge, and a small receipt with a question mark
+  const BASKET = `<svg class="motif" viewBox="0 0 200 84" width="240" height="101" style="transform:rotate(-3deg);stroke:var(--ink);stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round" aria-hidden="true">
+    <path d="M70 34 Q100 -2 132 34" style="fill:none;stroke-width:3.2"/>
+    <path d="M78 30 L92 8 L98 11 L86 32 Z" style="fill:var(--c-math)"/>
+    <circle cx="116" cy="28" r="11" style="fill:var(--bad)"/><path d="M116 17 q2 -6 7 -7" style="fill:none"/>
+    <path d="M110 22 q3 -3 6 -3" style="fill:none;stroke:#fff;stroke-opacity:.6"/>
+    <path d="M50 36 L152 34 L142 80 L60 81 Z" style="fill:var(--c-memory)"/>
+    <path d="M56 50 L148 49 M58 64 L145 63 M80 36 L84 80 M101 35 L101 80 M122 35 L118 80" style="fill:none;stroke:var(--ink-soft);stroke-width:2"/>
+  </svg>`;
+  const TEAR = `<svg viewBox="0 0 300 14" preserveAspectRatio="none" style="display:block;width:calc(100% + 40px);height:14px;margin:8px -20.5px -12px" aria-hidden="true"><path d="M0 0 L300 0 L300 4 ${Array.from({ length: 20 }, (_, i) => `L${300 - i * 15 - 7.5} 13 L${300 - (i + 1) * 15} 4`).join(' ')} Z" style="fill:var(--card)"/><path d="M300 4 ${Array.from({ length: 20 }, (_, i) => `L${300 - i * 15 - 7.5} 13 L${300 - (i + 1) * 15} 4`).join(' ')}" style="fill:none;stroke:var(--ink);stroke-width:2.2;stroke-linejoin:round"/></svg>`;
+  const SLIP = `<svg class="motif" viewBox="0 0 160 76" width="160" height="76" style="transform:rotate(4deg);stroke:var(--ink);stroke-width:2.4;stroke-linejoin:round;stroke-linecap:round" aria-hidden="true">
+    <path d="M48 4 L112 6 L110 66 L102 72 L94 66 L86 72 L78 66 L70 72 L62 66 L54 72 L46 66 Z" style="fill:var(--card)"/>
+    <path d="M56 18 L100 18 M56 30 L92 30 M56 42 L98 42" style="fill:none;stroke:var(--ink-faint);stroke-width:2"/>
+    <circle cx="124" cy="22" r="16" style="fill:var(--c-math)"/>
+    <text x="124" y="31" text-anchor="middle" style="font-size:24px;fill:var(--ink);stroke:none">?</text>
+  </svg>`;
   const name = (it) => `${it.e} ${F.tt({ de: it.de, en: it.en })}`;
 
   F.registerGame({
@@ -93,11 +109,12 @@
 
         ctx.el.innerHTML = '';
         const info = F.h('<div class="info-line" style="min-height:26px"></div>');
-        const paper = F.h('<div style="max-width:300px;margin:10px auto;padding:14px 16px;background:var(--card);color:var(--ink);border:2.5px dashed var(--ink);border-radius:6px;box-shadow:var(--shadow)"></div>');
-        paper.innerHTML = `<div style="text-align:center;font-size:20px;margin-bottom:8px">🧾 ${F.tt({ de: 'KASSENZETTEL', en: 'RECEIPT' })}</div>`
-          + rc.lines.map((l) => `<div style="display:flex;justify-content:space-between;gap:10px;font-size:19px;padding:3px 0;border-bottom:1.5px dotted var(--ink-faint)"><span>${name(l.it)}</span><span style="white-space:nowrap">${fmt(l.p)}</span></div>`).join('');
-        const go = F.h(`<button class="btn" style="display:block;margin:10px auto">${F.tt({ de: 'Bereit!', en: 'Ready!' })}</button>`);
-        ctx.el.append(info, paper, go);
+        const paper = F.h(`<div class="pop-in" style="max-width:330px;margin:8px auto 0;padding:14px 18px 10px;background:var(--card);color:var(--ink);border:2.5px dashed var(--ink);border-bottom:none;border-radius:6px 6px 0 0;transform:rotate(${round % 2 ? -1 : 1}deg)"></div>`);
+        paper.innerHTML = `<div style="text-align:center;font-size:21px;letter-spacing:2px;margin-bottom:6px">${F.tt({ de: 'KASSENZETTEL', en: 'RECEIPT' })}</div>`
+          + rc.lines.map((l) => `<div style="display:flex;justify-content:space-between;gap:10px;font-size:20px;padding:6px 0;border-bottom:1.5px dotted var(--ink-faint)"><span>${name(l.it)}</span><span style="white-space:nowrap">${fmt(l.p)}</span></div>`).join('')
+          + TEAR;
+        const go = F.h(`<button class="btn primary big block" style="margin-top:22px;min-height:68px">${F.tt({ de: 'Bereit!', en: 'Ready!' })}</button>`);
+        ctx.el.append(info, F.h(BASKET), paper, go);
         info.textContent = F.tt({ de: 'Merk dir Artikel und Preise!', en: 'Memorise items and prices!' });
         let skip = false;
         go.onclick = () => { skip = true; };
@@ -109,23 +126,23 @@
           if (over) return;
           ctx.el.innerHTML = '';
           const head = F.h('<div class="info-line" style="min-height:26px"></div>');
-          const card = F.h('<div class="card" style="max-width:340px;margin:10px auto;padding:12px 14px;font-size:20px;text-align:center"></div>');
+          const card = F.h('<div class="card sketch pop-in" style="margin:6px 0 0;padding:16px 14px;font-size:24px;line-height:1.25;text-align:center;min-height:110px;display:flex;align-items:center;justify-content:center"></div>');
           card.textContent = q.text;
-          const list = F.h('<div style="display:grid;gap:10px;max-width:340px;margin:12px auto"></div>');
-          const msg = F.h('<div class="info-line" style="min-height:24px"></div>');
+          const list = F.h('<div class="options one" style="margin-top:18px"></div>');
+          const msg = F.h('<div class="info-line" style="min-height:26px;margin-top:10px"></div>');
           head.textContent = `${round} / ${ROUNDS}`;
           let done = false;
           const btns = q.opts.map((o, i) => {
-            const b = F.h('<button class="btn" style="min-height:52px;width:100%;font-size:20px"></button>');
+            const b = F.h('<button class="opt" style="min-height:66px;min-width:0"></button>');
             b.textContent = o;
             b.onclick = async () => {
               if (done || over) return; done = true; asked++;
               const ok = i === q.ok;
               if (ok) { right++; points += 10 + lvl; }
               ctx.sfx(ok ? 'good' : 'bad');
-              b.style.background = ok ? 'var(--good)' : 'var(--bad)';
-              b.style.color = 'var(--ink)';
-              if (!ok) { btns[q.ok].style.outline = '4px dashed var(--accent)'; }
+              b.classList.add(ok ? 'right' : 'wrong', 'tap-pop');
+              if (!ok) btns[q.ok].classList.add('right');
+              if (ok && !(round >= ROUNDS && q === qs[qs.length - 1])) F.cheer(8);
               msg.textContent = ok ? F.tt({ de: 'Richtig!', en: 'Right!' }) : F.tt({ de: 'Das war die richtige Antwort.', en: 'That was the right answer.' });
               ctx.setScore(points);
               await ctx.wait(ok ? 800 : 1400);
@@ -134,7 +151,7 @@
             list.appendChild(b);
             return b;
           });
-          ctx.el.append(head, card, list, msg);
+          ctx.el.append(F.h(SLIP), card, list, msg); // the round counter already shows in the info line above
           await new Promise((res) => { resolveQ = res; });
         }
         next();

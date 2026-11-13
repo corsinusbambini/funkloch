@@ -327,6 +327,7 @@
     const mood = quality >= 0.75 ? 'cheer' : quality >= 0.4 ? 'happy' : 'sad';
     const line = F.buddyLine(quality >= 0.75 ? 'good' : quality >= 0.4 ? 'ok' : 'bad');
     F.sfx(isRecord ? 'win' : 'good');
+    if (isRecord || quality >= 0.75) F.cheer(isRecord ? 16 : 10);
     app.innerHTML = '';
     const el = F.h(`<div class="intro stack pop-in">
       <h2>${F.tt(g.name)}</h2>

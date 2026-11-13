@@ -30,7 +30,7 @@
   }
 
   F.registerGame({
-    id: 'snakes-ladders', skill: 'duo', added: '2026-10-24', glyph: '🐍', players: 2, maxPlayers: 4,
+    id: 'snakes-ladders', skill: 'duo', added: '2026-10-24', glyph: '🪜', players: 2, maxPlayers: 4,
     name: { de: 'Schlangen und Leitern', en: 'Snakes and Ladders' },
     desc: { de: 'Wer dran ist, tippt auf den Würfel und zieht weiter. Leitern bringen dich hoch, Schlangen rutschen dich runter. Wer zuerst genau auf dem Feld 30 landet (zu hohe Zahl = bleibt stehen), gewinnt die Runde. Jede Runde hat ein neues Brett. Wer zuerst 2 Runden hat, gewinnt.', en: 'The active player taps the die and moves. Ladders lift you up, snakes slide you down. First to land exactly on square 30 (too high a roll = stay put) wins the round. Every round has a new board. First to 2 rounds wins.' },
     modes: F.partyModes(),

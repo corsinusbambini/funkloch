@@ -146,6 +146,24 @@
     setTimeout(() => el.remove(), ms);
   };
   F.wait = (ms) => new Promise((res) => setTimeout(res, ms));
+  // Short doodle celebration: stars and scribbles fly out from the middle. Removes itself, never blocks taps.
+  // Positions come from the index (no randomness), so it never touches a game's ctx.rng.
+  F.cheer = (n = 10) => {
+    const cols = ['var(--accent)', 'var(--good)', 'var(--c-math)', 'var(--c-focus)', 'var(--c-fun)'];
+    const shapes = [
+      '<path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/>',
+      '<circle cx="12" cy="12" r="6.5"/>',
+      '<path d="M3 14c3-8 5 6 8-2s5 6 9-3" style="fill:none"/>',
+    ];
+    const box = F.h('<div class="cheer" aria-hidden="true"></div>');
+    for (let i = 0; i < n; i++) {
+      const a = (i / n) * Math.PI * 2 + (i % 2) * 0.3;
+      const d = 110 + (i % 3) * 45;
+      box.appendChild(F.h(`<i style="--dx:${Math.round(Math.cos(a) * d)}px;--dy:${Math.round(Math.sin(a) * d - 40)}px;--rot:${(i % 2 ? 1 : -1) * (90 + i * 20)}deg;animation-delay:${(i % 4) * 40}ms"><svg viewBox="0 0 24 24" width="30" height="30" style="fill:${cols[i % cols.length]};stroke:var(--ink);stroke-width:1.6;stroke-linejoin:round;stroke-linecap:round">${shapes[i % shapes.length]}</svg></i>`));
+    }
+    document.body.appendChild(box);
+    setTimeout(() => box.remove(), 1300);
+  };
   F.inkIcon = '<svg class="ink-drop" viewBox="0 0 16 20"><path d="M8 1C10 6 14 9 14 13A6 6 0 0 1 2 13C2 9 6 6 8 1Z" fill="currentColor"/></svg>';
   // Builds a list of option buttons; onPick(index, button) is called once.
   F.options = (labels, onPick, cls = '') => {

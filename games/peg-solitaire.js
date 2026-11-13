@@ -52,17 +52,28 @@
         let grid = start.slice(), sel = -1, done = false, resets = 0;
         const hist = [];
         ctx.el.innerHTML = '';
+        // Status: pegs left (the goal is 1), drawn as a big counter with a peg.
+        const stat = F.h('<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:2px 0 6px"></div>');
+        const peg = (fill, cls = '') => `<svg viewBox="0 0 40 40" class="${cls}" style="width:78%;height:78%;display:block;transform-origin:center"><circle cx="21" cy="23" r="14" style="fill:var(--ink);opacity:.3"/><circle cx="20" cy="20" r="14" style="fill:${fill};stroke:var(--ink)" stroke-width="2.5"/><path d="M12,17 C13,12 16,10 20,9.5" style="fill:none;stroke:#FFFFFF;opacity:.75" stroke-width="3" stroke-linecap="round"/></svg>`;
+        const leftCard = F.h(`<div class="card sketch" style="padding:4px 10px;display:flex;align-items:center;justify-content:center;gap:10px"><span style="width:40px;height:40px;display:flex;align-items:center;justify-content:center">${peg('var(--c-spatial)')}</span><span style="font-size:17px;color:var(--ink-soft)">${F.tt({ de: 'Steine', en: 'Pegs' })}</span><b style="font-size:34px;font-weight:normal;line-height:1.15">0</b></div>`);
+        const goalCard = F.h(`<div class="card sketch alt" style="padding:4px 10px;display:flex;align-items:center;justify-content:center;gap:10px"><span style="font-size:17px;color:var(--ink-soft)">${F.tt({ de: 'Ziel', en: 'Goal' })}</span><b style="font-size:34px;font-weight:normal;line-height:1.15">1</b></div>`);
+        stat.append(leftCard, goalCard);
+        const leftEl = leftCard.querySelector('b');
         const info = F.h('<div class="info-line" style="text-align:center;min-height:26px"></div>');
-        const board = F.h(`<div style="display:grid;grid-template-columns:repeat(${N},minmax(0,1fr));gap:3px;max-width:343px;margin:8px auto;touch-action:manipulation"></div>`);
+        // Cross-shaped wooden board: cells touch, only the outer edge gets an ink line.
+        const board = F.h(`<div style="display:grid;grid-template-columns:repeat(${N},minmax(0,1fr));gap:0;margin:4px 0 0;touch-action:manipulation"></div>`);
         const btns = [];
         for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
           if (!inCross(x, y)) { board.appendChild(F.h('<div></div>')); btns.push(null); continue; }
-          const b = F.h('<button style="aspect-ratio:1;min-width:0;padding:0;min-height:40px;border:2.5px solid var(--ink-faint);border-radius:50%;cursor:pointer;background:var(--paper-2);color:var(--ink)"></button>');
+          const b = F.h('<button style="aspect-ratio:1;min-width:0;padding:0;border:0 solid var(--ink);border-radius:0;cursor:pointer;background:var(--c-memory);color:var(--ink);display:flex;align-items:center;justify-content:center"></button>');
+          const t = !inCross(x, y - 1), bt = !inCross(x, y + 1), l = !inCross(x - 1, y), rr = !inCross(x + 1, y);
+          b.style.borderWidth = `${t ? 3 : 0}px ${rr ? 3 : 0}px ${bt ? 3 : 0}px ${l ? 3 : 0}px`;
+          b.style.borderRadius = `${t && l ? 14 : 0}px ${t && rr ? 16 : 0}px ${bt && rr ? 13 : 0}px ${bt && l ? 15 : 0}px`;
           b.onclick = () => tap(idx(x, y));
           board.appendChild(b); btns.push(b);
         }
-        const bar = F.h('<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:4px"></div>');
-        const mk = (label, fn) => { const b = F.h(`<button class="btn small">${label}</button>`); b.onclick = fn; bar.appendChild(b); return b; };
+        const bar = F.h('<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px"></div>');
+        const mk = (label, fn) => { const b = F.h(`<button class="btn" style="min-height:56px;padding:4px 6px;font-size:18px;line-height:1.1">${label}</button>`); b.onclick = fn; bar.appendChild(b); return b; };
         const undoBtn = mk('↩ ' + F.tt({ de: 'Zurück', en: 'Undo' }), () => { if (done || !hist.length) return; grid = hist.pop(); sel = -1; ctx.sfx('tick'); draw(); });
         mk('⟲ ' + F.tt({ de: 'Neu starten', en: 'Restart' }), () => { if (done) return; grid = start.slice(); hist.length = 0; sel = -1; resets++; draw(); });
         const skipBtn = mk('⏭ ' + F.tt({ de: 'Aufgeben', en: 'Give up' }), () => finishRound(false));
@@ -76,18 +87,19 @@
           return out;
         };
         const anyMove = () => grid.some((v, i) => v && targets(i).length);
+        const holeSvg = (target) => `<svg viewBox="0 0 40 40" style="width:62%;height:62%;display:block">${target ? '<circle cx="20" cy="20" r="17" style="fill:none;stroke:var(--accent)" stroke-width="4" stroke-dasharray="6 4"/>' : ''}<ellipse cx="20" cy="20" rx="9" ry="8.5" style="fill:var(--paper-2);stroke:var(--ink)" stroke-width="2.2"/><path d="M13,18 C14,14 17,13 21,12.5" style="fill:none;stroke:var(--ink);opacity:.35" stroke-width="2.5" stroke-linecap="round"/></svg>`;
+        let landed = -1;
         function draw() {
           const tg = sel >= 0 ? targets(sel).map((t) => t.to) : [];
           btns.forEach((b, i) => {
             if (!b) return;
-            b.style.background = grid[i] ? (i === sel ? 'var(--accent)' : 'var(--c-spatial)') : 'var(--paper-2)';
-            b.style.borderColor = grid[i] ? 'var(--ink)' : tg.includes(i) ? 'var(--accent)' : 'var(--ink-faint)';
-            b.style.borderStyle = grid[i] ? 'solid' : 'dashed';
-            b.style.boxShadow = grid[i] ? 'var(--shadow)' : tg.includes(i) ? '0 0 0 4px var(--accent)' : 'none';
+            b.innerHTML = grid[i] ? peg(i === sel ? 'var(--accent)' : 'var(--c-spatial)', i === sel || i === landed ? 'tap-pop' : '') : holeSvg(tg.includes(i));
             b.setAttribute('aria-label', grid[i] ? 'peg' : 'hole');
           });
+          landed = -1;
           const left = pegsLeft();
-          info.textContent = F.tt({ de: `Steine: ${left}`, en: `Pegs: ${left}` }) + (!done && left > 1 && !anyMove() ? F.tt({ de: ' · Keine Züge mehr – Zurück oder Neu starten', en: ' · No moves left – Undo or Restart' }) : '');
+          leftEl.textContent = left;
+          info.textContent = !done && left > 1 && !anyMove() ? F.tt({ de: 'Keine Züge mehr – Zurück oder Neu starten', en: 'No moves left – Undo or Restart' }) : '';
           undoBtn.disabled = done || !hist.length;
         }
         function tap(i) {
@@ -96,7 +108,7 @@
           const t = sel >= 0 && targets(sel).find((m) => m.to === i);
           if (!t) { sel = -1; draw(); return; }
           hist.push(grid.slice());
-          grid[sel] = 0; grid[t.over] = 0; grid[i] = 1;
+          grid[sel] = 0; grid[t.over] = 0; grid[i] = 1; landed = i;
           sel = -1;
           ctx.sfx('tick');
           draw();
@@ -110,6 +122,7 @@
             solved++;
             points += resets ? 7 : 10;
             ctx.sfx('good');
+            if (round < ROUNDS) F.cheer(8);
             info.textContent = F.tt({ de: 'Geschafft! 🎉', en: 'Solved! 🎉' });
           } else {
             points += Math.round(3 * (puz.pegs - pegsLeft()) / Math.max(1, puz.pegs - 1));
@@ -120,6 +133,7 @@
           await ctx.wait(1100);
           next();
         }
+        ctx.el.appendChild(stat);
         ctx.el.appendChild(info);
         ctx.el.appendChild(board);
         ctx.el.appendChild(bar);

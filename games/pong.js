@@ -1,7 +1,7 @@
-/* Doodle Pong: 2 players, one paddle each, drag with your finger in your half. */
+/* Doodle Tennis: 2 players, one paddle each, drag with your finger in your half. */
 Funkloch.registerGame({
   id: 'pong', skill: 'duo', added: '2026-10-19', glyph: '◐', players: 2,
-  name: { de: 'Kritzel-Pong', en: 'Doodle Pong' },
+  name: { de: 'Kritzel-Tennis', en: 'Doodle Tennis' },
   desc: { de: 'Der Klassiker. Jeder zieht seinen Schläger mit dem Finger in seiner Hälfte. Der Ball wird mit jedem Treffer schneller. Wer zuerst 5 Punkte hat, gewinnt.', en: 'The classic. Each player drags their paddle with a finger in their half. The ball speeds up with every hit. First to 5 points wins.' },
   noLevel: true, formatBest: () => '◐',
   start(ctx) {

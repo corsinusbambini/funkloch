@@ -91,12 +91,28 @@
         if (co.every((v, i) => v === sol[i])) co[0] = 2;
         let done = false;
         ctx.el.innerHTML = '';
-        const eq = F.h('<div class="card sketch big-display" style="font-size:26px;flex-wrap:wrap;gap:4px 8px;padding:12px;line-height:1.3;justify-content:center;text-align:center"></div>');
+        const box = F.h('<div class="card sketch pop-in" style="padding:12px 10px 8px;display:flex;flex-direction:column;align-items:center;gap:4px"></div>');
+        const eq = F.h('<div style="font-size:28px;display:flex;flex-wrap:wrap;gap:4px 8px;line-height:1.3;justify-content:center;text-align:center;min-height:72px;align-items:center;letter-spacing:1px"></div>');
+        // Hand-drawn balance scale: level when every element is balanced, otherwise it tips to the side with more atoms.
+        const scaleEl = F.h(`<svg class="motif" viewBox="0 0 240 70" width="220" height="64" aria-hidden="true" style="stroke:var(--ink);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;fill:none">
+          <path d="M120 22 L120 62 M96 64 C110 60 130 60 144 64" style="stroke-width:3"/>
+          <g class="beam" style="transform-origin:120px 20px;transition:transform .3s ease-out"><path d="M42 20 C80 18 160 22 198 20" style="stroke-width:3.2"/></g>
+          <circle cx="120" cy="20" r="5" style="fill:var(--accent)"/>
+          <g class="pan-l" style="transition:transform .3s ease-out"><path d="M42 20 L28 44 M42 20 L56 44"/><path d="M22 44 C30 54 54 54 62 44 Z" style="fill:var(--c-chem)"/><path d="M36 44 L36 34 C36 30 40 30 40 34 L40 36 L46 44" style="stroke-width:2"/></g>
+          <g class="pan-r" style="transition:transform .3s ease-out"><path d="M198 20 L184 44 M198 20 L212 44"/><path d="M178 44 C186 54 210 54 218 44 Z" style="fill:var(--c-fun)"/><path d="M192 44 L192 36 L204 36 L204 44" style="stroke-width:2"/></g>
+        </svg>`);
+        box.append(eq, scaleEl);
+        const tilt = (l, rr, bal) => {
+          const a = bal ? 0 : l > rr ? -7 : l < rr ? 7 : -3, dy = Math.round(Math.sin((a * Math.PI) / 180) * 78);
+          scaleEl.querySelector('.beam').style.transform = `rotate(${a}deg)`;
+          scaleEl.querySelector('.pan-l').style.transform = `translateY(${-dy}px)`;
+          scaleEl.querySelector('.pan-r').style.transform = `translateY(${dy}px)`;
+        };
         const chips = F.h('<div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:10px 0"></div>');
         const rows = F.h('<div style="display:flex;flex-direction:column;gap:8px"></div>');
         const msg = F.h('<div class="info-line" style="text-align:center;min-height:26px;margin-top:8px"></div>');
         const tb = ctx.timer(ctx.el, TIME, () => reveal());
-        ctx.el.appendChild(eq); ctx.el.appendChild(chips); ctx.el.appendChild(rows); ctx.el.appendChild(msg);
+        ctx.el.appendChild(box); ctx.el.appendChild(chips); ctx.el.appendChild(rows); ctx.el.appendChild(msg);
         const nums = [];
 
         function render() {
@@ -107,12 +123,15 @@
           });
           eq.innerHTML = html;
           const els = Array.from(new Set(all.reduce((a, s) => a.concat(Object.keys(s.f)), []))).sort();
+          let sumL = 0, sumR = 0, allOk = true;
           chips.innerHTML = els.map((e) => {
             let l = 0, rr = 0;
             all.forEach((s, i) => { const v = co[i] * (s.f[e] || 0); if (i < nl) l += v; else rr += v; });
             const ok = l === rr;
-            return `<span style="border:2.5px solid var(--ink);border-radius:10px;padding:3px 9px;font-size:17px;background:${ok ? 'var(--good)' : 'var(--card)'};color:${ok ? '#14301F' : 'var(--ink)'}">${e}: ${l} | ${rr}</span>`;
+            sumL += l; sumR += rr; allOk = allOk && ok;
+            return `<span style="border:2.5px solid var(--ink);border-radius:10px;padding:3px 9px;font-size:18px;background:${ok ? 'var(--good)' : 'var(--card)'};color:${ok ? '#14301F' : 'var(--ink)'}">${e}: ${l} | ${rr}</span>`;
           }).join('');
+          tilt(sumL, sumR, allOk);
           nums.forEach((n, i) => { n.textContent = co[i]; });
         }
         function check() {
@@ -123,18 +142,20 @@
           msg.textContent = bal && co.reduce(gcd, 0) > 1 ? F.tt({ de: 'Ausgeglichen, aber kürzbar!', en: 'Balanced, but can be reduced!' }) : '';
         }
         all.forEach((s, i) => {
-          const row = F.h(`<div class="card sketch" style="display:flex;align-items:center;gap:10px;padding:6px 12px"><div style="flex:1;font-size:24px;min-width:0">${s.txt}</div></div>`);
+          // all four children stretch to the same height, so the row reads as one line
+          const row = F.h(`<div class="card sketch" style="display:flex;align-items:stretch;gap:10px;padding:6px 12px"><div style="flex:1;font-size:26px;min-width:0;display:flex;align-items:center">${s.txt}</div></div>`);
           const mk = (label, d) => {
-            const b = F.h(`<button class="btn" style="min-width:52px;min-height:52px;padding:0;font-size:28px">${label}</button>`);
+            const b = F.h(`<button class="btn" style="min-width:56px;min-height:${all.length <= 3 ? 66 : 56}px;padding:0;font-size:28px">${label}</button>`);
             b.addEventListener('pointerdown', (e) => {
               e.preventDefault();
               if (done) return;
               co[i] = Math.max(1, Math.min(MAXC, co[i] + d));
               ctx.sfx('tap'); render(); check();
+              num.classList.remove('tap-pop'); void num.offsetWidth; num.classList.add('tap-pop');
             });
             return b;
           };
-          const num = F.h('<div style="min-width:36px;text-align:center;font-size:28px;font-weight:bold">1</div>');
+          const num = F.h('<div style="min-width:36px;font-size:30px;font-weight:bold;display:flex;align-items:center;justify-content:center">1</div>');
           nums.push(num);
           row.appendChild(mk('−', -1)); row.appendChild(num); row.appendChild(mk('+', 1));
           rows.appendChild(row);
@@ -148,6 +169,8 @@
           solved++; points += 10 + Math.max(0, Math.ceil((TIME - ms) / 10000));
           ctx.sfx('good'); ctx.setScore(points);
           msg.textContent = F.tt({ de: 'Ausgeglichen!', en: 'Balanced!' });
+          msg.classList.add('pop-in');
+          if (round < ROUNDS) F.cheer(8);
           await ctx.wait(900);
           next();
         }

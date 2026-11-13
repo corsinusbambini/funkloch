@@ -11,6 +11,8 @@ Read `README.md` for the file layout and the game API.
 - **Touch only**: no shake, tilt, microphone, camera or vibration.
 - **Fully offline**: no external libraries, APIs, images or fonts beyond what is already linked. Draw with SVG/CSS/canvas or emoji.
 - **Never repeating**: content must be *generated* (seeded random via `ctx.rng`, `ctx.fresh(...)`), not read from a small fixed list.
+- **Neutral names, own look**: games carry generic names (e.g. "Four in a Row", "Minefield", "Dice Poker"), never the brand name,
+  characters, artwork or levels of a commercial game. The eight games renamed on 2026-11-13 stay renamed (their ids are unchanged).
 - Number Flash shows plain numbers only. Nonogram and "Rotate It" were removed on purpose — don't bring them back.
 - Fold & Punch and Make 24 have difficulty modes; keep them.
 - He wants a **huge library with a balanced mix**: new games go first to the solo skills with the fewest games
@@ -32,6 +34,11 @@ Read `README.md` for the file layout and the game API.
 5. Run the smoke test (below). It must print `All good`.
 
 Game descriptions: short, friendly, and they must say how to win. Design for 1–5 minute rounds, portrait, big tap targets (≥ 48px).
+Look: use the phone screen (content reaching down to about 630–720px, main controls in the lower half), but the whole game must fit
+without vertical scrolling at 390x740 — grow things in normal flow, no `100vh`, no `height:100%` layouts, nothing pinned to the bottom.
+Give every game a hand-drawn SVG motif, feedback on every tap and no lonely button in a last row. Shared helpers: `Funkloch.cheer(n)`
+for a won round (the result screen already cheers by itself) and the opt-in classes `.options.tall`, `.options.three`,
+`.options.center-last`, `.motif`, `.tap-pop`. Decoration never draws from `ctx.rng`.
 Board grids: use `grid-template-columns: repeat(N, minmax(0, 1fr))` (never plain `1fr`) and give square cells `min-width:0; padding:0` with `aspect-ratio:1`. Otherwise iPhone Safari makes the board wider with every number filled in until it runs off the screen.
 
 ## Testing

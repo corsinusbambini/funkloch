@@ -815,3 +815,15 @@ textarea { width: 100%; min-height: 90px; font-family: monospace; font-size: 12p
 .badge { background: var(--card); padding: 10px; display: flex; flex-direction: column; gap: 2px; font-size: 16px; line-height: 1.2; box-shadow: var(--shadow); }
 .badge .ic { font-size: 30px; }
 .badge.locked { opacity: .5; box-shadow: none; }
+
+/* ---- shared polish helpers for games (opt-in classes, added 2026-11-13) ---- */
+.options.tall .opt { min-height: 88px; font-size: 24px; }
+.options.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.options.center-last > .opt:last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: calc(50% - 6px); }
+.motif { display: block; margin: 0 auto; max-width: 100%; height: auto; color: var(--ink); }
+.tap-pop { animation: tappop .22s ease-out; }
+@keyframes tappop { 0% { transform: scale(1); } 45% { transform: scale(1.1); } 100% { transform: scale(1); } }
+.cheer { position: fixed; inset: 0; pointer-events: none; z-index: 60; overflow: hidden; }
+.cheer i { position: absolute; left: 50%; top: 36%; width: 30px; height: 30px; opacity: 0; animation: cheerfly .95s ease-out forwards; }
+@keyframes cheerfly { 0% { transform: translate(-50%, -50%) scale(.3) rotate(0deg); opacity: 0; } 15% { opacity: 1; } 100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.1) rotate(var(--rot)); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .cheer { display: none; } .tap-pop { animation: none; } }

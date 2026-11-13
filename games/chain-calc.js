@@ -3,6 +3,29 @@
   const F = Funkloch;
   const OPS = { '+': (a, b) => a + b, '−': (a, b) => a - b, '×': (a, b) => a * b };
 
+  // slightly wobbly closed outline (hand-drawn look); the wobble comes from k, never from randomness
+  const wob = (cx, cy, rx, ry, k) => {
+    let d = '';
+    for (let i = 0; i <= 28; i++) {
+      const a = (i / 28) * Math.PI * 2, j = 1 + 0.045 * Math.sin(a * 3 + k);
+      d += (i ? 'L' : 'M') + (cx + rx * j * Math.cos(a)).toFixed(1) + ' ' + (cy + ry * j * Math.sin(a)).toFixed(1);
+    }
+    return d + 'Z';
+  };
+  // doodle: a chain of links, one link per step, the last one still open
+  function chainMotif(k) {
+    let s = '';
+    for (let i = 0; i < 5; i++) {
+      const x = 36 + i * 50, flat = i % 2 === 0;
+      const rx = flat ? 32 : 26, ry = flat ? 20 : 11;
+      s += `<path d="${wob(x, 48, rx, ry, k + i)}" style="fill:${flat ? 'var(--c-math)' : 'var(--card)'}"/>`;
+      s += `<path d="${wob(x, 48, rx - 11, Math.max(3, ry - 9), k + i + 1)}" style="fill:var(--paper)"/>`;
+      if (flat) s += `<path d="M${x - 21} ${40} q8 -8 19 -7" style="fill:none;stroke:#fff;stroke-opacity:.6;stroke-width:2.5"/>`;
+    }
+    s += `<path d="M272 28 q11 20 0 40" style="fill:none;stroke-dasharray:5 6"/><text x="286" y="60" style="font-size:30px;fill:var(--accent);stroke:none">?</text>`;
+    return `<svg class="motif" viewBox="0 0 316 96" width="316" height="96" style="transform:rotate(-2deg);stroke:currentColor;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round" aria-hidden="true">${s}</svg>`;
+  }
+
   function chain(r, lvl) {
     const steps = Math.min(5, 2 + Math.floor(lvl / 3) + r.int(0, 1));
     const big = Math.min(20, 9 + lvl);
@@ -42,18 +65,20 @@
         const sh = r.shuffle(opts), ci = sh.indexOf(q.answer);
         ctx.el.innerHTML = '';
         const parts = [`<span>${q.start}</span>`].concat(q.ops.map((o) => `<span>${o.op}${o.n}</span>`));
-        ctx.el.appendChild(F.h(`<div class="card sketch big-display pop-in" style="font-size:30px;flex-wrap:wrap;gap:4px 10px">${parts.join('<span style="color:var(--ink-soft)">→</span>')}<span style="color:var(--accent)">→ ?</span></div>`));
+        ctx.el.appendChild(F.h(chainMotif(round)));
+        ctx.el.appendChild(F.h(`<div class="card sketch big-display pop-in" style="font-size:34px;letter-spacing:1px;flex-wrap:wrap;gap:6px 12px;min-height:214px;margin-top:6px">${parts.join('<span style="color:var(--ink-soft)">→</span>')}<span style="color:var(--accent)">→ ?</span></div>`));
         let answered = false;
         const tb = ctx.timer(ctx.el, TIME, () => pick(-1, null, optEl));
-        const optEl = F.options(sh.map(String), (i, b, wrap) => pick(i, b, wrap));
+        const optEl = F.options(sh.map(String), (i, b, wrap) => pick(i, b, wrap), 'tall');
+        optEl.style.marginTop = '26px';
         async function pick(i, b, wrap) {
           if (answered) return;
           answered = true;
           const ms = tb.stop(), ok = i === ci;
-          if (b) b.classList.add(ok ? 'right' : 'wrong');
+          if (b) b.classList.add(ok ? 'right' : 'wrong', 'tap-pop');
           wrap.children[ci].classList.add('right');
           ctx.sfx(ok ? 'good' : 'bad');
-          if (ok) { correct++; points += 5 + Math.ceil((TIME - ms) / 2500); }
+          if (ok) { correct++; points += 5 + Math.ceil((TIME - ms) / 2500); if (round < ROUNDS) F.cheer(8); }
           await ctx.wait(ok ? 600 : 1500);
           next();
         }

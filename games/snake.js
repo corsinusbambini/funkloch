@@ -23,22 +23,30 @@
       ctx.el.innerHTML = '';
       const size = Math.min(340, Math.floor(Math.min(window.innerWidth - 32, 340) / N) * N) || 312;
       const cell = size / N;
-      const cv = F.h(`<canvas style="display:block;margin:8px auto;border:3px solid var(--ink);border-radius:12px;background:var(--card);touch-action:none;width:${size}px;height:${size}px;box-shadow:var(--shadow)"></canvas>`);
+      const cv = F.h(`<canvas style="display:block;margin:4px auto 0;border:3px solid var(--ink);border-radius:255px 14px 225px 14px / 14px 225px 14px 255px;background:var(--card);touch-action:none;width:${size}px;height:${size}px;box-shadow:var(--shadow)"></canvas>`);
       const dpr = window.devicePixelRatio || 1;
       cv.width = size * dpr; cv.height = size * dpr;
       const g = cv.getContext('2d');
       g.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const hint = F.h('<div class="info-line" style="text-align:center;min-height:26px"></div>');
+      // hints go into the free info line above the board
+      const hint = { set textContent(v) { ctx.setInfo(F.esc(v)); } };
       hint.textContent = F.tt({ de: 'Tippe einen Pfeil, um zu starten', en: 'Tap an arrow to start' });
-      const pad = F.h('<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;max-width:240px;margin:6px auto;touch-action:manipulation"></div>');
-      const mk = (d, sym, area) => {
-        const b = F.h(`<button aria-label="${d}" style="grid-area:${area};min-height:56px;min-width:0;padding:0;font-size:26px;border:3px solid var(--ink);border-radius:14px;background:var(--card);color:var(--ink);box-shadow:var(--shadow);cursor:pointer">${sym}</button>`);
-        b.addEventListener('pointerdown', (e) => { e.preventDefault(); turn(d); });
+      // status: a drawn apple with the number eaten
+      const status = F.h(`<div style="display:flex;align-items:center;justify-content:center;gap:8px;margin:8px 0 0;min-height:36px">
+        <svg viewBox="0 0 32 32" width="32" height="32" aria-hidden="true"><path d="M16 9c-3-3-11-2-11 7 0 7 5 13 8 13 1.5 0 2-.8 3-.8s1.5.8 3 .8c3 0 8-6 8-13 0-9-8-10-11-7z" style="fill:var(--bad);stroke:var(--ink);stroke-width:2;stroke-linejoin:round"/><path d="M16 9c0-3 1-5 3-6" style="fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round"/><path d="M17 6c3-3 7-2 8 0-3 2-6 2-8 0z" style="fill:var(--good);stroke:var(--ink);stroke-width:1.6;stroke-linejoin:round"/><path d="M9 15c0-2 1-3.5 2.5-4" style="fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:round;opacity:.7"/></svg>
+        <span class="sn-num" style="font-size:28px;display:inline-block">0</span></div>`);
+      const numEl = status.querySelector('.sn-num');
+      const pad = F.h('<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;max-width:300px;margin:8px auto 0;touch-action:manipulation"></div>');
+      const ROT = { up: -90, down: 90, left: 180, right: 0 };
+      const pop = (el) => { el.classList.remove('tap-pop'); void el.offsetWidth; el.classList.add('tap-pop'); };
+      const mk = (d, area) => {
+        const b = F.h(`<button class="btn" aria-label="${d}" style="grid-area:${area};min-height:76px;min-width:0;padding:0;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 40 40" width="40" height="40" aria-hidden="true" style="transform:rotate(${ROT[d]}deg)"><path d="M9 14h12V7l12 13-12 13v-7H9z" style="fill:var(--c-spatial);stroke:var(--ink);stroke-width:2.5;stroke-linejoin:round"/></svg></button>`);
+        b.addEventListener('pointerdown', (e) => { e.preventDefault(); if (!over) pop(b); turn(d); });
         pad.appendChild(b);
       };
       pad.style.gridTemplateAreas = '". u ." "l d r"';
-      mk('up', '▲', 'u'); mk('left', '◀', 'l'); mk('down', '▼', 'd'); mk('right', '▶', 'r');
-      ctx.el.appendChild(cv); ctx.el.appendChild(hint); ctx.el.appendChild(pad);
+      mk('up', 'u'); mk('left', 'l'); mk('down', 'd'); mk('right', 'r');
+      ctx.el.appendChild(cv); ctx.el.appendChild(status); ctx.el.appendChild(pad);
 
       function turn(d) {
         if (over) return;
@@ -72,16 +80,33 @@
         g.fillStyle = DOT;
         for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) if ((x + y) % 2 === 0) g.fillRect(x * cell, y * cell, cell, cell);
         if (apple) {
+          const ax = (apple[0] + 0.5) * cell, ay = (apple[1] + 0.55) * cell;
           g.fillStyle = BAD; g.strokeStyle = INK; g.lineWidth = 2;
-          g.beginPath(); g.arc((apple[0] + 0.5) * cell, (apple[1] + 0.55) * cell, cell * 0.36, 0, 7); g.fill(); g.stroke();
-          g.fillStyle = GOOD; g.fillRect((apple[0] + 0.5) * cell - 1, apple[1] * cell + 2, 3, cell * 0.2);
+          g.beginPath(); g.arc(ax, ay, cell * 0.36, 0, 7); g.fill(); g.stroke();
+          g.beginPath(); g.moveTo(ax, ay - cell * 0.3); g.lineTo(ax + cell * 0.06, apple[1] * cell + 2); g.stroke();
+          g.fillStyle = GOOD; g.beginPath(); g.ellipse(ax + cell * 0.18, apple[1] * cell + cell * 0.14, cell * 0.14, cell * 0.07, -0.5, 0, 7); g.fill(); g.lineWidth = 1.5; g.stroke();
+          g.strokeStyle = '#FFFFFF'; g.globalAlpha = 0.7; g.lineWidth = 2;
+          g.beginPath(); g.arc(ax, ay, cell * 0.22, Math.PI * 1.05, Math.PI * 1.45); g.stroke();
+          g.globalAlpha = 1;
         }
-        snake.forEach((s, i) => {
-          g.fillStyle = dead ? BAD : GOOD; g.strokeStyle = INK; g.lineWidth = 2;
-          const p = i === 0 ? 1 : 3;
-          g.beginPath(); g.roundRect ? g.roundRect(s[0] * cell + p, s[1] * cell + p, cell - 2 * p, cell - 2 * p, 5) : g.rect(s[0] * cell + p, s[1] * cell + p, cell - 2 * p, cell - 2 * p);
-          g.fill(); g.stroke();
-        });
+        // body: one thick rounded line through the cell centres, outlined in ink
+        const cx = (s) => (s[0] + 0.5) * cell, cy = (s) => (s[1] + 0.5) * cell;
+        g.lineCap = 'round'; g.lineJoin = 'round';
+        const path = () => { g.beginPath(); snake.forEach((s, i) => (i ? g.lineTo(cx(s), cy(s)) : g.moveTo(cx(s), cy(s)))); };
+        if (snake.length > 1) {
+          path(); g.strokeStyle = INK; g.lineWidth = cell * 0.7 + 4; g.stroke();
+          path(); g.strokeStyle = dead ? BAD : GOOD; g.lineWidth = cell * 0.7; g.stroke();
+          // scale dots along the back
+          g.fillStyle = INK; g.globalAlpha = 0.25;
+          snake.forEach((s, i) => { if (i && i % 2 === 0) { g.beginPath(); g.arc(cx(s), cy(s), cell * 0.1, 0, 7); g.fill(); } });
+          g.globalAlpha = 1;
+        }
+        const hd = snake[0];
+        g.fillStyle = dead ? BAD : GOOD; g.strokeStyle = INK; g.lineWidth = 2;
+        g.beginPath(); g.arc(cx(hd), cy(hd), cell * 0.46, 0, 7); g.fill(); g.stroke();
+        g.strokeStyle = '#FFFFFF'; g.globalAlpha = 0.6; g.lineWidth = 2;
+        g.beginPath(); g.arc(cx(hd), cy(hd), cell * 0.3, Math.PI * 1.1, Math.PI * 1.5); g.stroke();
+        g.globalAlpha = 1;
         const h = snake[0];
         g.fillStyle = INK;
         const d = DIRS[dir];
@@ -101,8 +126,10 @@
         snake.unshift([nx, ny]);
         if (grow) {
           eaten++; ctx.setScore(eaten); ctx.sfx('good');
+          numEl.textContent = String(eaten); pop(numEl);
           place();
           if (!apple) return die(true);
+          if (eaten % 5 === 0) F.cheer(8);
         } else snake.pop();
         draw();
       }

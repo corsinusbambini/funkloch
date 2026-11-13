@@ -38,7 +38,7 @@
   }
 
   F.registerGame({
-    id: 'mini-sudoku', skill: 'logic', added: '2026-10-21', glyph: '🔲',
+    id: 'mini-sudoku', skill: 'logic', added: '2026-10-21', glyph: '4️⃣',
     name: { de: 'Mini-Sudoku', en: 'Mini Sudoku' },
     desc: { de: 'Fülle das 4×4-Gitter: In jeder Zeile, Spalte und jedem 2×2-Kästchen steht jede Zahl 1–4 genau einmal. Tipp ein Feld, dann eine Zahl. Falsche Zahlen kosten Punkte. 4 Rätsel.', en: 'Fill the 4×4 grid: every row, column and 2×2 box holds each of 1–4 exactly once. Tap a cell, then a number. Wrong numbers cost points. 4 puzzles.' },
     start(ctx) {
@@ -54,34 +54,47 @@
         const g = pz.puzzle.slice(), given = pz.puzzle.map((v) => v !== 0);
         let sel = g.findIndex((v) => !v), mistakes = 0, done = false;
         ctx.el.innerHTML = '';
-        const info = F.h('<div class="info-line"></div>');
-        const board = F.h('<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;max-width:300px;margin:12px auto"></div>');
+        // Status: two drawn counters, empty cells left (the goal is 0) and mistakes.
+        const info = F.h('<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:4px 0 10px"></div>');
+        const box = (label) => {
+          const el = F.h(`<div class="card sketch" style="padding:8px 10px;text-align:center;line-height:1.15"><div style="font-size:17px;color:var(--ink-soft)">${F.tt(label)}</div><b style="font-size:36px;font-weight:normal">0</b></div>`);
+          info.appendChild(el);
+          return el.querySelector('b');
+        };
+        const leftEl = box({ de: 'Leere Felder', en: 'Empty cells' }), badEl = box({ de: 'Fehler', en: 'Mistakes' });
+        // The board: a drawn frame, the four 2×2 boxes split by wider gaps.
+        const board = F.h('<div class="sketch" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;padding:12px;background:var(--paper-2)"></div>');
         const btns = g.map((_, i) => {
-          const b = F.h('<button style="aspect-ratio:1;min-width:0;padding:0;min-height:56px;border:2.5px solid var(--ink);border-radius:12px;font-size:30px;cursor:pointer;color:var(--ink)"></button>');
+          const b = F.h(`<button style="aspect-ratio:1;min-width:0;padding:0;border:2.5px solid var(--ink);border-radius:${12 + (i % 3) * 2}px ${16 - (i % 2) * 3}px ${13 + (i % 4)}px ${15 - (i % 3)}px;font-size:38px;line-height:1;cursor:pointer;color:var(--ink)"></button>`);
           const y = Math.floor(i / 4), x = i % 4;
           if (x === 1) b.style.marginRight = '8px';
           if (y === 1) b.style.marginBottom = '8px';
-          b.onclick = () => { if (!done && !given[i]) { sel = i; draw(); } };
+          b.onclick = () => { if (!done && !given[i]) { sel = i; ctx.sfx('tap'); draw(); } };
           board.appendChild(b);
           return b;
         });
-        const pad = F.h('<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:300px;margin:8px auto"></div>');
+        const pad = F.h('<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;width:100%;margin-top:14px"></div>');
         const padBtns = [1, 2, 3, 4].map((v) => {
-          const b = F.h(`<button class="opt" style="min-height:56px;font-size:28px">${v}</button>`);
+          const b = F.h(`<button class="opt" style="min-width:0;min-height:76px;font-size:36px;padding:0">${v}</button>`);
           b.onclick = () => put(v, b);
           pad.appendChild(b);
           return b;
         });
+        const pop = (el, cls) => { el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); };
         function draw() {
           btns.forEach((b, i) => {
             b.textContent = g[i] || '';
-            b.style.background = i === sel ? 'var(--c-logic, var(--c-math))' : given[i] ? 'var(--bg2, var(--card))' : 'var(--card)';
+            b.style.background = i === sel ? 'var(--c-logic)' : given[i] ? 'var(--dot)' : 'var(--card)';
+            b.style.boxShadow = given[i] ? 'none' : 'var(--shadow)';
             b.style.fontWeight = given[i] ? '700' : '400';
-            b.style.opacity = given[i] ? '0.75' : '1';
+            b.style.outline = i === sel ? '3px dashed var(--accent)' : '';
+            b.style.outlineOffset = i === sel ? '2px' : '';
           });
-          // A number that is already placed 4 times can't go anywhere else: hide its button (keep its spot so the others don't move).
-          padBtns.forEach((b, k) => { b.style.visibility = g.filter((c) => c === k + 1).length >= 4 ? 'hidden' : ''; });
-          info.textContent = F.tt({ de: `Fehler: ${mistakes}`, en: `Mistakes: ${mistakes}` });
+          // A number that is already placed 4 times can't go anywhere else: grey its button out (it stays in place, so the row stays centred).
+          padBtns.forEach((b, k) => { const full = g.filter((c) => c === k + 1).length >= 4; b.disabled = full; b.style.opacity = full ? '0.3' : ''; });
+          leftEl.textContent = g.filter((c) => !c).length;
+          badEl.textContent = mistakes;
+          badEl.style.color = mistakes ? 'var(--bad)' : '';
         }
         async function put(v, btn) {
           if (done || sel < 0 || given[sel]) return;
@@ -89,9 +102,11 @@
           if (pz.solution[sel] !== v) {
             mistakes++; ctx.sfx('bad');
             btn.classList.add('wrong'); ctx.wait(400).then(() => btn.classList.remove('wrong'));
+            pop(btns[sel], 'flash-bad');
             draw(); return;
           }
           g[sel] = v; ctx.sfx('tick');
+          pop(btns[sel], 'tap-pop');
           const nx = g.findIndex((c, i) => !c && i !== sel);
           sel = nx;
           draw();
@@ -100,6 +115,8 @@
           points += Math.max(2, 10 - mistakes * 2);
           ctx.setScore(points);
           ctx.sfx('good');
+          board.classList.add('flash-ok');
+          if (round < ROUNDS) F.cheer(8);
           await ctx.wait(900);
           next();
         }

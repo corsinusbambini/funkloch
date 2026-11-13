@@ -1,6 +1,6 @@
 /* Hot Potato: a bomb with a hidden fuse jumps between players. Tap to pass it on; whoever holds it when it blows loses. */
 Funkloch.registerGame({
-  id: 'hot-potato', skill: 'duo', added: '2026-10-19', glyph: '💣', players: 2, maxPlayers: 4,
+  id: 'hot-potato', skill: 'duo', added: '2026-10-19', glyph: '🥔', players: 2, maxPlayers: 4,
   name: { de: 'Heisse Kartoffel', en: 'Hot Potato' },
   desc: {
     de: 'Eine Bombe mit geheimer Zündschnur springt von Feld zu Feld. Hast du sie, tippst du schnell, um sie weiterzugeben. Wer sie beim Knall hat, verliert die Runde, alle anderen bekommen einen Punkt. Wer zuerst 4 Punkte hat, gewinnt.',

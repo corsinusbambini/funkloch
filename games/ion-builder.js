@@ -28,12 +28,28 @@
   const ratio = (cat, ani) => { const g = gcd(cat.c, ani.c); return [ani.c / g, cat.c / g]; };
   const ionTxt = (i, plus) => `${i.s}${SUP[i.c]}${plus ? '⁺' : '⁻'}`;
   const name = (cat, ani) => ({
-    de: cat.de + ani.de,
+    de: cat.de + '\u00AD' + ani.de, // soft hyphen: long German names may break at the word joint only
     en: `${cat.en} ${ani.en}`,
   });
   // every correct formula string (so a "wrong" option can never accidentally be correct)
   const VALID = new Set();
   CAT.forEach((c) => ANI.forEach((a) => { const [nc, na] = ratio(c, a); VALID.add(formula(c, a, nc, na)); }));
+
+  // Hand-drawn salt crystal: cations and anions sit in a checkerboard lattice. Decoration only.
+  const crystal = (i) => {
+    let balls = '', bonds = '';
+    for (let y = 0; y < 3; y++) for (let x = 0; x < 6; x++) {
+      const cx = 52 + x * 43 + (y % 2 ? 4 : 0), cy = 28 + y * 38, cat = (x + y + i) % 2 === 0, rad = cat ? 11 : 16;
+      if (x < 5) bonds += `M${cx} ${cy} L${cx + 43} ${cy} `;
+      if (y < 2) bonds += `M${cx} ${cy} L${cx + (y % 2 ? -4 : 4)} ${cy + 38} `;
+      balls += `<circle cx="${cx}" cy="${cy}" r="${rad}" style="fill:${cat ? 'var(--c-chem)' : 'var(--c-fun)'}"/>` +
+        `<path d="M${cx - rad * 0.55} ${cy - rad * 0.15} C${cx - rad * 0.5} ${cy - rad * 0.55} ${cx - rad * 0.2} ${cy - rad * 0.7} ${cx + rad * 0.05} ${cy - rad * 0.68}" style="stroke:#fff;opacity:.75;stroke-width:2.2"/>` +
+        (cat ? `<path d="M${cx - 4} ${cy + 2} L${cx + 4} ${cy + 2} M${cx} ${cy - 2} L${cx} ${cy + 6}" style="stroke-width:2"/>` : `<path d="M${cx - 5} ${cy + 4} L${cx + 5} ${cy + 4}" style="stroke-width:2.2"/>`);
+    }
+    return `<svg class="motif" viewBox="0 0 320 120" width="330" height="124" aria-hidden="true" style="margin:14px auto 14px;transform:rotate(${i % 2 ? 1.4 : -1.4}deg);stroke:var(--ink);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;fill:none">
+      <path d="${bonds}" style="stroke:var(--ink-soft);stroke-width:2;stroke-dasharray:5 4"/>${balls}
+    </svg>`;
+  };
 
   function pool(lvl) {
     return {
@@ -101,35 +117,39 @@
         let labels, ci, head, expl;
         if (q.kind === 'build') {
           const order = r.shuffle(q.opts);
-          labels = order; ci = order.indexOf(q.right);
+          labels = order.map((f) => (f.length > 9 ? `<span style="font-size:20px">${f}</span>` : f)); ci = order.indexOf(q.right);
           const nm = name(q.cat, q.ani);
-          head = `<span>${ionTxt(q.cat, true)} + ${ionTxt(q.ani, false)}</span><span style="font-size:17px;color:var(--ink-soft)">${F.tt({ de: 'Welche Formel hat das Salz?', en: 'Which formula does the salt have?' })}</span>`;
+          head = `<span style="font-size:40px">${ionTxt(q.cat, true)} + ${ionTxt(q.ani, false)}</span><span style="font-size:18px;color:var(--ink-soft)">${F.tt({ de: 'Welche Formel hat das Salz?', en: 'Which formula does the salt have?' })}</span>`;
           expl = `${F.tt(nm)} = ${q.right}`;
         } else {
           const order = r.shuffle(q.opts);
-          labels = order.map((o) => `<span style="display:block">${o.f}</span><span style="display:block;font-size:14px;color:var(--ink-soft)">${F.tt(o.nm)}</span>`);
+          labels = order.map((o) => `<span style="display:flex;flex-direction:column;align-items:center;min-width:0;max-width:100%"><span>${o.f}</span><span style="font-size:17px;line-height:1.15;opacity:.75">${F.tt(o.nm)}</span></span>`);
           ci = order.findIndex((o) => o.bad);
           const bad = order[ci];
-          head = `<span>${F.tt({ de: 'Welche Formel ist falsch?', en: 'Which formula is wrong?' })}</span><span style="font-size:17px;color:var(--ink-soft)">${F.tt({ de: 'Drei Salze stimmen, eins nicht.', en: 'Three salts are right, one is not.' })}</span>`;
+          head = `<span style="font-size:30px">${F.tt({ de: 'Welche Formel ist falsch?', en: 'Which formula is wrong?' })}</span><span style="font-size:18px;color:var(--ink-soft)">${F.tt({ de: 'Drei Salze stimmen, eins nicht.', en: 'Three salts are right, one is not.' })}</span>`;
           expl = `${F.tt(bad.nm)} = ${q.right}`;
         }
-        ctx.el.appendChild(F.h(`<div class="card sketch big-display pop-in" style="font-size:26px;letter-spacing:0;overflow-wrap:anywhere;flex-direction:column;gap:6px;text-align:center">${head}</div>`));
+        ctx.el.appendChild(F.h(`<div class="card sketch big-display pop-in" style="font-size:26px;letter-spacing:0;word-break:normal;overflow-wrap:break-word;flex-direction:column;gap:8px;text-align:center;min-height:165px;padding:18px 10px">${head}</div>`));
         let answered = false;
         const tb = ctx.timer(ctx.el, TIME, () => pick(-1, null, optEl));
-        const optEl = F.options(labels, (i, b, wrap) => pick(i, b, wrap));
+        ctx.el.appendChild(F.h(crystal(round)));
+        const optEl = F.options(labels, (i, b, wrap) => pick(i, b, wrap), 'tall');
+        optEl.style.gridTemplateColumns = 'repeat(2, minmax(0, 1fr))';
+        const explEl = F.h('<div class="info-line" style="text-align:center;margin-top:10px;font-size:20px;color:var(--ink)"></div>');
         async function pick(i, b, wrap) {
           if (answered) return;
           answered = true;
           const ms = tb.stop(), ok = i === ci;
-          if (b) b.classList.add(ok ? 'right' : 'wrong');
+          if (b) b.classList.add(ok ? 'right' : 'wrong', ok ? 'tap-pop' : 'flash-bad');
           wrap.children[ci].classList.add('right');
           ctx.sfx(ok ? 'good' : 'bad');
-          if (ok) { correct++; points += 5 + Math.ceil((TIME - ms) / 3000); }
-          else ctx.el.appendChild(F.h(`<div class="info-line" style="text-align:center;margin-top:8px">${expl}</div>`));
+          if (ok) { correct++; points += 5 + Math.ceil((TIME - ms) / 3000); if (round < ROUNDS) F.cheer(8); }
+          else { explEl.innerHTML = expl; explEl.classList.add('pop-in'); }
           await ctx.wait(ok ? 600 : 2000);
           next();
         }
         ctx.el.appendChild(optEl);
+        ctx.el.appendChild(explEl);
       }
       function end() {
         ctx.finish({

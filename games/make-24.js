@@ -11,6 +11,31 @@
   };
   const show = (x) => (x.d === 1 ? String(x.n) : `${x.n}/${x.d}`);
 
+  // slightly wobbly circle (hand-drawn look); the wobble comes from k, never from randomness
+  const wob = (cx, cy, rr, k) => {
+    let d = '';
+    for (let i = 0; i <= 28; i++) {
+      const a = (i / 28) * Math.PI * 2, j = 1 + 0.035 * Math.sin(a * 3 + k);
+      d += (i ? 'L' : 'M') + (cx + rr * j * Math.cos(a)).toFixed(1) + ' ' + (cy + rr * j * Math.sin(a)).toFixed(1);
+    }
+    return d + 'Z';
+  };
+  // doodle: a dartboard with the target number in the bull's eye and a dart stuck in the ring
+  function targetMotif(target, k) {
+    const lab = F.tt({ de: 'Ziel', en: 'Target' });
+    return `<svg class="motif" viewBox="0 0 300 128" width="324" height="138" style="transform:rotate(${k % 2 ? -2 : 2}deg);stroke:currentColor;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round" aria-hidden="true">
+      <path d="${wob(150, 64, 60, k)}" style="fill:var(--c-math)"/>
+      <path d="${wob(150, 64, 47, k + 2)}" style="fill:var(--card)"/>
+      <path d="${wob(150, 64, 36, k + 4)}" style="fill:var(--c-math)"/>
+      <path d="${wob(150, 64, 27, k + 1)}" style="fill:var(--card)"/>
+      <path d="M112 30 q14 -14 32 -16" style="fill:none;stroke:#fff;stroke-opacity:.6;stroke-width:3"/>
+      <text x="150" y="78" text-anchor="middle" style="font-size:${target > 99 ? 28 : 38}px;fill:var(--ink);stroke:none">${target}</text>
+      <path d="M196 38 L250 14" style="fill:none;stroke-width:3"/>
+      <path d="M250 14 l14 -10 l-2 12 l12 2 l-12 8 Z" style="fill:var(--accent)"/>
+      <text x="58" y="70" text-anchor="middle" style="font-size:22px;fill:var(--ink-soft);stroke:none">${lab}</text>
+    </svg>`;
+  }
+
   // All reachable results; returns map value-string -> expression.
   function solveAll(items, out = new Map()) {
     if (items.length === 1) { const k = show(items[0].v); if (!out.has(k)) out.set(k, items[0].e); return out; }
@@ -62,25 +87,28 @@
         round++;
         ctx.setScore(points);
         const p = ctx.fresh(puzzle, (x) => x.nums.slice().sort().join(',') + '>' + x.target);
-        ctx.setInfo(`${round} / ${ROUNDS} &nbsp; ${F.tt({ de: 'Ziel', en: 'Target' })}: <b style="font-size:26px;color:var(--ink)">${p.target}</b>`);
+        ctx.setInfo(`${round} / ${ROUNDS}`);
         const start = performance.now();
         let vals = p.nums.map((n) => fr(n)), alive = p.nums.map(() => true), sel = -1, op = null;
         const history = [];
         let busy = false;
         ctx.el.innerHTML = '';
-        const grid = F.h('<div class="m24-nums"></div>');
-        const ops = F.h('<div class="m24-ops"></div>');
-        const tools = F.h(`<div class="row" style="margin-top:16px"><button class="btn grow" id="undo">↶ ${F.tt({ de: 'Zurück', en: 'Undo' })}</button><button class="btn grow" id="skip">${F.tt({ de: 'Lösung', en: 'Solution' })}</button></div>`);
+        const goal = F.h(`<div class="pop-in" style="margin-top:6px">${targetMotif(p.target, round)}</div>`);
+        // 4 numbers: 2 × 2; 3 numbers: a triangle (two on top, one centred below)
+        const grid = F.h('<div class="m24-nums" style="grid-template-columns:repeat(4,minmax(0,1fr));margin:10px 0 18px"></div>');
+        const ops = F.h('<div class="m24-ops" style="gap:12px"></div>');
+        const tools = F.h(`<div class="row" style="margin-top:28px"><button class="btn grow" id="undo">↶ ${F.tt({ de: 'Zurück', en: 'Undo' })}</button><button class="btn grow" id="skip">${F.tt({ de: 'Lösung', en: 'Solution' })}</button></div>`);
         const draw = () => {
           grid.innerHTML = '';
           vals.forEach((v, i) => {
-            const b = F.h(`<button class="opt ${i === sel ? 'sel' : ''}" style="${alive[i] ? '' : 'visibility:hidden'}">${show(v)}</button>`);
+            const col = vals.length === 3 && i === 2 ? '2 / span 2' : 'span 2';
+            const b = F.h(`<button class="opt ${i === sel ? 'sel' : ''}" style="grid-column:${col};min-width:0;min-height:112px;font-size:38px;${i === sel ? 'color:var(--ink);' : ''}${alive[i] ? '' : 'visibility:hidden'}">${show(v)}</button>`);
             b.onclick = () => tapNum(i);
             grid.appendChild(b);
           });
           ops.innerHTML = '';
           Object.keys(OPS).forEach((o) => {
-            const b = F.h(`<button class="opt ${o === op ? 'sel' : ''}">${o}</button>`);
+            const b = F.h(`<button class="opt ${o === op ? 'sel' : ''}" style="width:74px;min-height:70px;font-size:32px;${o === op ? 'color:var(--ink)' : ''}">${o}</button>`);
             b.onclick = () => { if (sel < 0 || busy) return; ctx.sfx('tap'); op = o === op ? null : o; draw(); };
             ops.appendChild(b);
           });
@@ -88,19 +116,20 @@
         async function tapNum(i) {
           if (busy) return;
           ctx.sfx('tap');
-          if (sel < 0 || op == null || i === sel) { sel = i === sel ? -1 : i; op = null; return draw(); }
+          if (sel < 0 || op == null || i === sel) { sel = i === sel ? -1 : i; op = null; draw(); if (sel >= 0) grid.children[sel].classList.add('tap-pop'); return; }
           const v = OPS[op](vals[sel], vals[i]);
           if (!v) { ctx.sfx('bad'); F.toast('÷ 0 ✗'); return; }
           history.push({ vals: vals.slice(), alive: alive.slice() });
           vals[i] = v; alive[sel] = false; sel = -1; op = null;
           draw();
+          grid.children[i].classList.add('pop-in');
           if (alive.filter(Boolean).length === 1) {
             busy = true;
             const last = vals[alive.indexOf(true)];
             if (last.d === 1 && last.n === p.target) {
               const secs = (performance.now() - start) / 1000;
               solved++; points += Math.max(3, Math.round(15 - secs / 8));
-              ctx.sfx('win'); grid.classList.add('flash-ok');
+              ctx.sfx('win'); grid.classList.add('flash-ok'); if (round < ROUNDS) F.cheer(8);
               await ctx.wait(900); next();
             } else {
               ctx.sfx('bad'); grid.classList.add('flash-bad');
@@ -121,7 +150,7 @@
           await ctx.wait(3200); next();
         };
         draw();
-        ctx.el.append(grid, ops, tools);
+        ctx.el.append(goal, grid, ops, tools);
       }
       function end() {
         ctx.finish({

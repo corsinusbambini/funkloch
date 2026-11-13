@@ -35,8 +35,13 @@
       body += `<polygon points="${pts(top)}" fill="#D9F2E2"/><polygon points="${pts(right)}" fill="#9FD8B4"/><polygon points="${pts(left)}" fill="#7CC497"/>`;
       body += `<g fill="none" stroke="#2B2522" stroke-width="1.8" stroke-linejoin="round"><polygon points="${pts(top)}"/><polygon points="${pts(right)}"/><polygon points="${pts(left)}"/></g>`;
     });
+    // hand-drawn floor tile under the stack (drawn first, so the cubes sit on it)
+    const W = h.length, D = h[0].length, e = 0.45;
+    const floor = [P(-e, -e, 0), P(W + e, -e, 0), P(W + e, D + e, 0), P(-e, D + e, 0)];
+    floor.forEach(([px, py]) => { minX = Math.min(minX, px); maxX = Math.max(maxX, px); minY = Math.min(minY, py); maxY = Math.max(maxY, py); });
+    const fl = `<polygon points="${pts(floor)}" style="fill:var(--paper-2);stroke:var(--ink-soft);stroke-width:2;stroke-dasharray:7 5;stroke-linejoin:round"/>`;
     const pad = 6;
-    return `<svg viewBox="${minX - pad} ${minY - pad} ${maxX - minX + 2 * pad} ${maxY - minY + 2 * pad}" style="width:100%;max-height:260px;display:block">${body}</svg>`;
+    return `<svg viewBox="${minX - pad} ${minY - pad} ${maxX - minX + 2 * pad} ${maxY - minY + 2 * pad}" style="width:100%;height:300px;display:block">${fl}${body}</svg>`;
   }
 
   F.registerGame({
@@ -59,17 +64,17 @@
         r.shuffle([-2, -1, 1, 2, 3, -3]).forEach((d) => { const v = st.total + d; if (opts.length < 4 && v > 0 && !seen.has(v)) { seen.add(v); opts.push(v); } });
         const sh = r.shuffle(opts), ci = sh.indexOf(st.total);
         ctx.el.innerHTML = '';
-        ctx.el.appendChild(F.h(`<div class="card sketch pop-in" style="margin-bottom:14px;background:var(--paper)">${stackSVG(st.h)}</div>`));
+        ctx.el.appendChild(F.h(`<div class="card sketch pop-in" style="margin:4px 0 22px;background:var(--paper);transform:rotate(${round % 2 ? -1 : 1}deg)">${stackSVG(st.h)}</div>`));
         const start = performance.now();
         ctx.el.appendChild(F.options(sh.map(String), async (i, b, wrap) => {
           const ok = i === ci, secs = (performance.now() - start) / 1000;
-          b.classList.add(ok ? 'right' : 'wrong');
+          b.classList.add(ok ? 'right' : 'wrong', 'tap-pop');
           if (!ok) wrap.children[ci].classList.add('right');
           ctx.sfx(ok ? 'good' : 'bad');
-          if (ok) { correct++; points += Math.max(3, Math.round(12 - secs)); }
+          if (ok) { correct++; points += Math.max(3, Math.round(12 - secs)); if (round < ROUNDS) F.cheer(8); }
           await ctx.wait(ok ? 600 : 1500);
           next();
-        }));
+        }, 'tall'));
       }
       function end() {
         ctx.finish({

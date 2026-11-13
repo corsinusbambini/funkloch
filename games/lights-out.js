@@ -42,15 +42,29 @@
         puz.cells.forEach((c) => { need[c] = 1; });
         let moves = 0, hints = 0, hinted = -1, done = false;
         ctx.el.innerHTML = '';
-        const info = F.h(`<div class="info-line"></div>`);
-        const board = F.h(`<div style="display:grid;grid-template-columns:repeat(${size},minmax(0,1fr));gap:8px;max-width:340px;margin:12px auto"></div>`);
+        // Status: two drawn counters, lamps still on (the goal is 0) and taps used.
+        const info = F.h('<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:4px 0 10px"></div>');
+        const box = (label) => {
+          const el = F.h(`<div class="card sketch" style="padding:8px 10px;text-align:center;line-height:1.15"><div style="font-size:17px;color:var(--ink-soft)">${F.tt(label)}</div><b style="font-size:36px;font-weight:normal">0</b></div>`);
+          info.appendChild(el);
+          return el.querySelector('b');
+        };
+        const onEl = box({ de: '💡 noch an', en: '💡 still on' }), tapsEl = box({ de: 'Tipps', en: 'Taps' });
+        const board = F.h(`<div class="sketch" style="display:grid;grid-template-columns:repeat(${size},minmax(0,1fr));gap:10px;padding:14px;background:var(--paper-2)"></div>`);
         const btns = grid.map((_, i) => {
-          const b = F.h(`<button style="aspect-ratio:1;min-width:0;padding:0;min-height:56px;border:2.5px solid var(--ink);border-radius:14px;font-size:26px;cursor:pointer;box-shadow:var(--shadow);color:var(--ink)"></button>`);
+          const b = F.h(`<button style="aspect-ratio:1;min-width:0;padding:0;min-height:56px;border:2.5px solid var(--ink);border-radius:${14 + (i % 3)}px ${18 - (i % 4)}px ${13 + (i % 2) * 3}px ${17 - (i % 3)}px;cursor:pointer;box-shadow:var(--shadow);color:var(--ink);display:flex;align-items:center;justify-content:center"></button>`);
           b.onclick = () => tap(i);
           board.appendChild(b);
           return b;
         });
-        const hintBtn = F.h(`<button class="btn small" style="display:block;margin:4px auto">🔍 ${F.tt({ de: 'Hinweis (−2)', en: 'Hint (−2)' })}</button>`);
+        // A doodled light bulb: lit with rays, or dark and faint.
+        const bulb = (on) => `<svg viewBox="0 0 48 48" style="width:72%;height:72%;display:block" stroke-linecap="round" stroke-linejoin="round">
+          ${on ? '<path d="M24,3 L24,7 M9,10 L12,13 M39,10 L36,13 M4,24 L8,24 M44,24 L40,24" style="stroke:var(--ink);fill:none" stroke-width="2.5"/>' : ''}
+          <path d="M24,9 C14,9 10,17 12,24 C13,29 17,31 18,35 L30,35 C31,31 35,29 36,24 C38,17 34,9 24,9 Z" style="fill:${on ? '#FFF4B8' : 'var(--paper-2)'};stroke:${on ? '#2B2522' : 'var(--ink-faint)'}" stroke-width="2.5"/>
+          ${on ? '<path d="M17,19 C18,15 20,14 22,13" style="stroke:#FFFFFF;fill:none" stroke-width="3"/><path d="M20,27 L22,23 L24,27 L26,23 L28,27" style="stroke:#E8742F;fill:none" stroke-width="2"/>' : ''}
+          <path d="M18,37 L30,37 M19,41 L29,41 M21,45 L27,45" style="stroke:${on ? 'var(--ink)' : 'var(--ink-faint)'};fill:none" stroke-width="2.5"/></svg>`;
+        const pop = (el) => { el.classList.remove('tap-pop'); void el.offsetWidth; el.classList.add('tap-pop'); };
+        const hintBtn = F.h(`<button class="btn block" style="min-height:62px;margin-top:16px">🔍 ${F.tt({ de: 'Hinweis (−2)', en: 'Hint (−2)' })}</button>`);
         hintBtn.onclick = () => {
           if (done || hinted >= 0) return;
           const todo = need.map((v, i) => (v ? i : -1)).filter((i) => i >= 0);
@@ -63,11 +77,12 @@
         function draw() {
           btns.forEach((b, i) => {
             b.style.background = grid[i] ? 'var(--c-math)' : 'var(--card)';
-            b.textContent = grid[i] ? '💡' : '';
+            b.innerHTML = bulb(grid[i]);
             b.style.outline = i === hinted ? '4px dashed var(--accent)' : '';
             b.style.outlineOffset = i === hinted ? '3px' : '';
           });
-          info.textContent = F.tt({ de: `Tipps: ${moves}`, en: `Taps: ${moves}` }) + (hints ? F.tt({ de: ` · Hinweise: ${hints}`, en: ` · Hints: ${hints}` }) : '');
+          onEl.textContent = grid.reduce((a, v) => a + v, 0);
+          tapsEl.textContent = moves + (hints ? ` · 🔍${hints}` : '');
           hintBtn.disabled = done || hinted >= 0;
         }
         async function tap(i) {
@@ -78,12 +93,19 @@
           press(grid, size, i % size, Math.floor(i / size));
           ctx.sfx('tick');
           draw();
+          const x = i % size, y = Math.floor(i / size);
+          [[0, 0], [1, 0], [-1, 0], [0, 1], [0, -1]].forEach(([dx, dy]) => {
+            const a = x + dx, c = y + dy;
+            if (a >= 0 && a < size && c >= 0 && c < size) pop(btns[c * size + a]);
+          });
           if (grid.some(Boolean)) return;
           done = true; solved++;
           draw();
           points += Math.max(2, 10 - Math.max(0, moves - puz.par) - hints * 2);
           ctx.setScore(points);
           ctx.sfx('good');
+          board.classList.add('flash-ok');
+          if (round < ROUNDS) F.cheer(8);
           await ctx.wait(900);
           next();
         }

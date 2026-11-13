@@ -52,27 +52,55 @@
       };
 
       ctx.el.innerHTML = '';
-      const info = F.h('<div class="info-line" style="min-height:26px"></div>');
-      const bar = F.h('<div style="max-width:340px;margin:4px auto;height:16px;border:2.5px solid var(--ink);border-radius:9px;overflow:hidden"><div style="height:100%;width:0;background:var(--good);transition:width .25s"></div></div>');
+      // drawn motif: a little fruit basket
+      const motif = F.h(`<svg class="motif" viewBox="0 0 300 64" width="320" height="68" aria-hidden="true" style="transform:rotate(1.2deg)">
+        <g stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M112 30 Q150 -6 188 30" fill="none" stroke-width="4"/>
+          <circle cx="128" cy="30" r="12" fill="var(--c-fun)"/><circle cx="150" cy="24" r="13" fill="var(--c-math)"/><circle cx="172" cy="30" r="12" fill="var(--c-spatial)"/>
+          <path d="M150 11 q3 -6 9 -6" fill="none"/>
+          <path d="M100 32 L200 32 L190 60 L110 60 Z" fill="var(--c-memory)"/>
+          <path d="M106 42 L194 42 M110 51 L190 51 M126 32 L128 60 M150 32 L150 60 M174 32 L172 60" fill="none" stroke-width="1.6"/>
+          <circle cx="60" cy="40" r="9" fill="var(--c-logic)"/><circle cx="72" cy="46" r="9" fill="var(--c-logic)"/><circle cx="62" cy="53" r="9" fill="var(--c-logic)"/>
+          <path d="M242 30 l3 6 l6 1 l-4.5 4 l1.5 6 l-6 -3 l-5 3 l1 -6 l-4.5 -4 l6 -1 Z" fill="var(--c-math)"/>
+        </g></svg>`);
+      // drawn status: score meter on the left, moves as a big number in a round badge on the right
+      const card = F.h('<div class="sketch" style="background:var(--card);box-shadow:var(--shadow);margin:6px 6px 14px;padding:8px 10px 8px 12px;display:flex;align-items:center;gap:12px;transform:rotate(-.5deg)"></div>');
+      const left = F.h('<div style="flex:1;min-width:0"></div>');
+      const info = F.h('<div style="font-size:19px;line-height:1.2"></div>');
+      const bar = F.h('<div style="margin-top:5px;height:14px;border:2.5px solid var(--ink);border-radius:9px 12px 8px 11px;background:var(--paper-2);overflow:hidden"><div style="height:100%;width:100%;background:var(--good);transform-origin:left;transform:scaleX(0);transition:transform .25s"></div></div>');
       const fill = bar.firstChild;
-      const board = F.h(`<div style="display:grid;grid-template-columns:repeat(${N},minmax(0,1fr));gap:4px;max-width:340px;margin:10px auto;touch-action:manipulation"></div>`);
+      left.append(info, bar);
+      const badge = F.h('<div style="flex:none;width:62px;height:62px;border:2.5px solid var(--ink);border-radius:50% 46% 52% 48%;background:var(--c-math);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;color:var(--ink);transform:rotate(-4deg)"></div>');
+      const movesEl = F.h('<span style="font-size:28px"></span>');
+      badge.append(movesEl, F.h(`<span style="font-size:16px">${F.tt({ de: 'Züge', en: 'Moves' })}</span>`));
+      card.append(left, badge);
+      const frame = F.h('<div class="sketch alt" style="background:var(--paper-2);box-shadow:var(--shadow);padding:8px"></div>');
+      const board = F.h(`<div style="display:grid;grid-template-columns:repeat(${N},minmax(0,1fr));gap:4px;touch-action:manipulation"></div>`);
+      frame.appendChild(board);
       const cells = [];
       for (let i = 0; i < N * N; i++) {
-        const b = F.h('<button style="aspect-ratio:1;min-width:0;padding:0;min-height:48px;border:2.5px solid var(--ink);border-radius:12px;font-size:28px;line-height:1;background:var(--card);color:var(--ink);cursor:pointer"></button>');
+        const b = F.h(`<button style="aspect-ratio:1;min-width:0;padding:0;min-height:48px;border:2px solid var(--ink);border-radius:${i % 2 ? '13px 9px 12px 8px' : '9px 13px 8px 12px'};font-size:30px;line-height:1;background:var(--card);color:var(--ink);cursor:pointer;transition:transform .15s"></button>`);
         b.onclick = () => tap(i);
         board.appendChild(b); cells.push(b);
       }
-      const msg = F.h('<div class="info-line" style="min-height:24px"></div>');
-      ctx.el.append(info, bar, board, msg);
+      const msg = F.h('<div class="info-line" style="min-height:26px;font-size:19px;margin-top:8px"></div>');
+      ctx.el.append(motif, card, frame, msg);
 
+      // each fruit sits on its own soft tile colour (theme colours, so it works light and dark)
+      const TILE = ['var(--c-fun)', 'var(--c-math)', 'var(--c-spatial)', 'var(--c-memory)', 'var(--c-logic)'];
+      const prev = [];
+      const pop = (b, cls) => { b.classList.remove('tap-pop', 'flash-bad'); void b.offsetWidth; b.classList.add(cls); };
       function draw(hit) {
         cells.forEach((b, i) => {
-          b.textContent = g[i] >= 0 ? FRUITS[g[i]] : '';
-          b.style.background = hit && hit.has(i) ? 'var(--accent)' : i === sel ? 'var(--c-math)' : 'var(--card)';
+          const v = g[i];
+          if (prev[i] !== v) { b.textContent = v >= 0 ? FRUITS[v] : ''; if (prev[i] !== undefined && v >= 0) pop(b, 'tap-pop'); prev[i] = v; }
+          b.style.background = hit && hit.has(i) ? 'var(--accent)' : i === sel ? 'var(--card)' : v >= 0 ? TILE[v] : 'var(--card)';
+          b.style.outline = i === sel ? '3px dashed var(--ink)' : '';
           b.style.transform = i === sel ? 'scale(1.08)' : '';
         });
-        info.textContent = F.tt({ de: `Punkte ${score} / ${target} · Züge ${moves}`, en: `Score ${score} / ${target} · Moves ${moves}` });
-        fill.style.width = Math.min(100, Math.round(100 * score / target)) + '%';
+        info.textContent = F.tt({ de: `Punkte ${score} / ${target}`, en: `Score ${score} / ${target}` });
+        movesEl.textContent = moves;
+        fill.style.transform = `scaleX(${Math.min(1, score / target)})`;
         ctx.setScore(score);
       }
 
@@ -110,6 +138,7 @@
         const test = swapped(g, a, i);
         if (!runs(test).size) {
           g = test; draw(); ctx.sfx('bad');
+          pop(cells[a], 'flash-bad'); pop(cells[i], 'flash-bad');
           await ctx.wait(250);
           g = swapped(g, a, i); draw();
           busy = false; return;

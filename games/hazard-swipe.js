@@ -34,6 +34,22 @@
     return `<svg viewBox="0 0 100 100" width="${size}" height="${size}" role="img" style="display:block"><path d="M50,4 L96,50 L50,96 L4,50 Z" fill="#fff" stroke="#D8232A" stroke-width="9" stroke-linejoin="round"/><g transform="translate(0,2)">${SYM[id]}</g></svg>`;
   }
 
+  // Hand-drawn lab shelf: a brown reagent bottle with a blank label, a wash bottle and safety goggles. Decoration only (no hazard sign, so it never hints).
+  const shelf = (i) => `<svg class="motif" viewBox="0 0 320 120" width="320" height="120" aria-hidden="true" style="margin:12px auto 14px;transform:rotate(${i % 2 ? 1.3 : -1.4}deg);stroke:var(--ink);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;fill:none">
+    <path d="M14 112 C100 109 220 115 306 110"/>
+    <path d="M58 40 C46 46 42 56 42 66 L44 108 L104 108 L106 66 C106 56 102 46 90 40 Z" style="fill:#9A5B2E"/>
+    <path d="M62 26 L86 26 L88 42 L60 42 Z" style="fill:var(--paper-2)"/>
+    <path d="M52 64 L96 63 L97 92 L53 93 Z" style="fill:var(--card)"/>
+    <path d="M60 74 L88 73 M60 82 L80 82" style="stroke:var(--ink-soft);stroke-width:2"/>
+    <path d="M52 52 C55 46 60 44 64 44" style="stroke:#fff;opacity:.7;stroke-width:3"/>
+    <path d="M132 50 C126 56 124 64 124 72 L126 108 L170 108 L172 72 C172 64 170 56 164 50 Z" style="fill:var(--c-focus)"/>
+    <path d="M140 50 L140 40 L156 40 L156 50" style="fill:var(--card)"/><path d="M152 40 C156 26 170 22 182 24" style="stroke-width:3"/>
+    <path d="M132 64 L131 98" style="stroke:#fff;opacity:.7;stroke-width:3"/>
+    <path d="M204 84 C204 72 214 66 228 68 C238 70 242 76 248 76 C254 76 258 70 268 68 C282 66 292 72 292 84 C292 96 282 102 268 100 C258 98 254 92 248 92 C242 92 238 98 228 100 C214 102 204 96 204 84 Z" style="fill:var(--c-chem);fill-opacity:.6"/>
+    <path d="M204 80 C196 76 192 70 194 62 M292 80 C300 76 304 70 302 62" style="stroke-width:2.4"/>
+    <path d="M214 78 C218 74 222 73 226 74 M258 78 C262 74 266 73 270 74" style="stroke:#fff;opacity:.8;stroke-width:2.4"/>
+  </svg>`;
+
   F.registerGame({
     id: 'hazard-swipe', skill: 'chem', added: '2026-11-03', glyph: '☠️',
     name: { de: 'Gefahrensymbole', en: 'Hazard Symbols' },
@@ -61,15 +77,17 @@
         ctx.el.innerHTML = '';
         const pictoOpts = q.kind !== 'sym2name';
         let prompt;
-        if (q.kind === 'sym2name') prompt = `<div style="display:flex;flex-direction:column;align-items:center;gap:6px">${pictoSVG(q.h.id, 150)}<div class="info-line">${F.tt({ de: 'Was bedeutet dieses Symbol?', en: 'What does this symbol mean?' })}</div></div>`;
-        else if (q.kind === 'sub2sym') prompt = `<div style="font-size:28px;text-align:center;overflow-wrap:anywhere">🧪 ${label({ de: q.h.ex.de[q.sub], en: q.h.ex.en[q.sub] })}<div class="info-line" style="font-size:17px">${F.tt({ de: 'Welches Symbol ist das typische Warnzeichen?', en: 'Which symbol is the typical warning?' })}</div></div>`;
-        else prompt = `<div style="font-size:28px;text-align:center;overflow-wrap:anywhere">⚠️ ${label(q.h.name)}<div class="info-line" style="font-size:17px">${F.tt({ de: 'Welches Symbol passt dazu?', en: 'Which symbol matches?' })}</div></div>`;
-        ctx.el.appendChild(F.h(`<div class="card sketch pop-in" style="padding:14px;display:flex;justify-content:center;margin-bottom:10px">${prompt}</div>`));
+        if (q.kind === 'sym2name') prompt = `<div style="display:flex;flex-direction:column;align-items:center;gap:6px">${pictoSVG(q.h.id, 170)}<div class="info-line" style="font-size:20px">${F.tt({ de: 'Was bedeutet dieses Symbol?', en: 'What does this symbol mean?' })}</div></div>`;
+        else if (q.kind === 'sub2sym') prompt = `<div style="font-size:30px;line-height:1.2;text-align:center;overflow-wrap:break-word">🧪 ${label({ de: q.h.ex.de[q.sub], en: q.h.ex.en[q.sub] })}<div class="info-line" style="font-size:18px;margin-top:6px">${F.tt({ de: 'Welches Symbol ist das typische Warnzeichen?', en: 'Which symbol is the typical warning?' })}</div></div>`;
+        else prompt = `<div style="font-size:30px;line-height:1.2;text-align:center;overflow-wrap:break-word">⚠️ ${label(q.h.name)}<div class="info-line" style="font-size:18px;margin-top:6px">${F.tt({ de: 'Welches Symbol passt dazu?', en: 'Which symbol matches?' })}</div></div>`;
+        ctx.el.appendChild(F.h(`<div class="card sketch pop-in" style="padding:16px 14px;display:flex;justify-content:center;align-items:center;margin-bottom:10px;min-height:${pictoOpts ? 120 : 0}px">${prompt}</div>`));
         let answered = false;
         const tb = ctx.timer(ctx.el, TIME, () => pick(-1, null, wrap));
-        const wrap = F.h(`<div style="display:grid;grid-template-columns:repeat(${pictoOpts ? 2 : 1},minmax(0,1fr));gap:10px;max-width:340px;margin:0 auto"></div>`);
+        if (pictoOpts) ctx.el.appendChild(F.h(shelf(round)));
+        else tb.el.style.marginBottom = '18px';
+        const wrap = F.h(`<div style="display:grid;grid-template-columns:repeat(${pictoOpts ? 2 : 1},minmax(0,1fr));gap:12px;max-width:340px;margin:0 auto"></div>`);
         const bs = choices.map((c, i) => {
-          const b = F.h(`<button class="opt" style="min-height:${pictoOpts ? 110 : 56}px;min-width:0;display:flex;align-items:center;justify-content:center;padding:6px;font-size:18px;overflow-wrap:anywhere">${pictoOpts ? pictoSVG(c.id, 92) : label(c.name)}</button>`);
+          const b = F.h(`<button class="opt" style="min-height:${pictoOpts ? 128 : 66}px;min-width:0;display:flex;align-items:center;justify-content:center;padding:6px;font-size:22px;overflow-wrap:break-word">${pictoOpts ? pictoSVG(c.id, 108) : label(c.name)}</button>`);
           b.onclick = () => pick(i, b, wrap);
           wrap.appendChild(b);
           return b;
@@ -78,10 +96,10 @@
           if (answered) return;
           answered = true;
           const ms = tb.stop(), ok = i === ci;
-          if (b) b.classList.add(ok ? 'right' : 'wrong');
+          if (b) b.classList.add(ok ? 'right' : 'wrong', ok ? 'tap-pop' : 'flash-bad');
           bs[ci].classList.add('right');
           ctx.sfx(ok ? 'good' : 'bad');
-          if (ok) { correct++; points += 5 + Math.ceil((TIME - ms) / 4000); }
+          if (ok) { correct++; points += 5 + Math.ceil((TIME - ms) / 4000); if (round < ROUNDS) F.cheer(8); }
           await ctx.wait(ok ? 600 : 1600);
           next();
         }
