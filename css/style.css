@@ -893,3 +893,28 @@ textarea { width: 100%; min-height: 90px; font-family: monospace; font-size: 12p
 .cheer i { position: absolute; left: 50%; top: 36%; width: 30px; height: 30px; opacity: 0; animation: cheerfly .95s ease-out forwards; }
 @keyframes cheerfly { 0% { transform: translate(-50%, -50%) scale(.3) rotate(0deg); opacity: 0; } 15% { opacity: 1; } 100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.1) rotate(var(--rot)); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .cheer { display: none; } .tap-pop { animation: none; } }
+
+/* Olive Grove: dark olive paper with a lime highlighter accent */
+[data-theme="olive"] {
+  --paper: #1F2113;
+  --paper-2: #292C1A;
+  --card: #323620;
+  --ink: #F1EFD8;
+  --ink-soft: #B9B792;
+  --ink-faint: #55583A;
+  --dot: #3A3E26;
+  --accent: #C9D95A;
+  --good: #9BDB7A;
+  --bad: #FF8F7A;
+  --c-memory: #8A5A3C;
+  --c-math: #8C7A2E;
+  --c-logic: #6A5A8E;
+  --c-spatial: #4C7F4A;
+  --c-focus: #3F6F8C;
+  --c-chem: #2F7D70;
+  --c-fun: #94506E;
+  --c-duo: #8F4D45;
+  --shadow: 3px 3px 0 #000;
+  color-scheme: dark;
+}
+[data-theme="olive"] .chaos-btn .t2 { color: var(--ink); }

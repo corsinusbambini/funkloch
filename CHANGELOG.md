@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-14 · Steinchen-Mulde / Mancala (solo classic, logic) · sow stones round a wooden board against the computer, extra turns and captures, more stones in your store wins
+- 2026-11-14 · Spiegelbild / Mirror Draw (spatial) · half a pattern is given, tap cells to paint its mirror image or upside-down copy, 6 pictures
+- 2026-11-14 · Buddy item: Kochmütze / Chef hat (top slot, 70 ink)
+- 2026-11-14 · Style: Olivenhain / Olive Grove (dark olive with lime accent)
 - 2026-11-14 · Fixed the cookie sitting in the top half with an empty lower half on the start screen · game Fortune Cookie
 - 2026-11-13 · Obstfänger / Fruit Catcher (solo classic, focus) · slide the basket with your finger, catch fruit, dodge stones, 30 points in 45 seconds win
 - 2026-11-13 · Name & Gesicht / Name & Face (memory) · learn generated doodle faces with made-up names, then pick the right name, 3 rounds

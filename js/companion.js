@@ -84,6 +84,7 @@
     { id: 'sun', slot: 'sun', price: 55, icon: '☀️' },
     { id: 'bird', slot: 'bird', price: 60, icon: '🐦' },
     { id: 'bowtie', slot: 'tie', price: 50, icon: '🎩' },
+    { id: 'chef', slot: 'top', price: 70, icon: '👨‍🍳' },
   ];
 
   const ACC = {
@@ -91,6 +92,7 @@
     leaf: (x, y) => `<g transform="translate(${x},${y}) rotate(-30)"><path d="M0,10 C-12,0 -8,-16 0,-20 C8,-16 12,0 0,10 Z" fill="#8FD18F" stroke="currentColor" stroke-width="1.8"/><path d="M0,10 L0,-16" stroke="currentColor" stroke-width="1.5"/></g>`,
     bow: (x, y) => `<g transform="translate(${x},${y})"><path d="M0,0 L-15,-9 L-15,9 Z M0,0 L15,-9 L15,9 Z" fill="#F07C8C" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle r="4" fill="#F07C8C" stroke="currentColor" stroke-width="1.8"/></g>`,
     party: (x, y) => `<g transform="translate(${x},${y})"><path d="M-17,4 L0,-38 L17,4 Z" fill="#B5D8F5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M-10,-12 L8,-4 M-5,-26 L5,-22" stroke="#F07C8C" stroke-width="3"/><circle cx="0" cy="-40" r="5" fill="#FFD66B" stroke="currentColor" stroke-width="1.6"/></g>`,
+    chef: (x, y) => `<g transform="translate(${x},${y})"><path d="M-17,-4 C-30,-6 -28,-26 -14,-24 C-12,-38 12,-38 14,-24 C28,-26 30,-6 17,-4 Z" fill="#FFFDF8" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M-9,-8 C-12,-16 -11,-22 -7,-26 M4,-9 C2,-18 4,-24 8,-28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity=".35"/><path d="M-14,-30 q4,-5 10,-5" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" opacity=".9"/><rect x="-18" y="-5" width="36" height="11" rx="3" fill="#E9E3D6" stroke="currentColor" stroke-width="2.2"/><path d="M-10,-1 h20" stroke="currentColor" stroke-width="1.3" opacity=".4"/></g>`,
     crown: (x, y) => `<g transform="translate(${x},${y})"><path d="M-22,4 L-22,-16 L-11,-6 L0,-22 L11,-6 L22,-16 L22,4 Z" fill="#FFD66B" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="0" cy="-6" r="3" fill="#F07C8C"/></g>`,
   };
 
@@ -316,7 +318,7 @@
     // accessories
     const side = wearing.find((w) => ['flower', 'leaf', 'bow'].includes(w));
     if (side) s += ACC[side](200 - sp.ant[0] - 4, sp.ant[1] + 2);
-    const top = wearing.find((w) => ['party', 'crown'].includes(w));
+    const top = wearing.find((w) => ['party', 'crown', 'chef'].includes(w));
     if (top) s += ACC[top](100, sp.topY + (species === 'inkdrop' ? 16 : 4));
     return s + '</svg>';
   };
