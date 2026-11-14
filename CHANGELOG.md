@@ -2,6 +2,7 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-14 · Fixed the cookie sitting in the top half with an empty lower half on the start screen · game Fortune Cookie
 - 2026-11-13 · Obstfänger / Fruit Catcher (solo classic, focus) · slide the basket with your finger, catch fruit, dodge stones, 30 points in 45 seconds win
 - 2026-11-13 · Name & Gesicht / Name & Face (memory) · learn generated doodle faces with made-up names, then pick the right name, 3 rounds
 - 2026-11-13 · Buddy item: Fliege / Bow tie (new tie slot, 50 ink)

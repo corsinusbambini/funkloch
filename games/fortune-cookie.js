@@ -84,7 +84,7 @@
         let taps = 0, open = false;
         ctx.el.innerHTML = '';
         const hint = F.h('<div class="info-line" style="text-align:center;font-size:20px;margin-top:10px"></div>');
-        const pot = F.h('<button style="display:block;width:100%;margin:6px auto 0;padding:22px 0 6px;background:transparent;border:0;cursor:pointer;text-align:center"></button>');
+        const pot = F.h('<button style="display:block;width:100%;margin:6px auto 0;padding:70px 0 6px;transition:padding .25s;background:transparent;border:0;cursor:pointer;text-align:center"></button>');
         const dots = F.h('<div style="display:flex;justify-content:center;gap:10px;margin:6px 0 10px"></div>');
         const slip = F.h('<div></div>');
         const btn = F.h(`<button class="btn primary big" style="display:none;margin:12px auto 0;width:100%;max-width:340px">${F.tt({ de: 'Zettel einsammeln', en: 'Collect the slip' })}</button>`);
@@ -101,7 +101,7 @@
           if (open) return;
           taps++; ctx.sfx(taps >= CRACKS ? 'win' : 'tap');
           if (taps >= CRACKS) {
-            open = true;
+            open = true; pot.style.paddingTop = '14px';
             const luck = fo.nums.reduce((a, b) => a + b, 0);
             points += luck; ctx.setScore(points);
             F.cheer(8);
