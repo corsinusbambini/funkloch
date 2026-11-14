@@ -942,3 +942,27 @@ textarea { width: 100%; min-height: 90px; font-family: monospace; font-size: 12p
   --shadow: 3px 3px 0 #3A2330;
   color-scheme: light;
 }
+
+/* Sage: dusty grey-green paper with a clay-orange accent */
+[data-theme="sage"] {
+  --paper: #E1E8D6;
+  --paper-2: #D2DCC3;
+  --card: #F4F7EC;
+  --ink: #26301F;
+  --ink-soft: #4F5E45;
+  --ink-faint: #AFC09C;
+  --dot: #C5D1B4;
+  --accent: #E2865C;
+  --good: #3B8F55;
+  --bad: #CC4B3F;
+  --c-memory: #EDB7A0;
+  --c-math: #E8CE86;
+  --c-logic: #C3B4E6;
+  --c-spatial: #A5DDB1;
+  --c-focus: #9DC9E8;
+  --c-chem: #8CD5C5;
+  --c-fun: #EFA9C0;
+  --c-duo: #EE9F8C;
+  --shadow: 3px 3px 0 #26301F;
+  color-scheme: light;
+}

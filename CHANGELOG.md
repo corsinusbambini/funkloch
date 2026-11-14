@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-14 · Maulwurf-Treffer / Mole Whack (solo classic, focus) · tap moles popping out of 12 holes, golden mole = 3 points, hedgehog costs a heart, 24 points in 40 seconds win
+- 2026-11-14 · Labor-Einheiten / Lab Units (chem) · convert L, mL, µL, g, mg, µg, mol, mmol … with generated numbers and typical wrong answers, 10 questions
+- 2026-11-14 · Buddy item: Regenschirm / Umbrella (new umbrella slot, 65 ink)
+- 2026-11-14 · Style: Salbei / Sage (light grey-green with clay-orange accent)
 - 2026-11-14 · Irrgarten / Maze (solo classic, spatial) · drag your finger through a freshly generated hand-drawn maze to the flag, collect stars, 3 mazes
 - 2026-11-14 · Zen-Garten / Zen Garden (fun, no daily) · rake grooves into the sand around generated stones and moss, no timer
 - 2026-11-14 · Buddy item: Fussball / Football (new ball slot, 55 ink)
