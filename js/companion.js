@@ -85,6 +85,7 @@
     { id: 'bird', slot: 'bird', price: 60, icon: '🐦' },
     { id: 'bowtie', slot: 'tie', price: 50, icon: '🎩' },
     { id: 'chef', slot: 'top', price: 70, icon: '👨‍🍳' },
+    { id: 'ball', slot: 'ball', price: 55, icon: '⚽' },
   ];
 
   const ACC = {
@@ -303,6 +304,12 @@
         <path d="M-17,6 C-20,-6 -14,-16 -3,-16 C7,-16 14,-8 13,2 C12,12 2,15 -8,14 C-12,19 -18,21 -22,20 C-19,16 -17,11 -17,6 Z" fill="#7FB2E5" stroke="${ink}" stroke-width="2.2" stroke-linejoin="round"/>
         <path d="M-6,0 C-1,-4 7,-2 8,4 C4,10 -4,10 -8,6 Z" fill="#A9CFF2" stroke="${ink}" stroke-width="1.6" stroke-linejoin="round"/>
         <circle cx="6" cy="-6" r="2.3" fill="${ink}"/><circle cx="6.8" cy="-6.8" r=".8" fill="#fff"/><path d="M-12,-9 q4,-6 9,-6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".75"/></g>`;
+    }
+    if (wearing.includes('ball')) {
+      s += `<g transform="translate(57,178) rotate(-14) scale(1.25)"><ellipse cx="2" cy="13" rx="14" ry="3" fill="${ink}" opacity=".18"/><circle r="14" fill="#FFFDF8" stroke="${ink}" stroke-width="2.4"/>
+        <path d="M0,-6 L5.7,-1.9 L3.5,4.9 L-3.5,4.9 L-5.7,-1.9 Z" fill="${ink}" stroke="${ink}" stroke-width="1" stroke-linejoin="round"/>
+        <path d="M0,-6 L0,-13.5 M5.7,-1.9 L12.5,-4.5 M3.5,4.9 L8,10.8 M-3.5,4.9 L-8,10.8 M-5.7,-1.9 L-12.5,-4.5" fill="none" stroke="${ink}" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M-9,-8 q4,-5 9,-5.5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".9"/></g>`;
     }
     if (wearing.includes('bowtie')) {
       const ty = Math.min(my + 24, sp.feet - 20);

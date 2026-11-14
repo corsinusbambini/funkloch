@@ -918,3 +918,27 @@ textarea { width: 100%; min-height: 90px; font-family: monospace; font-size: 12p
   color-scheme: dark;
 }
 [data-theme="olive"] .chaos-btn .t2 { color: var(--ink); }
+
+/* Peach: soft peach paper, plum-brown ink, periwinkle accent */
+[data-theme="peach"] {
+  --paper: #FFE8D6;
+  --paper-2: #FFD8BE;
+  --card: #FFF6EE;
+  --ink: #3A2330;
+  --ink-soft: #6B4A5A;
+  --ink-faint: #E3B79C;
+  --dot: #F5CBAF;
+  --accent: #8E9CF5;
+  --good: #3E9B6A;
+  --bad: #D8453F;
+  --c-memory: #F6B3A6;
+  --c-math: #F8CF7E;
+  --c-logic: #C9B6F2;
+  --c-spatial: #A9DDB5;
+  --c-focus: #9CCBF0;
+  --c-chem: #8FD9CB;
+  --c-fun: #F5A9C8;
+  --c-duo: #F39A88;
+  --shadow: 3px 3px 0 #3A2330;
+  color-scheme: light;
+}

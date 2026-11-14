@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-14 · Irrgarten / Maze (solo classic, spatial) · drag your finger through a freshly generated hand-drawn maze to the flag, collect stars, 3 mazes
+- 2026-11-14 · Zen-Garten / Zen Garden (fun, no daily) · rake grooves into the sand around generated stones and moss, no timer
+- 2026-11-14 · Buddy item: Fussball / Football (new ball slot, 55 ink)
+- 2026-11-14 · Style: Pfirsich / Peach (light peach with periwinkle accent)
 - 2026-11-14 · Steinchen-Mulde / Mancala (solo classic, logic) · sow stones round a wooden board against the computer, extra turns and captures, more stones in your store wins
 - 2026-11-14 · Spiegelbild / Mirror Draw (spatial) · half a pattern is given, tap cells to paint its mirror image or upside-down copy, 6 pictures
 - 2026-11-14 · Buddy item: Kochmütze / Chef hat (top slot, 70 ink)
