@@ -990,3 +990,28 @@ textarea { width: 100%; min-height: 90px; font-family: monospace; font-size: 12p
   --shadow: 3px 3px 0 #17383B;
   color-scheme: light;
 }
+
+/* Twilight: deep indigo paper with a bright rose accent */
+[data-theme="twilight"] {
+  --paper: #171A36;
+  --paper-2: #20244A;
+  --card: #2A2F5C;
+  --ink: #F2EEFF;
+  --ink-soft: #B7B5E0;
+  --ink-faint: #4A4F86;
+  --dot: #2C3163;
+  --accent: #FF86AE;
+  --good: #7BE0A4;
+  --bad: #FF8A80;
+  --c-memory: #9A5A78;
+  --c-math: #9A8230;
+  --c-logic: #6D5FB8;
+  --c-spatial: #3F8A6E;
+  --c-focus: #3F76B0;
+  --c-chem: #2E8A8A;
+  --c-fun: #A85A92;
+  --c-duo: #A8564F;
+  --shadow: 3px 3px 0 #090A1A;
+  color-scheme: dark;
+}
+[data-theme="twilight"] .chaos-btn .t2 { color: var(--ink); }

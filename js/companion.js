@@ -88,6 +88,7 @@
     { id: 'ball', slot: 'ball', price: 55, icon: '⚽' },
     { id: 'umbrella', slot: 'umbrella', price: 65, icon: '☂️' },
     { id: 'icecream', slot: 'icecream', price: 60, icon: '🍦' },
+    { id: 'boots', slot: 'boots', price: 70, icon: '🥾' },
   ];
 
   const ACC = {
@@ -327,6 +328,13 @@
         <path d="M-11,-8 C-16,-20 -6,-28 0,-26 C8,-30 17,-20 11,-8 C4,-4 -5,-4 -11,-8 Z" fill="#F8A5C8" stroke="${ink}" stroke-width="2.4" stroke-linejoin="round"/>
         <circle cx="0" cy="-31" r="4" fill="#E8574F" stroke="${ink}" stroke-width="1.8"/>
         <path d="M-7,-22 q3,-5 8,-6" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".8"/></g>`;
+    }
+    if (wearing.includes('boots')) {
+      const by = sp.feet - 2;
+      const boot = (cx, flip) => `<g transform="translate(${cx},${by}) scale(${flip},1)"><path d="M-9,-20 L7,-20 L7,-8 C16,-7 17,4 12,6 L-14,6 C-17,6 -16,-4 -9,-6 Z" fill="#F2C94C" stroke="${ink}" stroke-width="2.4" stroke-linejoin="round"/>
+        <path d="M-9,-20 L7,-20 L7,-16 L-9,-16 Z" fill="#E8574F" stroke="${ink}" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M-14,3 L12,3" stroke="${ink}" stroke-width="2" stroke-linecap="round" opacity=".5"/><path d="M-5,-13 v6" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".8"/></g>`;
+      s += boot(80, 1) + boot(120, -1);
     }
     if (wearing.includes('bowtie')) {
       const ty = Math.min(my + 24, sp.feet - 20);

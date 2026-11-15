@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-15 · Domino / Dominoes (solo classic, fun) · double-six dominoes against the computer, match the chain ends, draw from the pile, first to play all tiles wins
+- 2026-11-15 · Bruchpizza / Fraction Pizza (math) · fractions as pizza slices: find the matching pizza, the bigger one or the sum, 10 questions
+- 2026-11-15 · Buddy item: Gummistiefel / Rain boots (new boots slot, 70 ink)
+- 2026-11-15 · Style: Dämmerung / Twilight (dark indigo paper with rose accent)
 - 2026-11-15 · Ungleichung / Futoshiki (solo classic, logic) · fill the grid so no number repeats and every < > sign is true, generated puzzles with a single solution, 3 puzzles
 - 2026-11-15 · Häuserreihe / Row Houses (memory) · memorise which animal lives in which coloured house, then answer questions about the street, 3 streets
 - 2026-11-15 · Buddy item: Eiscreme / Ice cream (new icecream slot, 60 ink)
