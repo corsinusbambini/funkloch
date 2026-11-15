@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-15 · Sternenflug / Star Dash (solo classic arcade, focus) · steer a rocket with your finger, catch stars, dodge rocks, 14 stars in 45 seconds win
+- 2026-11-15 · Glasgeräte / Lab Glassware (chem) · name drawn lab glassware and pick the right piece for each job, 10 questions
+- 2026-11-15 · Buddy item: Drachen / Kite (new kite slot, 65 ink)
+- 2026-11-15 · Style: Blumenwiese / Meadow (light fresh-green paper with tomato-red accent)
 - 2026-11-15 · Domino / Dominoes (solo classic, fun) · double-six dominoes against the computer, match the chain ends, draw from the pile, first to play all tiles wins
 - 2026-11-15 · Bruchpizza / Fraction Pizza (math) · fractions as pizza slices: find the matching pizza, the bigger one or the sum, 10 questions
 - 2026-11-15 · Buddy item: Gummistiefel / Rain boots (new boots slot, 70 ink)

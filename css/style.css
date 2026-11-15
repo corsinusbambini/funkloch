@@ -1015,3 +1015,27 @@ textarea { width: 100%; min-height: 90px; font-family: monospace; font-size: 12p
   color-scheme: dark;
 }
 [data-theme="twilight"] .chaos-btn .t2 { color: var(--ink); }
+
+/* Meadow: fresh pale-green paper, deep forest ink, tomato-red accent */
+[data-theme="meadow"] {
+  --paper: #EAF5D8;
+  --paper-2: #DCEDC2;
+  --card: #F8FFEE;
+  --ink: #1D3320;
+  --ink-soft: #476048;
+  --ink-faint: #B4D08F;
+  --dot: #CFE3B0;
+  --accent: #E8553F;
+  --good: #2F9355;
+  --bad: #C9382F;
+  --c-memory: #F4B8A2;
+  --c-math: #F2D77A;
+  --c-logic: #C6B8EC;
+  --c-spatial: #A4DCA0;
+  --c-focus: #9DD0EC;
+  --c-chem: #8CDCCB;
+  --c-fun: #F3AECB;
+  --c-duo: #F0A28F;
+  --shadow: 3px 3px 0 #1D3320;
+  color-scheme: light;
+}
