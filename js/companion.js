@@ -87,6 +87,7 @@
     { id: 'chef', slot: 'top', price: 70, icon: '👨‍🍳' },
     { id: 'ball', slot: 'ball', price: 55, icon: '⚽' },
     { id: 'umbrella', slot: 'umbrella', price: 65, icon: '☂️' },
+    { id: 'icecream', slot: 'icecream', price: 60, icon: '🍦' },
   ];
 
   const ACC = {
@@ -317,6 +318,15 @@
         <path d="M-28,-2 C-28,-26 28,-26 28,-2 C22,-8 18,-8 14,-2 C9,-8 5,-8 0,-2 C-5,-8 -9,-8 -14,-2 C-18,-8 -22,-8 -28,-2 Z" fill="#E8574F" stroke="${ink}" stroke-width="2.4" stroke-linejoin="round"/>
         <path d="M0,-2 C-4,-12 -4,-20 0,-24 M0,-2 C4,-12 4,-20 0,-24 M-14,-2 C-18,-10 -18,-16 -14,-20 M14,-2 C18,-10 18,-16 14,-20" fill="none" stroke="${ink}" stroke-width="1.4" opacity=".4"/>
         <path d="M-18,-14 q5,-7 12,-8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" opacity=".7"/><path d="M0,-24 v-6" stroke="${ink}" stroke-width="2.4" stroke-linecap="round"/></g>`;
+    }
+    if (wearing.includes('icecream')) {
+      const ix = Math.min(sp.earX[1] + 10, 166);
+      s += `<g transform="translate(${ix},128) rotate(12)"><path d="M-11,0 L11,0 L0,40 Z" fill="#E3B069" stroke="${ink}" stroke-width="2.4" stroke-linejoin="round"/>
+        <path d="M-6,6 L6,18 M6,6 L-6,18 M-3,24 L3,30" fill="none" stroke="${ink}" stroke-width="1.3" opacity=".45" stroke-linecap="round"/>
+        <path d="M-14,2 C-18,-8 -8,-12 0,-10 C8,-12 18,-8 14,2 C8,6 -8,6 -14,2 Z" fill="#8FD9C8" stroke="${ink}" stroke-width="2.4" stroke-linejoin="round"/>
+        <path d="M-11,-8 C-16,-20 -6,-28 0,-26 C8,-30 17,-20 11,-8 C4,-4 -5,-4 -11,-8 Z" fill="#F8A5C8" stroke="${ink}" stroke-width="2.4" stroke-linejoin="round"/>
+        <circle cx="0" cy="-31" r="4" fill="#E8574F" stroke="${ink}" stroke-width="1.8"/>
+        <path d="M-7,-22 q3,-5 8,-6" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".8"/></g>`;
     }
     if (wearing.includes('bowtie')) {
       const ty = Math.min(my + 24, sp.feet - 20);

@@ -966,3 +966,27 @@ textarea { width: 100%; min-height: 90px; font-family: monospace; font-size: 12p
   --shadow: 3px 3px 0 #26301F;
   color-scheme: light;
 }
+
+/* Dune: warm sand paper, deep teal ink, turquoise accent */
+[data-theme="dune"] {
+  --paper: #F3E6C8;
+  --paper-2: #EAD8B0;
+  --card: #FBF3DF;
+  --ink: #17383B;
+  --ink-soft: #46636A;
+  --ink-faint: #CDB98A;
+  --dot: #E0CDA0;
+  --accent: #1FA39A;
+  --good: #2E9461;
+  --bad: #D14B3B;
+  --c-memory: #F2B49A;
+  --c-math: #F2D074;
+  --c-logic: #BBB1E8;
+  --c-spatial: #A5DDB0;
+  --c-focus: #9CCDEB;
+  --c-chem: #86D8CB;
+  --c-fun: #F2A9C2;
+  --c-duo: #EE9B8B;
+  --shadow: 3px 3px 0 #17383B;
+  color-scheme: light;
+}

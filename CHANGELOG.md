@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-15 · Ungleichung / Futoshiki (solo classic, logic) · fill the grid so no number repeats and every < > sign is true, generated puzzles with a single solution, 3 puzzles
+- 2026-11-15 · Häuserreihe / Row Houses (memory) · memorise which animal lives in which coloured house, then answer questions about the street, 3 streets
+- 2026-11-15 · Buddy item: Eiscreme / Ice cream (new icecream slot, 60 ink)
+- 2026-11-15 · Style: Sanddüne / Dune (light sand paper with deep teal ink and turquoise accent)
 - 2026-11-14 · Maulwurf-Treffer / Mole Whack (solo classic, focus) · tap moles popping out of 12 holes, golden mole = 3 points, hedgehog costs a heart, 24 points in 40 seconds win
 - 2026-11-14 · Labor-Einheiten / Lab Units (chem) · convert L, mL, µL, g, mg, µg, mol, mmol … with generated numbers and typical wrong answers, 10 questions
 - 2026-11-14 · Buddy item: Regenschirm / Umbrella (new umbrella slot, 65 ink)
