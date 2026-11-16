@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-16 · Hitori (solo classic, logic) · shade cells so no number repeats in a row or column, shaded cells never touch, light cells stay connected, generated puzzles, 3 puzzles
+- 2026-11-16 · Schätz-Meister / Estimate It (math) · estimate products, sums, quotients and percentages, pick the closest of four numbers, 10 questions
+- 2026-11-16 · Buddy item: Cupcake (new cake slot, 55 ink)
+- 2026-11-16 · Style: Kürbis / Pumpkin (light cream-orange paper with chocolate ink and violet accent)
 - 2026-11-15 · Sternenflug / Star Dash (solo classic arcade, focus) · steer a rocket with your finger, catch stars, dodge rocks, 14 stars in 45 seconds win
 - 2026-11-15 · Glasgeräte / Lab Glassware (chem) · name drawn lab glassware and pick the right piece for each job, 10 questions
 - 2026-11-15 · Buddy item: Drachen / Kite (new kite slot, 65 ink)

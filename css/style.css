@@ -1039,3 +1039,27 @@ textarea { width: 100%; min-height: 90px; font-family: monospace; font-size: 12p
   --shadow: 3px 3px 0 #1D3320;
   color-scheme: light;
 }
+
+/* Pumpkin: warm cream paper, chocolate-brown ink, violet accent */
+[data-theme="pumpkin"] {
+  --paper: #FFEFD6;
+  --paper-2: #FBE0B8;
+  --card: #FFF8EA;
+  --ink: #3A2112;
+  --ink-soft: #6B452B;
+  --ink-faint: #E5C08F;
+  --dot: #F1CE9C;
+  --accent: #B79CF2;
+  --good: #3F8F4B;
+  --bad: #D0402E;
+  --c-memory: #F6B48A;
+  --c-math: #F5D56E;
+  --c-logic: #CDB6F2;
+  --c-spatial: #A9D9A0;
+  --c-focus: #9CCBEA;
+  --c-chem: #8FDBC8;
+  --c-fun: #F5A9C4;
+  --c-duo: #F29A86;
+  --shadow: 3px 3px 0 #3A2112;
+  color-scheme: light;
+}

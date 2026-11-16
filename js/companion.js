@@ -90,6 +90,7 @@
     { id: 'icecream', slot: 'icecream', price: 60, icon: '🍦' },
     { id: 'boots', slot: 'boots', price: 70, icon: '🥾' },
     { id: 'kite', slot: 'kite', price: 65, icon: '🪁' },
+    { id: 'cupcake', slot: 'cake', price: 55, icon: '🧁' },
   ];
 
   const ACC = {
@@ -344,6 +345,17 @@
         <path d="M0,-24 L17,0 L0,0 Z" fill="#F2C94C"/><path d="M0,28 L-17,0 L0,0 Z" fill="#5B9BE0"/><path d="M0,-24 L17,0 L0,28 L-17,0 Z" fill="none" stroke="${ink}" stroke-width="2.4" stroke-linejoin="round"/>
         <path d="M0,-24 L0,28 M-17,0 L17,0" stroke="${ink}" stroke-width="1.6" opacity=".7"/>
         <path d="M0,28 q-6,6 0,11 q6,5 0,11 M-4,37 l8,-3 M-4,46 l8,-3" fill="none" stroke="${ink}" stroke-width="1.8" stroke-linecap="round"/><path d="M-8,-8 q3,-8 9,-10" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".75"/></g>`;
+    }
+    if (wearing.includes('cupcake')) {
+      const cx = 164, cy = sp.feet + 5;
+      s += `<g transform="translate(${cx},${cy}) rotate(6) scale(1.3)"><ellipse cx="0" cy="1" rx="21" ry="5" fill="#FFFDF8" stroke="${ink}" stroke-width="2"/>
+        <path d="M-15,-14 L15,-14 L11,-1 L-11,-1 Z" fill="#E3A56B" stroke="${ink}" stroke-width="2.2" stroke-linejoin="round"/>
+        <path d="M-7,-14 L-5,-1 M0,-14 L0,-1 M7,-14 L5,-1" stroke="${ink}" stroke-width="1.4" opacity=".5" stroke-linecap="round"/>
+        <path d="M-18,-14 C-22,-22 -12,-26 -7,-24 C-8,-33 8,-33 7,-24 C13,-26 22,-22 18,-14 C8,-11 -8,-11 -18,-14 Z" fill="#F8A5C8" stroke="${ink}" stroke-width="2.2" stroke-linejoin="round"/>
+        <path d="M-9,-20 q5,-3 11,-2 M-4,-28 q3,-3 7,-2" fill="none" stroke="${ink}" stroke-width="1.4" opacity=".45" stroke-linecap="round"/>
+        <circle cx="1" cy="-36" r="4.5" fill="#E8574F" stroke="${ink}" stroke-width="1.8"/><path d="M1,-40 q2,-6 6,-7" fill="none" stroke="${ink}" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M-13,-21 q3,-5 8,-6" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" opacity=".85"/>
+        <circle cx="-3" cy="-17" r="1.1" fill="#fff"/><circle cx="9" cy="-19" r="1.1" fill="#8FD9C8"/><circle cx="-10" cy="-16" r="1.1" fill="#F2C94C"/></g>`;
     }
     if (wearing.includes('bowtie')) {
       const ty = Math.min(my + 24, sp.feet - 20);
