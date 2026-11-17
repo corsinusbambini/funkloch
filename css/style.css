@@ -495,7 +495,7 @@
   --good: #7FD39A;
   --bad: #FF8A8A;
   --c-memory: #8C5A48;
-  --c-math: #8A7430;
+  --c-math: #7F6A2A;
   --c-logic: #5E5288;
   --c-spatial: #3F7A57;
   --c-focus: #3E6688;
@@ -1112,3 +1112,28 @@ textarea { width: 100%; min-height: 90px; font-family: monospace; font-size: 12p
   --shadow: 3px 3px 0 #0E3547;
   color-scheme: light;
 }
+
+/* Beetroot: dark magenta-wine paper, pale rose ink, lime accent */
+[data-theme="beetroot"] {
+  --paper: #3C1233;
+  --paper-2: #4A1A40;
+  --card: #55224A;
+  --ink: #FFEAF6;
+  --ink-soft: #E8BEDB;
+  --ink-faint: #8E4C80;
+  --dot: #5E2B53;
+  --accent: #C6F25A;
+  --good: #8EE8A8;
+  --bad: #FF9C94;
+  --c-memory: #94503F;
+  --c-math: #7F6A2A;
+  --c-logic: #6F5A9E;
+  --c-spatial: #3F7556;
+  --c-focus: #3A6C95;
+  --c-chem: #2B7570;
+  --c-fun: #A04A78;
+  --c-duo: #A24B4A;
+  --shadow: 3px 3px 0 #200820;
+  color-scheme: dark;
+}
+[data-theme="beetroot"] .chaos-btn .t2 { color: var(--ink); }

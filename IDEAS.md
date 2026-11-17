@@ -82,9 +82,10 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 ## Just for fun
 - [x] Bubble Wrap · [x] Chaos Mode
 - [x] Pancake Flip · [x] Stack Tower · [x] Paper Plane · [x] Fortune Cookie · [ ] Excuse Generator · [ ] Dress-up Race
-- [x] Zen Garden · [x] Generated colouring mandalas (Mandala Maker) · [ ] Breathing Bubble
+- [x] Zen Garden · [x] Generated colouring mandalas (Mandala Maker) · [x] Breathing Bubble
 
 ## Classics
+- [x] Bubble Shooter (aim and pop, solo, focus)
 - [x] Pyramid Solitaire (solo card game, math)
 - [x] Nine Men's Morris (vs computer, solo, logic)
 - [x] Hitori (shade duplicates, solo, logic)
@@ -101,10 +102,10 @@ Prefer ideas that are easy to understand in 10 seconds. Multiplayer = 2–4 play
 ## Buddy items
 - [x] Sunglasses (eyes slot)
 - [x] Headphones (ears slot)
-- [x] Wings (back slot) · [x] Freckles (freckles slot) · [x] Balloon (held item) · [x] Moustache (face slot) · [ ] Top hat · [x] Lollipop (sweet slot) · [x] Halo · [x] Toadstool (ground slot) · [x] Eyepatch (eyes slot) · [x] Bandana (brow slot) · [x] Band-aid (plaster slot) · [x] Butterfly (flutter slot) · [x] Monocle (monocle slot) · [x] Sparkles (sparkle slot) · [x] Hearts (hearts slot) · [x] Medal (medal slot) · [x] Snail (critter slot) · [x] Soap bubbles (bubbles slot) · [x] Music notes (music slot) · [x] Little cloud (weather slot) · [x] Sunshine (sun slot) · [x] Little bird (bird slot) · [x] Bow tie (tie slot) · [x] Chef hat (top slot) · [x] Football (ball slot) · [x] Umbrella (umbrella slot) · [x] Ice cream (icecream slot) · [x] Rain boots (boots slot) · [x] Kite (kite slot) · [x] Cupcake (cake slot) · [x] Cupcake (cake slot) · [x] Lantern (lamp slot) · [x] Guitar (guitar slot)
+- [x] Wings (back slot) · [x] Freckles (freckles slot) · [x] Balloon (held item) · [x] Moustache (face slot) · [ ] Top hat · [x] Lollipop (sweet slot) · [x] Halo · [x] Toadstool (ground slot) · [x] Eyepatch (eyes slot) · [x] Bandana (brow slot) · [x] Band-aid (plaster slot) · [x] Butterfly (flutter slot) · [x] Monocle (monocle slot) · [x] Sparkles (sparkle slot) · [x] Hearts (hearts slot) · [x] Medal (medal slot) · [x] Snail (critter slot) · [x] Soap bubbles (bubbles slot) · [x] Music notes (music slot) · [x] Little cloud (weather slot) · [x] Sunshine (sun slot) · [x] Little bird (bird slot) · [x] Bow tie (tie slot) · [x] Chef hat (top slot) · [x] Football (ball slot) · [x] Umbrella (umbrella slot) · [x] Ice cream (icecream slot) · [x] Rain boots (boots slot) · [x] Kite (kite slot) · [x] Cupcake (cake slot) · [x] Cupcake (cake slot) · [x] Lantern (lamp slot) · [x] Guitar (guitar slot) · [x] Cactus (plant slot)
 
 ## Styles
 - [x] Ocean
 - [x] Forest
 - [x] Sunset
-- [x] Chalkboard · [ ] Paper plane · [x] Blueprint · [x] Retro arcade · [x] Candy · [x] Coffee · [x] Volcano · [x] High contrast · [x] Lavender · [x] Lemonade · [x] Aurora · [x] Cherry Night · [x] Gilded · [x] Graphite · [x] Frost · [x] Plum Jam · [x] Newsprint · [x] Mint Ice · [x] Lagoon · [x] Terracotta · [x] Chocolate · [x] Sunflower · [x] Olive Grove · [x] Peach · [x] Sage · [x] Dune · [x] Twilight · [x] Meadow · [x] Pumpkin · [x] Mahogany · [x] Pool
+- [x] Chalkboard · [ ] Paper plane · [x] Blueprint · [x] Retro arcade · [x] Candy · [x] Coffee · [x] Volcano · [x] High contrast · [x] Lavender · [x] Lemonade · [x] Aurora · [x] Cherry Night · [x] Gilded · [x] Graphite · [x] Frost · [x] Plum Jam · [x] Newsprint · [x] Mint Ice · [x] Lagoon · [x] Terracotta · [x] Chocolate · [x] Sunflower · [x] Olive Grove · [x] Peach · [x] Sage · [x] Dune · [x] Twilight · [x] Meadow · [x] Pumpkin · [x] Mahogany · [x] Pool · [x] Beetroot

@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-17 · Blasen-Schütze / Bubble Shooter (solo classic arcade, focus) · aim with your finger, pop groups of 3+ bubbles, floating bubbles fall, pop 50 in 30 shots before the ceiling comes down
+- 2026-11-17 · Atem-Blase / Breathing Bubble (fun, no daily) · hold the pad to grow a bubble inside a breathing ring, calm 5-breath game
+- 2026-11-17 · Buddy item: Kaktus / Cactus (new plant slot, 50 ink)
+- 2026-11-17 · Style: Randen / Beetroot (dark magenta-wine paper with lime accent)
 - 2026-11-17 · Pyramiden-Solitär / Pyramid Solitaire (solo classic card game, math) · remove pairs of free cards that add up to 13, kings alone, generated solvable deals, 2 deals
 - 2026-11-17 · Lückenfüller / Gap Filler (spatial) · pick the pentomino stone that fits a hole in the wall (turn and flip allowed), 8 holes
 - 2026-11-17 · Buddy item: Gitarre / Guitar (new guitar slot, 75 ink)

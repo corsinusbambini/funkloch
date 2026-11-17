@@ -93,6 +93,7 @@
     { id: 'cupcake', slot: 'cake', price: 55, icon: '🧁' },
     { id: 'lantern', slot: 'lamp', price: 60, icon: '🏮' },
     { id: 'guitar', slot: 'guitar', price: 75, icon: '🎸' },
+    { id: 'cactus', slot: 'plant', price: 50, icon: '🌵' },
   ];
 
   const ACC = {
@@ -378,6 +379,18 @@
         <circle cx="0" cy="3" r="6" fill="${ink}"/><rect x="-8" y="19" width="16" height="4" rx="2" fill="#6E452B" stroke="${ink}" stroke-width="1.6"/>
         <path d="M-1.5,-60 L-1.5,19 M1.5,-60 L1.5,19" stroke="${ink}" stroke-width="1" opacity=".6"/>
         <path d="M-9,-16 q3,-7 9,-8 M-11,8 q-1,8 5,13" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".7"/></g>`;
+    }
+    if (wearing.includes('cactus')) {
+      const kx = Math.max(30, sp.earX[0] - 12), ky = sp.feet + 6;
+      s += `<g transform="translate(${kx},${ky}) scale(1.15)"><path d="M-16,-2 L16,-2 L12,-26 L-12,-26 Z" fill="#D9825B" stroke="${ink}" stroke-width="2.4" stroke-linejoin="round"/>
+        <rect x="-18" y="-32" width="36" height="9" rx="3" fill="#E89A74" stroke="${ink}" stroke-width="2.4"/>
+        <path d="M-8,-33 L-8,-58 C-8,-66 8,-66 8,-58 L8,-33 Z" fill="#7CC38A" stroke="${ink}" stroke-width="2.4" stroke-linejoin="round"/>
+        <path d="M-8,-46 L-15,-46 C-19,-46 -19,-56 -15,-56 L-14,-56 M8,-42 L15,-42 C19,-42 19,-52 15,-52" fill="none" stroke="${ink}" stroke-width="5.4" stroke-linecap="round"/>
+        <path d="M-8,-46 L-15,-46 C-19,-46 -19,-56 -15,-56 M8,-42 L15,-42 C19,-42 19,-52 15,-52" fill="none" stroke="#7CC38A" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M0,-36 L0,-62 M-4,-38 v-18 M4,-38 v-18" fill="none" stroke="${ink}" stroke-width="1.2" opacity=".35"/>
+        <path d="M-5,-60 l-2,-3 M5,-60 l2,-3 M-12,-58 l-2,-2" stroke="${ink}" stroke-width="1.4" stroke-linecap="round"/>
+        <circle cx="0" cy="-67" r="4.6" fill="#F07C8C" stroke="${ink}" stroke-width="1.8"/><circle cx="0" cy="-67" r="1.6" fill="#FFD66B"/>
+        <path d="M-5,-54 q1,-6 3,-8" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".7"/></g>`;
     }
     if (wearing.includes('bowtie')) {
       const ty = Math.min(my + 24, sp.feet - 20);
