@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-17 · Pyramiden-Solitär / Pyramid Solitaire (solo classic card game, math) · remove pairs of free cards that add up to 13, kings alone, generated solvable deals, 2 deals
+- 2026-11-17 · Lückenfüller / Gap Filler (spatial) · pick the pentomino stone that fits a hole in the wall (turn and flip allowed), 8 holes
+- 2026-11-17 · Buddy item: Gitarre / Guitar (new guitar slot, 75 ink)
+- 2026-11-17 · Style: Schwimmbad / Pool (light aqua paper with petrol ink and coral accent)
 - 2026-11-17 · Mühle / Nine Men's Morris (solo classic, logic) · place 9 stones each, slide them along the lines, mills remove opponent stones, win against the computer
 - 2026-11-17 · Einkaufszettel / Shopping List (memory) · memorise a list of emoji goods, then find them at the market stall, 4 trips
 - 2026-11-17 · Buddy item: Laterne / Lantern (new lamp slot, 60 ink)

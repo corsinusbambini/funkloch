@@ -92,6 +92,7 @@
     { id: 'kite', slot: 'kite', price: 65, icon: '🪁' },
     { id: 'cupcake', slot: 'cake', price: 55, icon: '🧁' },
     { id: 'lantern', slot: 'lamp', price: 60, icon: '🏮' },
+    { id: 'guitar', slot: 'guitar', price: 75, icon: '🎸' },
   ];
 
   const ACC = {
@@ -368,6 +369,15 @@
         <rect x="-8" y="12" width="16" height="6" rx="2" fill="#7A5A44" stroke="${ink}" stroke-width="2"/>
         <path d="M0,18 v10 M-3,28 h6 M-2,28 l-1.5,6 M2,28 l1.5,6" fill="none" stroke="#E8574F" stroke-width="2.4" stroke-linecap="round"/>
         <path d="M-12,-12 q2,-6 7,-7" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".8"/></g>`;
+    }
+    if (wearing.includes('guitar')) {
+      s += `<g transform="translate(52,152) rotate(-18) scale(0.95)"><rect x="-4.5" y="-70" width="9" height="46" rx="2" fill="#8B5E3C" stroke="${ink}" stroke-width="2.2"/>
+        <rect x="-7" y="-82" width="14" height="14" rx="3" fill="#6E452B" stroke="${ink}" stroke-width="2.2"/><circle cx="-9" cy="-77" r="2" fill="#FFD66B"/><circle cx="9" cy="-71" r="2" fill="#FFD66B"/>
+        <circle cx="0" cy="-12" r="13" fill="#E3A56B" stroke="${ink}" stroke-width="2.4"/><circle cx="0" cy="12" r="17" fill="#E3A56B" stroke="${ink}" stroke-width="2.4"/>
+        <ellipse cx="0" cy="-1" rx="12.5" ry="9" fill="#E3A56B"/>
+        <circle cx="0" cy="3" r="6" fill="${ink}"/><rect x="-8" y="19" width="16" height="4" rx="2" fill="#6E452B" stroke="${ink}" stroke-width="1.6"/>
+        <path d="M-1.5,-60 L-1.5,19 M1.5,-60 L1.5,19" stroke="${ink}" stroke-width="1" opacity=".6"/>
+        <path d="M-9,-16 q3,-7 9,-8 M-11,8 q-1,8 5,13" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".7"/></g>`;
     }
     if (wearing.includes('bowtie')) {
       const ty = Math.min(my + 24, sp.feet - 20);
