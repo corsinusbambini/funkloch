@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-17 · Mühle / Nine Men's Morris (solo classic, logic) · place 9 stones each, slide them along the lines, mills remove opponent stones, win against the computer
+- 2026-11-17 · Einkaufszettel / Shopping List (memory) · memorise a list of emoji goods, then find them at the market stall, 4 trips
+- 2026-11-17 · Buddy item: Laterne / Lantern (new lamp slot, 60 ink)
+- 2026-11-17 · Style: Mahagoni / Mahogany (dark reddish-brown paper with sky-blue accent)
 - 2026-11-16 · Hitori (solo classic, logic) · shade cells so no number repeats in a row or column, shaded cells never touch, light cells stay connected, generated puzzles, 3 puzzles
 - 2026-11-16 · Schätz-Meister / Estimate It (math) · estimate products, sums, quotients and percentages, pick the closest of four numbers, 10 questions
 - 2026-11-16 · Buddy item: Cupcake (new cake slot, 55 ink)

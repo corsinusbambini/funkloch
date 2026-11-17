@@ -1063,3 +1063,28 @@ textarea { width: 100%; min-height: 90px; font-family: monospace; font-size: 12p
   --shadow: 3px 3px 0 #3A2112;
   color-scheme: light;
 }
+
+/* Mahogany: deep reddish-brown paper, cream ink, sky-blue accent */
+[data-theme="mahogany"] {
+  --paper: #35191A;
+  --paper-2: #432223;
+  --card: #4E2B2C;
+  --ink: #FCEEDF;
+  --ink-soft: #E0BFAE;
+  --ink-faint: #85524B;
+  --dot: #5C3837;
+  --accent: #7FD0F2;
+  --good: #8EE0A4;
+  --bad: #FF9A8A;
+  --c-memory: #8E5645;
+  --c-math: #836E2A;
+  --c-logic: #6F5E9A;
+  --c-spatial: #437758;
+  --c-focus: #396F92;
+  --c-chem: #29756F;
+  --c-fun: #94506F;
+  --c-duo: #A04F48;
+  --shadow: 3px 3px 0 #1E0D0D;
+  color-scheme: dark;
+}
+[data-theme="mahogany"] .chaos-btn .t2 { color: var(--ink); }

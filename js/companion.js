@@ -91,6 +91,7 @@
     { id: 'boots', slot: 'boots', price: 70, icon: '🥾' },
     { id: 'kite', slot: 'kite', price: 65, icon: '🪁' },
     { id: 'cupcake', slot: 'cake', price: 55, icon: '🧁' },
+    { id: 'lantern', slot: 'lamp', price: 60, icon: '🏮' },
   ];
 
   const ACC = {
@@ -356,6 +357,17 @@
         <circle cx="1" cy="-36" r="4.5" fill="#E8574F" stroke="${ink}" stroke-width="1.8"/><path d="M1,-40 q2,-6 6,-7" fill="none" stroke="${ink}" stroke-width="1.6" stroke-linecap="round"/>
         <path d="M-13,-21 q3,-5 8,-6" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" opacity=".85"/>
         <circle cx="-3" cy="-17" r="1.1" fill="#fff"/><circle cx="9" cy="-19" r="1.1" fill="#8FD9C8"/><circle cx="-10" cy="-16" r="1.1" fill="#F2C94C"/></g>`;
+    }
+    if (wearing.includes('lantern')) {
+      const lx2 = Math.min(sp.earX[1] + 22, 176), ly2 = 132;
+      s += `<g transform="translate(${lx2 - 2},${ly2 + 4}) rotate(8) scale(1.22)"><path d="M-9,-22 C-9,-38 9,-38 9,-22" fill="none" stroke="${ink}" stroke-width="2.4" stroke-linecap="round"/>
+        <rect x="-8" y="-24" width="16" height="6" rx="2" fill="#7A5A44" stroke="${ink}" stroke-width="2"/>
+        <path d="M-17,-8 C-19,-18 -10,-19 0,-19 C10,-19 19,-18 17,-8 C19,6 10,13 0,13 C-10,13 -19,6 -17,-8 Z" fill="#FFB84A" stroke="${ink}" stroke-width="2.4" stroke-linejoin="round"/>
+        <path d="M0,-19 C-9,-8 -9,4 0,13 M0,-19 C9,-8 9,4 0,13" fill="none" stroke="${ink}" stroke-width="1.5" opacity=".55"/>
+        <ellipse cx="0" cy="-3" rx="6" ry="8" fill="#FFF0B8" opacity=".85"/>
+        <rect x="-8" y="12" width="16" height="6" rx="2" fill="#7A5A44" stroke="${ink}" stroke-width="2"/>
+        <path d="M0,18 v10 M-3,28 h6 M-2,28 l-1.5,6 M2,28 l1.5,6" fill="none" stroke="#E8574F" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M-12,-12 q2,-6 7,-7" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".8"/></g>`;
     }
     if (wearing.includes('bowtie')) {
       const ty = Math.min(my + 24, sp.feet - 20);
