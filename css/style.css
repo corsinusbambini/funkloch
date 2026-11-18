@@ -1162,3 +1162,28 @@ textarea { width: 100%; min-height: 90px; font-family: monospace; font-size: 12p
   color-scheme: light;
 }
 [data-theme="claret"] .chaos-btn .t2 { color: var(--ink); }
+
+/* Slate: dark blue-grey slate paper, pale ink, amber accent */
+[data-theme="slate"] {
+  --paper: #243244;
+  --paper-2: #2D3D52;
+  --card: #354760;
+  --ink: #EDF2F8;
+  --ink-soft: #BAC8D9;
+  --ink-faint: #5B6F89;
+  --dot: #3A4B63;
+  --accent: #FFB347;
+  --good: #8EE0A4;
+  --bad: #FF9C94;
+  --c-memory: #8A5B4E;
+  --c-math: #86703A;
+  --c-logic: #6D62A3;
+  --c-spatial: #3F7A5E;
+  --c-focus: #3F76A6;
+  --c-chem: #2F7B7A;
+  --c-fun: #A0587F;
+  --c-duo: #A5564F;
+  --shadow: 3px 3px 0 #0F1824;
+  color-scheme: dark;
+}
+[data-theme="slate"] .chaos-btn .t2 { color: var(--ink); }

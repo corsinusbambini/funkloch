@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-18 · Kreuzsummen / Cross Sums (solo classic number puzzle, math) · fill the cells so every run adds up to its clue, no repeats in a run, generated puzzles, 2 puzzles
+- 2026-11-18 · Zahlen-Versteck / Number Hideout (memory) · tap 1, the other numbers hide, tap them in order from memory, one more number each round, 3 hearts
+- 2026-11-18 · Buddy item: Malpalette / Paint palette (new paint slot, 65 ink)
+- 2026-11-18 · Style: Schiefer / Slate (dark blue-grey paper with amber accent)
 - 2026-11-18 · Dame / Checkers (solo classic board game, logic) · play against the computer, jumping is a must, multi-jumps, kings
 - 2026-11-18 · Periodensystem-Puzzle / Periodic Puzzle (chem) · find the element that fills the hole in a periodic table cut-out, plus element-family questions, 10 questions
 - 2026-11-18 · Buddy item: Bücherstapel / Book stack (new books slot, 55 ink)
