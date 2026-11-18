@@ -62,7 +62,7 @@
             ? `<rect class="gf-h" x="${x * cs + 3}" y="${y * cs + 3}" width="${cs - 6}" height="${cs - 6}" rx="6" style="fill:var(--paper);stroke:var(--ink)" stroke-width="3" stroke-dasharray="6 5"/>`
             : `<g><rect x="${x * cs + 3}" y="${y * cs + 3}" width="${cs - 6}" height="${cs - 6}" rx="6" style="fill:${brickPal[(x + y) % 2]};stroke:var(--ink)" stroke-width="2.4"/><path d="M${x * cs + 9},${y * cs + 12} q6,-5 14,-5" fill="none" stroke="var(--ink)" stroke-width="2" opacity=".2" stroke-linecap="round"/></g>`);
         }
-        const board = F.h(`<div class="sketch pop-in" style="padding:10px;margin:6px 0 10px;background:var(--card);box-shadow:var(--shadow);transform:rotate(-0.4deg)"><svg class="gf-board" viewBox="0 0 ${G * cs} ${G * cs}" style="display:block;width:100%;height:auto" aria-hidden="true">${cells.join('')}</svg></div>`);
+        const board = F.h(`<div class="sketch pop-in" style="padding:10px;margin:6px 0 10px;background:var(--card);box-shadow:var(--shadow);transform:rotate(-0.4deg)"><svg class="gf-board" viewBox="0 0 ${G * cs} ${G * cs}" style="display:block;width:100%;max-width:300px;margin:0 auto;height:auto" aria-hidden="true">${cells.join('')}</svg></div>`);
         const prompt = F.h(`<div style="text-align:center;font-size:22px;margin:0 0 8px">${t({ de: 'Welcher Stein passt in die Lücke?', en: 'Which stone fits the gap?' })}</div>`);
         const opts = F.h('<div class="options" style="grid-template-columns:repeat(2,minmax(0,1fr));gap:10px"></div>');
         ctx.el.append(board, prompt, opts);

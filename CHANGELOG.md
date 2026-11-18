@@ -2,6 +2,7 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-18 · Fixed Lückenfüller / Gap Filler no longer scrolls on a short (390x740) screen · board capped at 300px wide
 - 2026-11-17 · Blasen-Schütze / Bubble Shooter (solo classic arcade, focus) · aim with your finger, pop groups of 3+ bubbles, floating bubbles fall, pop 50 in 30 shots before the ceiling comes down
 - 2026-11-17 · Atem-Blase / Breathing Bubble (fun, no daily) · hold the pad to grow a bubble inside a breathing ring, calm 5-breath game
 - 2026-11-17 · Buddy item: Kaktus / Cactus (new plant slot, 50 ink)
