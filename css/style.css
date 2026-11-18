@@ -1137,3 +1137,28 @@ textarea { width: 100%; min-height: 90px; font-family: monospace; font-size: 12p
   color-scheme: dark;
 }
 [data-theme="beetroot"] .chaos-btn .t2 { color: var(--ink); }
+
+/* Claret: cool white paper, deep wine ink, teal accent */
+[data-theme="claret"] {
+  --paper: #F1F5F8;
+  --paper-2: #E2EAF0;
+  --card: #FFFFFF;
+  --ink: #521225;
+  --ink-soft: #7E3F52;
+  --ink-faint: #C7B4BC;
+  --dot: #D3DCE3;
+  --accent: #36B8C8;
+  --good: #2A8A55;
+  --bad: #C8372B;
+  --c-memory: #F7C4C0;
+  --c-math: #F5E19A;
+  --c-logic: #D2C8F2;
+  --c-spatial: #BDE6C4;
+  --c-focus: #B4D6F2;
+  --c-chem: #A6E3DA;
+  --c-fun: #F5BFD8;
+  --c-duo: #F4B5A5;
+  --shadow: 3px 3px 0 #521225;
+  color-scheme: light;
+}
+[data-theme="claret"] .chaos-btn .t2 { color: var(--ink); }

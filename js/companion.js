@@ -94,6 +94,7 @@
     { id: 'lantern', slot: 'lamp', price: 60, icon: '🏮' },
     { id: 'guitar', slot: 'guitar', price: 75, icon: '🎸' },
     { id: 'cactus', slot: 'plant', price: 50, icon: '🌵' },
+    { id: 'books', slot: 'books', price: 55, icon: '📚' },
   ];
 
   const ACC = {
@@ -391,6 +392,14 @@
         <path d="M-5,-60 l-2,-3 M5,-60 l2,-3 M-12,-58 l-2,-2" stroke="${ink}" stroke-width="1.4" stroke-linecap="round"/>
         <circle cx="0" cy="-67" r="4.6" fill="#F07C8C" stroke="${ink}" stroke-width="1.8"/><circle cx="0" cy="-67" r="1.6" fill="#FFD66B"/>
         <path d="M-5,-54 q1,-6 3,-8" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".7"/></g>`;
+    }
+    if (wearing.includes('books')) {
+      const bx = Math.min(sp.earX[1] + 6, 168), by = sp.feet + 8;
+      s += `<g transform="translate(${bx},${by}) rotate(-4) scale(1.2)"><rect x="-22" y="-12" width="44" height="12" rx="2.5" fill="#5B9BE0" stroke="${ink}" stroke-width="2.4"/>
+        <rect x="-22" y="-12" width="9" height="12" fill="#3F78B8" stroke="${ink}" stroke-width="2.4"/><path d="M-7,-6 h22" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+        <g transform="rotate(3 0 -18)"><rect x="-19" y="-25" width="38" height="12" rx="2.5" fill="#E8574F" stroke="${ink}" stroke-width="2.4"/><rect x="10" y="-25" width="9" height="12" fill="#C23B33" stroke="${ink}" stroke-width="2.4"/><path d="M-14,-19 h18" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".7"/></g>
+        <g transform="rotate(-5 0 -31)"><rect x="-16" y="-38" width="32" height="12" rx="2.5" fill="#F2C94C" stroke="${ink}" stroke-width="2.4"/><rect x="-16" y="-38" width="8" height="12" fill="#D9A92B" stroke="${ink}" stroke-width="2.4"/><path d="M-3,-32 h14" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".7"/></g>
+        <path d="M6,-38 v-10 l4,3 l4,-3 v10" fill="#7CC38A" stroke="${ink}" stroke-width="1.8" stroke-linejoin="round"/></g>`;
     }
     if (wearing.includes('bowtie')) {
       const ty = Math.min(my + 24, sp.feet - 20);

@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-18 · Dame / Checkers (solo classic board game, logic) · play against the computer, jumping is a must, multi-jumps, kings
+- 2026-11-18 · Periodensystem-Puzzle / Periodic Puzzle (chem) · find the element that fills the hole in a periodic table cut-out, plus element-family questions, 10 questions
+- 2026-11-18 · Buddy item: Bücherstapel / Book stack (new books slot, 55 ink)
+- 2026-11-18 · Style: Bordeaux / Claret (light cool-white paper with deep wine ink and teal accent)
 - 2026-11-18 · Fixed Lückenfüller / Gap Filler no longer scrolls on a short (390x740) screen · board capped at 300px wide
 - 2026-11-17 · Blasen-Schütze / Bubble Shooter (solo classic arcade, focus) · aim with your finger, pop groups of 3+ bubbles, floating bubbles fall, pop 50 in 30 shots before the ceiling comes down
 - 2026-11-17 · Atem-Blase / Breathing Bubble (fun, no daily) · hold the pad to grow a bubble inside a breathing ring, calm 5-breath game
