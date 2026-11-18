@@ -96,6 +96,7 @@
     { id: 'cactus', slot: 'plant', price: 50, icon: '🌵' },
     { id: 'books', slot: 'books', price: 55, icon: '📚' },
     { id: 'palette', slot: 'paint', price: 65, icon: '🎨' },
+    { id: 'rocket', slot: 'rocket', price: 80, icon: '🚀' },
   ];
 
   const ACC = {
@@ -409,6 +410,15 @@
         <circle cx="-17" cy="-9" r="5" fill="#E8574F" stroke="${ink}" stroke-width="1.6"/><circle cx="-6" cy="-17" r="5" fill="#F2C94C" stroke="${ink}" stroke-width="1.6"/><circle cx="7" cy="-15" r="5" fill="#7CC38A" stroke="${ink}" stroke-width="1.6"/><circle cx="17" cy="-4" r="5" fill="#5B9BE0" stroke="${ink}" stroke-width="1.6"/><circle cx="-18" cy="6" r="5" fill="#B08CE8" stroke="${ink}" stroke-width="1.6"/>
         <path d="M-20,-20 q6,-6 12,-6" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".7"/>
         <g transform="translate(24,-22) rotate(32)"><rect x="-2.6" y="-6" width="5.2" height="34" rx="2.4" fill="#5B9BE0" stroke="${ink}" stroke-width="2"/><rect x="-3" y="-14" width="6" height="9" fill="#C9C9C9" stroke="${ink}" stroke-width="1.8"/><path d="M-3,-14 C-3,-26 3,-26 3,-14 Z" fill="#E8574F" stroke="${ink}" stroke-width="1.8" stroke-linejoin="round"/></g></g>`;
+    }
+    if (wearing.includes('rocket')) {
+      const rx = Math.min(sp.earX[1] + 10, 168), ry = 74;
+      s += `<g transform="translate(${rx},${ry}) rotate(28) scale(1.1)"><path d="M-7,18 C-12,26 -6,34 0,44 C6,34 12,26 7,18 Z" fill="#FFB347" stroke="${ink}" stroke-width="2.2" stroke-linejoin="round"/><path d="M-3,20 C-5,26 -2,31 0,35 C2,31 5,26 3,20 Z" fill="#FFE08A"/>
+        <path d="M-10,8 L-20,22 L-10,20 Z M10,8 L20,22 L10,20 Z" fill="#E8574F" stroke="${ink}" stroke-width="2.2" stroke-linejoin="round"/>
+        <path d="M-10,22 C-12,0 -6,-20 0,-30 C6,-20 12,0 10,22 Z" fill="#FFFDF8" stroke="${ink}" stroke-width="2.4" stroke-linejoin="round"/>
+        <path d="M-8.5,-6 C-7,-16 -4,-24 0,-30 C4,-24 7,-16 8.5,-6 Z" fill="#E8574F" stroke="${ink}" stroke-width="2.2" stroke-linejoin="round"/>
+        <circle cx="0" cy="6" r="5.5" fill="#8FD9F0" stroke="${ink}" stroke-width="2.2"/><path d="M-3,3 q2,-3 4,-2" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M-6,-6 L6,-6 M-9,14 L9,14" stroke="${ink}" stroke-width="1.6" opacity=".5"/><path d="M-6,-20 q1,-5 3,-7" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" opacity=".8"/></g>`;
     }
     if (wearing.includes('bowtie')) {
       const ty = Math.min(my + 24, sp.feet - 20);

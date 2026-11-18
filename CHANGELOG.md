@@ -2,6 +2,10 @@
 
 Newest first. One line per change: date · what · why.
 
+- 2026-11-18 · Blob-Angriff / Blob Attack (solo classic arcade shooter, focus) · slide to move the cannon, it shoots by itself, clear 2 waves of blobs, dodge bombs, 3 hearts
+- 2026-11-18 · Schattenspiel / Shadow Match (spatial) · pick the shadow that is the same block shape turned, wrong ones are mirrored or have a moved block, 10 questions
+- 2026-11-18 · Buddy item: Spielzeugrakete / Toy rocket (new rocket slot, 80 ink)
+- 2026-11-18 · Style: Altrosa / Dusty Rose (light muted rose paper with aubergine ink and sea-green accent)
 - 2026-11-18 · Kreuzsummen / Cross Sums (solo classic number puzzle, math) · fill the cells so every run adds up to its clue, no repeats in a run, generated puzzles, 2 puzzles
 - 2026-11-18 · Zahlen-Versteck / Number Hideout (memory) · tap 1, the other numbers hide, tap them in order from memory, one more number each round, 3 hearts
 - 2026-11-18 · Buddy item: Malpalette / Paint palette (new paint slot, 65 ink)

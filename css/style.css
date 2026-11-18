@@ -1187,3 +1187,28 @@ textarea { width: 100%; min-height: 90px; font-family: monospace; font-size: 12p
   color-scheme: dark;
 }
 [data-theme="slate"] .chaos-btn .t2 { color: var(--ink); }
+
+/* Dusty Rose: muted rose paper, dark aubergine ink, sea-green accent */
+[data-theme="rosewood"] {
+  --paper: #F1DDE0;
+  --paper-2: #E7CBD1;
+  --card: #FFF7F7;
+  --ink: #3B2230;
+  --ink-soft: #6B4A5C;
+  --ink-faint: #CBA9B2;
+  --dot: #DDBFC6;
+  --accent: #55B79C;
+  --good: #2E8F55;
+  --bad: #C8372B;
+  --c-memory: #F5BBA8;
+  --c-math: #F0D98C;
+  --c-logic: #CDBFEE;
+  --c-spatial: #AEDDB6;
+  --c-focus: #A9CFEE;
+  --c-chem: #94DDCB;
+  --c-fun: #F2AFCC;
+  --c-duo: #F0A59B;
+  --shadow: 3px 3px 0 #3B2230;
+  color-scheme: light;
+}
+[data-theme="rosewood"] .chaos-btn .t2 { color: var(--ink); }
